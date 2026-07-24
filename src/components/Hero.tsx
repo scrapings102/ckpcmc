@@ -13,13 +13,13 @@ interface HeroProps {
 }
 
 const HERO_IMAGES = [
-  "https://ckpcmc.org/images/drama_youth_Dec_2024.jpeg",
-  "https://ckpcmc.org/images/group_dance_Youth_dec_2024.jpeg",
-  "https://ckpcmc.org/images/Kala_yatra_Youth_dec_2024.jpeg",
-  "https://ckpcmc.org/images/group_song_youth_dec_2024.jpeg",
-  "https://ckpcet.ac.in/img/home-page/slider/si-01.jpg",
-  "https://ckpcmc.org/images/inter_01.jpeg",
-  "https://ckpcmc.org/images/gal_01.jpeg",
+  "https://wsrv.nl/?url=ckpcmc.org/images/drama_youth_Dec_2024.jpeg&w=1200&output=webp&q=70",
+  "https://wsrv.nl/?url=ckpcmc.org/images/group_dance_Youth_dec_2024.jpeg&w=1200&output=webp&q=70",
+  "https://wsrv.nl/?url=ckpcmc.org/images/Kala_yatra_Youth_dec_2024.jpeg&w=1200&output=webp&q=70",
+  "https://wsrv.nl/?url=ckpcmc.org/images/group_song_youth_dec_2024.jpeg&w=1200&output=webp&q=70",
+  "https://wsrv.nl/?url=ckpcet.ac.in/img/home-page/slider/si-01.jpg&w=1200&output=webp&q=70",
+  "https://wsrv.nl/?url=ckpcmc.org/images/inter_01.jpeg&w=1200&output=webp&q=70",
+  "https://wsrv.nl/?url=ckpcmc.org/images/gal_01.jpeg&w=1200&output=webp&q=70",
 ];
 
 // Tablet and mobile band — covers all touch/mobile/tablet screens.
