@@ -926,7 +926,7 @@ function BottomScrollNav({ activeSection, setActiveSection, onItemClick }: NavPr
                 onClick={() => navigate('/')}
                 className="flex items-center gap-1 px-3 sm:px-3 py-2 sm:py-2 rounded-[12px] sm:rounded-[14px] text-[8.5px] sm:text-[10px] font-black uppercase tracking-[0.12em] text-white hover:text-[#D4AF37] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95"
               >
-                <HomeIcon className="w-[15.5px] h-[15.5px] sm:w-[13px] sm:h-[13px]" />
+                <HomeIcon className="w-[17.5px] h-[17.5px] sm:w-[13px] sm:h-[13px]" />
                 <span className="hidden sm:inline">Home</span>
               </button>
 
