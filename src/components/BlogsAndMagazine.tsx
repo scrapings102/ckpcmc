@@ -1,0 +1,589 @@
+import React, { useState, useEffect } from 'react';
+import { useLenis } from "../context/LenisContext";
+import { motion, AnimatePresence } from 'motion/react';
+import { 
+  BookOpen, Sparkles, ArrowUpRight, Clock, User, Tag, 
+  Search, Download, Eye, ChevronRight, X, Heart, Share2, 
+  Newspaper, Trophy
+} from 'lucide-react';
+
+interface BlogPost {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: 'Tech & AI' | 'Business & Finance' | 'Sports' | 'Campus Life' | 'Research & Innovation';
+  author: {
+    name: string;
+    role: string;
+    avatar: string;
+  };
+  date: string;
+  readTime: string;
+  coverImage: string;
+  excerpt: string;
+  content: string[];
+  likes: number;
+}
+
+interface MagazineIssue {
+  id: string;
+  title: string;
+  edition: string;
+  year: string;
+  coverImage: string;
+  description: string;
+  highlights: string[];
+  totalPages: number;
+  pdfUrl?: string;
+}
+
+const BLOG_POSTS: BlogPost[] = [
+  {
+    id: 'blog-1',
+    title: 'The Algorithmic Economy: How AI is Reshaping Modern Financial Markets',
+    subtitle: 'An analysis by the Commerce & Computing Research Guild',
+    category: 'Research & Innovation',
+    author: {
+      name: 'Dr. Smita Sen',
+      role: 'Head of Computer Applications',
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop',
+    },
+    date: 'July 18, 2026',
+    readTime: '6 min read',
+    coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
+    likes: 142,
+    excerpt: 'Explore how quantitative trading, neural network forecasting, and real-time sentiment telemetry are reinventing corporate finance strategy.',
+    content: [
+      'Financial architecture is experiencing its most profound transformation since the advent of electronic order books. Neural networks and high-frequency sentiment models now process millions of macro parameters per millisecond.',
+      'At CKPCMC, our students in BCA and B.Com Fintech programs combine statistical modeling with python algorithms to simulate portfolio risk under dynamic market volatility.',
+      'Understanding both technical computing constructs and core accounting ledgers gives our graduates an unparalleled edge in modern institutional finance.'
+    ]
+  },
+  {
+    id: 'blog-sports-1',
+    title: 'Khel Mahotsav 2026: CKPCMC Athletes Secure Regional Championship Trophies',
+    subtitle: 'Victories across athletics, badminton & table tennis',
+    category: 'Sports',
+    author: {
+      name: 'Vikram Singh',
+      role: 'Sports Committee Coordinator',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+    },
+    date: 'July 14, 2026',
+    readTime: '4 min read',
+    coverImage: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1000&auto=format&fit=crop',
+    likes: 128,
+    excerpt: 'CKPCMC students dominated track and court events at VNSGU Inter-College Games, claiming 8 gold medals and overall team honors.',
+    content: [
+      'This year’s annual sports fiesta showcased unparalleled athletic prowess. Our collegiate track team shattered three longstanding VNSGU meet records in the 400m relay and long jump.',
+      'Dedicated coaching, daily morning practice sessions, and state-of-the-art gymkhana equipment played a decisive role in powering our athletes to victory.',
+      'Congratulations to all student participants who represented the college with discipline and enthusiasm.'
+    ]
+  },
+  {
+    id: 'blog-2',
+    title: 'Building Scalable Cloud Microservices in 2026: Lessons from Student Capstones',
+    subtitle: 'Behind the code with BCA Final Year Engineering Teams',
+    category: 'Tech & AI',
+    author: {
+      name: 'Prof. Rohan Patel',
+      role: 'Lead Mentor, IT Cell',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+    },
+    date: 'July 10, 2026',
+    readTime: '5 min read',
+    coverImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1000&auto=format&fit=crop',
+    likes: 98,
+    excerpt: 'How student developers architected high-concurrency event-driven backends for regional healthcare and logistics challenges.',
+    content: [
+      'Modern web application development demands modular scalability. In this year’s annual capstone showcase, our student engineering squads built robust microservices using Docker containers and Redis caches.',
+      'Key architectural highlights include zero-downtime blue-green deployment pipelines and real-time WebSocket communication channels.'
+    ]
+  },
+  {
+    id: 'blog-sports-2',
+    title: 'Inter-College Cricket Jubilee: Tactical Victories on the Dumas Pitch',
+    subtitle: 'Highlighting our Cricket Squad’s undefeated tournament run',
+    category: 'Sports',
+    author: {
+      name: 'Karan Sharma',
+      role: 'Sports Captain',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
+    },
+    date: 'July 02, 2026',
+    readTime: '5 min read',
+    coverImage: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=1000&auto=format&fit=crop',
+    likes: 115,
+    excerpt: 'A play-by-play analysis of how disciplined bowling and clutch batting partnerships sealed the championship cup.',
+    content: [
+      'The finals of the Surat Inter-College Cricket League delivered edge-of-the-seat drama. Needing 18 runs off the final two overs, our middle-order batsmen held their nerve against formidable spin bowling.',
+      'Sports at CKPCMC cultivate teamwork, resilience, and strategic thinking under pressure—traits essential for both corporate boardrooms and cricket pitches.'
+    ]
+  },
+  {
+    id: 'blog-3',
+    title: 'Sustainable Entrepreneurship: Navigating Seed Funding & Incubators',
+    subtitle: 'Insights from the SSIP Entrepreneurship Cell',
+    category: 'Business & Finance',
+    author: {
+      name: 'Ananya Mehta',
+      role: 'BBA Student Council Lead',
+      avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop',
+    },
+    date: 'June 28, 2026',
+    readTime: '4 min read',
+    coverImage: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1000&auto=format&fit=crop',
+    likes: 85,
+    excerpt: 'A practical roadmap for student founders leveraging SSIP Gujarat grants and regional angel investor networks.',
+    content: [
+      'Starting a business while completing an undergraduate degree is no longer a pipedream. With dedicated incubation hubs and seed capital support, student entrepreneurs are validating ideas directly in the marketplace.',
+      'Our recent business plan hackathon saw 12 student startups receive initial mentorship grants.'
+    ]
+  },
+  {
+    id: 'blog-4',
+    title: 'Life at CKPCMC: Cultural Jubilees, Sports Triumphs & Vibrant Campus Guilds',
+    subtitle: 'A retrospective on student experiences and annual festivals',
+    category: 'Campus Life',
+    author: {
+      name: 'Karan Sharma',
+      role: 'Cultural Secretary',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
+    },
+    date: 'June 15, 2026',
+    readTime: '4 min read',
+    coverImage: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1000&auto=format&fit=crop',
+    likes: 112,
+    excerpt: 'Relive the energy of Inferno 2026, inter-college athletic championships, and student art collectives.',
+    content: [
+      'Campus life at CKPCMC extends far beyond the lecture hall. From night music galas to competitive cricket leagues and robotics clubs, our student community thrives on creative expression.'
+    ]
+  }
+];
+
+const MAGAZINE_ISSUES: MagazineIssue[] = [
+  {
+    id: 'mag-2026',
+    title: 'VANGUARD 2026',
+    edition: 'Annual Institutional Edition',
+    year: '2026',
+    coverImage: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=800&auto=format&fit=crop',
+    description: 'The definitive annual magazine capturing student research, creative literature, alumni milestones, and academic accolades across all departments.',
+    highlights: [
+      'Special Feature: AI Ethics in Corporate Governance',
+      'Student Spotlight: 10 Breakout Startups of 2026',
+      'Photo Essay: Cultural Extravaganza & Khel Mahotsav',
+      'Dean’s Address & Departmental Year in Review'
+    ],
+    totalPages: 84
+  },
+  {
+    id: 'mag-2025',
+    title: 'THE COMMERCE & TECH GAZETTE',
+    edition: 'Winter Edition',
+    year: '2025',
+    coverImage: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800&auto=format&fit=crop',
+    description: 'A special biannual edition focusing on financial technology innovations, eco-friendly business practices, and faculty publications.',
+    highlights: [
+      'Emerging Trends in Global FinTech Ledgers',
+      'Faculty Research: Sustainable Supply Chains in Gujarat',
+      'Campus Photography Winners'
+    ],
+    totalPages: 62
+  }
+];
+
+export default function BlogsAndMagazine() {
+  const [activeTab, setActiveTab] = useState<'blogs' | 'magazine'>('blogs');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [selectedMagazine, setSelectedMagazine] = useState<MagazineIssue | null>(null);
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (selectedPost || selectedMagazine) {
+      lenis?.stop();
+      document.body.style.overflow = 'hidden';
+    } else {
+      lenis?.start();
+      document.body.style.overflow = '';
+    }
+    return () => {
+      lenis?.start();
+      document.body.style.overflow = '';
+    };
+  }, [selectedPost, selectedMagazine, lenis]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [likesMap, setLikesMap] = useState<Record<string, number>>({
+    'blog-1': 142,
+    'blog-sports-1': 128,
+    'blog-2': 98,
+    'blog-sports-2': 115,
+    'blog-3': 85,
+    'blog-4': 112,
+  });
+
+  const categories = ['All', 'Tech & AI', 'Business & Finance', 'Sports', 'Campus Life', 'Research & Innovation'];
+
+  const filteredPosts = BLOG_POSTS.filter((post) => {
+    const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
+    const matchesSearch = searchQuery === '' || 
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.author.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const handleLike = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLikesMap((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+  };
+
+  return (
+    <section id="blogs-magazine" className="py-10 sm:py-24 bg-[#ffffff] text-[#2D2424] font-sans relative overflow-hidden border-t border-slate-100">
+      {/* Background Soft Subtle Accent */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#6F4E37]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/3 w-[500px] h-[500px] bg-[#6F4E37]/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-[#6F4E37]/10 border border-[#6F4E37]/20 text-[#6F4E37] font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mb-3 sm:mb-4">
+            <Sparkles size={12} className="text-[#6F4E37]" />
+            <span>Collegiate Publications &amp; Editorial</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#2D2424] tracking-tight leading-tight mb-3 sm:mb-4">
+            Blogs &amp; <span className="text-[#6F4E37] italic font-light">Campus Magazine</span>
+          </h2>
+          <p className="text-slate-600 font-sans text-xs sm:text-base leading-relaxed max-w-2xl mx-auto font-light">
+            Immerse yourself in academic insights, tech innovations, sports tournaments, student research essays, and our flagship annual campus publications.
+          </p>
+
+          {/* Toggle Switch between Blogs & Magazine */}
+          <div className="mt-5 sm:mt-8 inline-flex items-center p-1 sm:p-1.5 rounded-2xl bg-slate-50 border border-slate-200 shadow-2xs">
+            <button
+              onClick={() => setActiveTab('blogs')}
+              className={`flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                activeTab === 'blogs'
+                  ? 'bg-[#6F4E37] text-white shadow-md'
+                  : 'text-slate-600 hover:text-[#6F4E37]'
+              }`}
+            >
+              <BookOpen size={14} />
+              <span>Articles &amp; Blogs</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('magazine')}
+              className={`flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                activeTab === 'magazine'
+                  ? 'bg-[#6F4E37] text-white shadow-md'
+                  : 'text-slate-600 hover:text-[#6F4E37]'
+              }`}
+            >
+              <Newspaper size={14} />
+              <span>Campus Magazine</span>
+            </button>
+          </div>
+        </div>
+
+        {/* TAB 1: ARTICLES & BLOGS */}
+        {activeTab === 'blogs' && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="space-y-6 sm:space-y-10"
+          >
+            {/* Filter Pills & Search Input */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 border-b border-slate-100 pb-4 sm:pb-6">
+              {/* Category Pills - Clean single horizontal scrollable row on mobile */}
+              <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto no-scrollbar py-1 px-1 -mx-1 scroll-smooth shrink-0">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all shrink-0 cursor-pointer ${
+                      selectedCategory === cat
+                        ? 'bg-[#6F4E37] text-white shadow-sm'
+                        : 'bg-white border border-slate-200 text-slate-600 hover:border-[#6F4E37]/50 hover:text-[#2D2424]'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              <div className="relative w-full md:w-72">
+                <input
+                  type="text"
+                  placeholder="Search articles, sports or authors..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-white border border-slate-200 rounded-full py-2 pl-9 pr-4 text-xs font-sans text-[#2D2424] placeholder:text-slate-400 outline-none focus:border-[#6F4E37] focus:ring-1 focus:ring-[#6F4E37] transition-all"
+                />
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              </div>
+            </div>
+
+            {/* Grid of Articles - Compact spacing for mobile */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+              {filteredPosts.map((post) => (
+                <div
+                  key={post.id}
+                  onClick={() => setSelectedPost(post)}
+                  className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:border-[#6F4E37]/40 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                >
+                  <div>
+                    <div className="relative h-36 sm:h-48 overflow-hidden bg-slate-100">
+                      <img
+                        src={post.coverImage}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                      />
+                      <span className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 bg-white/90 backdrop-blur-md text-[#2D2424] font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md border border-slate-200/60 flex items-center gap-1">
+                        {post.category === 'Sports' && <Trophy size={11} className="text-[#6F4E37]" />}
+                        <span>{post.category}</span>
+                      </span>
+                    </div>
+
+                    <div className="p-4 sm:p-6">
+                      <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-400 font-mono mb-1.5 sm:mb-2">
+                        <span>{post.date}</span>
+                        <span>•</span>
+                        <span>{post.readTime}</span>
+                      </div>
+                      <h4 className="text-sm sm:text-base font-serif font-bold text-[#2D2424] group-hover:text-[#6F4E37] transition-colors line-clamp-2 leading-snug mb-1.5 sm:mb-2">
+                        {post.title}
+                      </h4>
+                      <p className="text-slate-600 text-xs font-light line-clamp-2 sm:line-clamp-3 leading-relaxed mb-2 sm:mb-4">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="px-4 pb-4 sm:px-6 sm:pb-6 border-t border-slate-100/80 mt-auto pt-3 sm:pt-4 flex items-center justify-between">
+                    <div className="flex items-center gap-2 sm:gap-2.5">
+                      <img
+                        src={post.author.avatar}
+                        alt={post.author.name}
+                        className="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover border border-slate-200"
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                      />
+                      <span className="text-xs font-semibold text-slate-700 truncate max-w-[140px] sm:max-w-[160px]">
+                        {post.author.name}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* TAB 2: CAMPUS MAGAZINE */}
+        {activeTab === 'magazine' && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 max-w-5xl mx-auto"
+          >
+            {MAGAZINE_ISSUES.map((issue) => (
+              <div
+                key={issue.id}
+                className="bg-white rounded-3xl border border-slate-200 p-4 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row gap-4 sm:gap-6 items-center"
+              >
+                {/* Magazine Cover Card */}
+                <div className="w-32 h-44 sm:w-44 sm:h-60 shrink-0 relative rounded-xl overflow-hidden shadow-xl border border-slate-200 group cursor-pointer">
+                  <img
+                    src={issue.coverImage}
+                    alt={issue.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                    <span className="text-[10px] font-mono text-[#D4AF37] font-bold uppercase">{issue.edition}</span>
+                    <h5 className="font-serif font-bold text-sm leading-tight">{issue.title}</h5>
+                  </div>
+                </div>
+
+                {/* Info Block */}
+                <div className="flex-1 flex flex-col justify-between text-left">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] font-bold text-[#6F4E37] uppercase bg-[#6F4E37]/10 px-2.5 py-0.5 rounded-full border border-[#6F4E37]/20">
+                        Vol. {issue.year}
+                      </span>
+                      <span className="text-xs text-slate-400 font-mono">{issue.totalPages} Pages</span>
+                    </div>
+
+                    <h3 className="text-xl font-serif font-bold text-[#2D2424] mb-2">{issue.title}</h3>
+                    <p className="text-slate-600 text-xs font-light leading-relaxed mb-4">{issue.description}</p>
+
+                    <div className="space-y-1.5 mb-6">
+                      <span className="font-mono text-[9px] uppercase font-bold text-slate-400 tracking-wider">Highlights:</span>
+                      {issue.highlights.map((h, i) => (
+                        <div key={i} className="flex items-center gap-2 text-xs text-slate-700">
+                          <ChevronRight size={12} className="text-[#6F4E37] shrink-0" />
+                          <span className="truncate">{h}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => setSelectedMagazine(issue)}
+                      className="flex-1 bg-[#6F4E37] hover:bg-[#2D2424] text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                    >
+                      <Eye size={14} />
+                      <span>Preview</span>
+                    </button>
+
+                    <a
+                      href="#download"
+                      onClick={(e) => { e.preventDefault(); alert(`Downloading official PDF copy of ${issue.title}...`); }}
+                      className="p-2.5 rounded-xl border border-slate-200 text-slate-700 hover:border-[#6F4E37] hover:text-[#6F4E37] transition-colors cursor-pointer"
+                      title="Download PDF"
+                    >
+                      <Download size={16} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        )}
+
+      </div>
+
+      {/* ARTICLE READER MODAL */}
+      <AnimatePresence>
+        {selectedPost && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-slate-100 text-left p-6 sm:p-10"
+            >
+              <button
+                onClick={() => setSelectedPost(null)}
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-[#2D2424] flex items-center justify-center transition-colors cursor-pointer z-10"
+              >
+                <X size={18} />
+              </button>
+
+              <div className="flex items-center gap-3 font-mono text-xs text-[#6F4E37] font-bold uppercase mb-3">
+                <span>{selectedPost.category}</span>
+                <span>•</span>
+                <span>{selectedPost.readTime}</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#2D2424] leading-snug mb-4">
+                {selectedPost.title}
+              </h2>
+
+              <div className="flex items-center gap-3 pb-6 border-b border-slate-100 mb-6">
+                <img
+                  src={selectedPost.author.avatar}
+                  alt={selectedPost.author.name}
+                  className="w-10 h-10 rounded-full object-cover border border-slate-200"
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                />
+                <div>
+                  <div className="text-xs font-bold text-[#2D2424]">{selectedPost.author.name}</div>
+                  <div className="text-[11px] text-slate-500 font-mono">{selectedPost.author.role} • {selectedPost.date}</div>
+                </div>
+              </div>
+
+              <div className="rounded-2xl overflow-hidden mb-8 h-64 sm:h-80">
+                <img src={selectedPost.coverImage} alt={selectedPost.title} className="w-full h-full object-cover" loading="lazy" decoding="async" referrerPolicy="no-referrer" />
+              </div>
+
+              <div className="space-y-4 font-sans text-slate-700 text-sm sm:text-base leading-relaxed font-light">
+                {selectedPost.content.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-end">
+                <button
+                  onClick={() => {
+                    navigator.clipboard?.writeText(window.location.href);
+                    alert("Article link copied to clipboard!");
+                  }}
+                  className="flex items-center gap-2 text-slate-500 hover:text-[#2D2424] text-xs font-mono font-bold cursor-pointer bg-slate-50 px-4 py-2 rounded-full border border-slate-200 hover:border-slate-300 transition-all"
+                >
+                  <Share2 size={16} />
+                  <span>Share Article</span>
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* MAGAZINE PREVIEW MODAL */}
+      <AnimatePresence>
+        {selectedMagazine && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-[#2D2424] text-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative border border-white/10 shadow-2xl text-left"
+            >
+              <button
+                onClick={() => setSelectedMagazine(null)}
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+
+              <div className="flex flex-col sm:flex-row gap-6 items-center">
+                <img
+                  src={selectedMagazine.coverImage}
+                  alt={selectedMagazine.title}
+                  className="w-40 h-56 object-cover rounded-xl shadow-xl border border-white/10"
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="flex-1 space-y-3">
+                  <span className="font-mono text-xs text-[#6F4E37] uppercase font-bold tracking-widest bg-white/10 px-2.5 py-1 rounded-md">
+                    {selectedMagazine.edition}
+                  </span>
+                  <h3 className="text-2xl font-serif font-bold text-white">{selectedMagazine.title}</h3>
+                  <p className="text-xs text-white/70 font-light leading-relaxed">{selectedMagazine.description}</p>
+                  
+                  <div className="pt-2">
+                    <button
+                      onClick={() => {
+                        alert(`Opening reader mode for ${selectedMagazine.title}...`);
+                        setSelectedMagazine(null);
+                      }}
+                      className="w-full bg-[#6F4E37] hover:bg-white text-white hover:text-[#2D2424] font-black text-xs uppercase tracking-widest py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg"
+                    >
+                      Open Digital Flipbook ({selectedMagazine.totalPages} Pages)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
