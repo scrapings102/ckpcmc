@@ -392,69 +392,68 @@ export default function BlogsAndMagazine() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 max-w-5xl mx-auto"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto"
           >
             {MAGAZINE_ISSUES.map((issue) => (
               <div
                 key={issue.id}
-                className="bg-white rounded-3xl border border-slate-200 p-4 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row gap-4 sm:gap-6 items-center"
+                className="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row gap-5 sm:gap-6 items-stretch"
               >
                 {/* Magazine Cover Card */}
-                <div className="w-32 h-44 sm:w-44 sm:h-60 shrink-0 relative rounded-xl overflow-hidden shadow-xl border border-slate-200 group cursor-pointer">
+                <div className="w-full sm:w-48 shrink-0 relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 group cursor-pointer aspect-[3/4] sm:aspect-auto">
                   <img
                     src={issue.coverImage}
                     alt={issue.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                     decoding="async"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-                    <span className="text-[10px] font-mono text-[#D4AF37] font-bold uppercase">{issue.edition}</span>
-                    <h5 className="font-serif font-bold text-sm leading-tight">{issue.title}</h5>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-4 text-white">
+                    <span className="text-[10px] font-mono text-[#D4AF37] font-bold uppercase mb-1">{issue.edition}</span>
+                    <h5 className="font-serif font-bold text-sm leading-tight text-white">{issue.title}</h5>
                   </div>
                 </div>
 
                 {/* Info Block */}
-                <div className="flex-1 flex flex-col justify-between text-left">
+                <div className="flex-1 flex flex-col justify-between text-left py-1 min-w-0">
                   <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-mono text-[10px] font-bold text-[#6F4E37] uppercase bg-[#6F4E37]/10 px-2.5 py-0.5 rounded-full border border-[#6F4E37]/20">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-mono text-[10px] font-bold text-[#6F4E37] uppercase bg-[#6F4E37]/10 px-2.5 py-1 rounded-full border border-[#6F4E37]/20">
                         Vol. {issue.year}
                       </span>
                       <span className="text-xs text-slate-400 font-mono">{issue.totalPages} Pages</span>
                     </div>
 
-                    <h3 className="text-xl font-serif font-bold text-[#2D2424] mb-2">{issue.title}</h3>
-                    <p className="text-slate-600 text-xs font-light leading-relaxed mb-4">{issue.description}</p>
+                    <h3 className="text-lg sm:text-xl font-serif font-bold text-[#2D2424] mb-2 truncate">{issue.title}</h3>
+                    <p className="text-slate-600 text-[13px] font-light leading-relaxed mb-4 line-clamp-3">{issue.description}</p>
 
-                    <div className="space-y-1.5 mb-6">
-                      <span className="font-mono text-[9px] uppercase font-bold text-slate-400 tracking-wider">Highlights:</span>
+                    <div className="space-y-2 mb-6">
+                      <span className="font-mono text-[10px] uppercase font-bold text-slate-400 tracking-wider">Highlights:</span>
                       {issue.highlights.map((h, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-slate-700">
-                          <ChevronRight size={12} className="text-[#6F4E37] shrink-0" />
-                          <span className="truncate">{h}</span>
+                        <div key={i} className="flex items-start gap-2 text-[13px] text-slate-700">
+                          <ChevronRight size={14} className="text-[#6F4E37] shrink-0 mt-0.5" />
+                          <span className="line-clamp-2 leading-snug">{h}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 mt-auto">
                     <button
                       onClick={() => setSelectedMagazine(issue)}
-                      className="flex-1 bg-[#6F4E37] hover:bg-[#2D2424] text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                      className="flex-1 bg-[#6F4E37] hover:bg-[#2D2424] text-white text-xs font-bold uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
-                      <Eye size={14} />
+                      <Eye size={16} />
                       <span>Preview</span>
                     </button>
-
                     <a
                       href="#download"
                       onClick={(e) => { e.preventDefault(); alert(`Downloading official PDF copy of ${issue.title}...`); }}
-                      className="p-2.5 rounded-xl border border-slate-200 text-slate-700 hover:border-[#6F4E37] hover:text-[#6F4E37] transition-colors cursor-pointer"
+                      className="p-3 rounded-xl border border-slate-200 text-slate-700 hover:border-[#6F4E37] hover:text-[#6F4E37] hover:bg-slate-50 transition-colors cursor-pointer shrink-0"
                       title="Download PDF"
                     >
-                      <Download size={16} />
+                      <Download size={18} />
                     </a>
                   </div>
                 </div>
