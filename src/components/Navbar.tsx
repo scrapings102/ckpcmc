@@ -892,7 +892,7 @@ function GlassPillBtn({
 
       {Icon && (
         <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-[#D4AF37]' : 'text-white/70'}`}>
-          <Icon className="w-[15.5px] h-[15.5px] sm:w-[15px] sm:h-[15px] md:w-[13.5px] md:h-[13.5px] lg:w-4 lg:h-4" />
+          <Icon className="w-[17.5px] h-[17.5px] sm:w-[15px] sm:h-[15px] md:w-[13.5px] md:h-[13.5px] lg:w-4 lg:h-4" />
         </span>
       )}
 
