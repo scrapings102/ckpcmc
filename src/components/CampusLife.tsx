@@ -237,6 +237,7 @@ export default function CampusLife() {
   const [mobileMarkers, setMobileMarkers] = useState<GapMarker[]>([]);
   const [mobileEnds, setMobileEnds] = useState({ startX: 0, startY: 0, endX: 0, endY: 0 });
   const [mobileSegments, setMobileSegments] = useState<MobileSegment[]>([]);
+  const mobileLengthsRef = useRef<number[]>([]);
 
   const registerStepRef = (i: number) => (el: HTMLDivElement | null) => { stepRefs.current[i] = el; };
   const registerMobileSegmentRef = (i: number) => (el: SVGPathElement | null) => { mobileSegmentRefs.current[i] = el; };
@@ -244,6 +245,7 @@ export default function CampusLife() {
   // ---------------- GEOMETRY & SCROLL PASS ----------------
   useEffect(() => {
     const build = () => {
+      mobileLengthsRef.current = [];
       const section = sectionRef.current;
       const container = pillarsWrapRef.current;
       const svgEl = svgRef.current;
@@ -396,7 +398,11 @@ export default function CampusLife() {
           segments.forEach((seg, i) => {
             const el = mobileSegmentRefs.current[i];
             if (!el) return;
-            const len = el.getTotalLength();
+            let len = mobileLengthsRef.current[i];
+            if (!len) {
+              len = el.getTotalLength();
+              mobileLengthsRef.current[i] = len;
+            }
             if (!len) return;
             el.setAttribute('stroke-dasharray', `${len}`);
             const pStart = Math.max(0, (seg.gStart - startY) / totalSpan);
