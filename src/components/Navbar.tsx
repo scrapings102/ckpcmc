@@ -123,6 +123,7 @@ const landingNavItems = [
   { name: 'Courses', id: 'courses', icon: BookOpen },
   { name: 'Campus Life', id: 'campus-life', icon: Building2 },
   { name: 'Faculty', id: 'faculty', icon: Users },
+  { name: 'Blog & Magazine', id: 'blogs-magazine', icon: Library },
   { name: 'Admissions', id: 'admissions', icon: GraduationCap },
 ];
 
@@ -830,7 +831,7 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
         className={[
           'relative flex items-center max-w-full w-full min-w-0 overflow-x-auto no-scrollbar',
           'bg-white/[0.08] dark:bg-slate-950/[0.35] backdrop-blur-md',
-          'px-3 sm:px-3 md:px-2 lg:px-3.5 py-3 sm:py-2 md:py-1.5 lg:py-2 rounded-[24px] sm:rounded-2xl',
+          'px-1.5 sm:px-3 md:px-2 lg:px-3.5 py-1 sm:py-2 md:py-1.5 lg:py-2 rounded-[18px] sm:rounded-2xl',
           'border border-white/35',
           'shadow-[0_10px_36px_rgba(0,0,0,0.18),inset_0_1px_1px_rgba(255,255,255,0.25)]',
           'touch-pan-x select-none cursor-grab active:cursor-grabbing',
@@ -870,10 +871,10 @@ function GlassPillBtn({
       data-active={isActive ? "true" : "false"}
       onClick={onClick}
       className={[
-        'relative flex items-center gap-2 sm:gap-1.5 md:gap-1.5 lg:gap-2',
-        'px-4 sm:px-2.5 md:px-2 lg:px-3 py-3 sm:py-1.5 md:py-1 lg:py-1.5',
-        'rounded-2xl sm:rounded-2xl',
-        'text-[13px] min-[380px]:text-[14px] sm:text-[10.5px] md:text-[9.5px] lg:text-[10.5px] xl:text-[11.5px] font-bold uppercase tracking-tight sm:tracking-normal md:tracking-normal lg:tracking-[0.1em]',
+        'relative flex items-center gap-1 sm:gap-1.5 md:gap-1.5 lg:gap-2',
+        'px-2.5 sm:px-2.5 md:px-2 lg:px-3 py-1.5 sm:py-1.5 md:py-1 lg:py-1.5',
+        'rounded-xl sm:rounded-2xl',
+        'text-[8px] min-[380px]:text-[9.5px] sm:text-[10.5px] md:text-[9.5px] lg:text-[10.5px] xl:text-[11.5px] font-bold uppercase tracking-tight sm:tracking-normal md:tracking-normal lg:tracking-[0.1em]',
         'transition-all duration-200 cursor-pointer select-none shrink-0',
         'active:scale-95',
         isActive ? 'text-white font-extrabold' : 'text-white/70 hover:text-white hover:bg-white/10',
@@ -891,11 +892,11 @@ function GlassPillBtn({
 
       {Icon && (
         <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-[#D4AF37]' : 'text-white/70'}`}>
-          <Icon className="w-[20px] h-[20px] sm:w-[15px] sm:h-[15px] md:w-[13.5px] md:h-[13.5px] lg:w-4 lg:h-4" />
+          <Icon className="w-[14px] h-[14px] sm:w-[15px] sm:h-[15px] md:w-[13.5px] md:h-[13.5px] lg:w-4 lg:h-4" />
         </span>
       )}
 
-      <span className="relative z-10 whitespace-nowrap hidden min-[360px]:inline drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+      <span className="relative z-10 whitespace-nowrap hidden sm:inline drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
         {label}
       </span>
     </button>
@@ -923,10 +924,10 @@ function BottomScrollNav({ activeSection, setActiveSection, onItemClick }: NavPr
             <GlassDock activeValue={location.pathname}>
               <button
                 onClick={() => navigate('/')}
-                className="flex items-center gap-2 px-4 sm:px-3 py-3 sm:py-2 rounded-2xl sm:rounded-[14px] text-[13px] sm:text-[10px] font-black uppercase tracking-[0.12em] text-white hover:text-[#D4AF37] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95"
+                className="flex items-center gap-1 px-3 sm:px-3 py-2 sm:py-2 rounded-[12px] sm:rounded-[14px] text-[8.5px] sm:text-[10px] font-black uppercase tracking-[0.12em] text-white hover:text-[#D4AF37] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95"
               >
-                <HomeIcon className="w-[20px] h-[20px] sm:w-[13px] sm:h-[13px]" />
-                <span className="hidden min-[360px]:inline sm:inline">Home</span>
+                <HomeIcon className="w-[14px] h-[14px] sm:w-[13px] sm:h-[13px]" />
+                <span className="hidden sm:inline">Home</span>
               </button>
 
               <span className="text-white/10 font-thin select-none shrink-0 text-sm px-0.5">|</span>
