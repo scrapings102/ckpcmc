@@ -530,7 +530,7 @@ export default function CampusLife() {
 
             <path ref={guidePathRef} stroke="#A88B74" strokeWidth="2.5" strokeDasharray="8 8" strokeOpacity="0.25" fill="none" vectorEffect="non-scaling-stroke" />
             <path stroke="#2D2424" strokeWidth="13" strokeOpacity="0.15" fill="none" vectorEffect="non-scaling-stroke" />
-            <path ref={drawnPathRef} stroke="#2D2424" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" fill="none" vectorEffect="non-scaling-stroke" filter="url(#mapLineGlow)" />
+            <path ref={drawnPathRef} stroke="#2D2424" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" fill="none" vectorEffect="non-scaling-stroke" />
 
             {pathPts.map((pt, i) => {
               const isActive = activeTrailPoint === i + 1;
@@ -546,7 +546,7 @@ export default function CampusLife() {
                   {isActive && (
                     <>
                       <circle r="28" fill="none" stroke={accentColor} strokeWidth="1.5" opacity="0.5" className="animate-ping" />
-                      <circle r="22" fill={accentColor} opacity="0.18" filter="url(#nodeRadarGlow)" />
+                      <circle r="22" fill={accentColor} opacity="0.18" />
                     </>
                   )}
                   <circle
@@ -620,7 +620,6 @@ export default function CampusLife() {
                 strokeLinejoin="round"
                 fill="none"
                 vectorEffect="non-scaling-stroke"
-                filter="url(#mMapLineGlow)"
               />
             ))}
 
@@ -633,7 +632,7 @@ export default function CampusLife() {
                   {isActive && (
                     <>
                       <circle r="16" fill="none" stroke={accentColor} strokeWidth="1.5" opacity="0.5" className="animate-ping" />
-                      <circle r="11" fill={accentColor} opacity="0.18" filter="url(#mNodeRadarGlow)" />
+                      <circle r="11" fill={accentColor} opacity="0.18" />
                     </>
                   )}
                   <circle
