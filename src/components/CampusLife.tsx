@@ -100,7 +100,7 @@ function PillarCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-      className="relative grid grid-cols-1 md:grid-cols-12 gap-10 items-center will-change-transform"
+      className="relative grid grid-cols-1 md:grid-cols-12 gap-10 items-center"
     >
       <div className={`pillar-number-parallax absolute -z-10 font-black text-[7rem] sm:text-[12rem] lg:text-[15rem] text-slate-200/30 leading-none select-none pointer-events-none ${isEven ? '-right-2 sm:-right-6' : '-left-2 sm:-left-6'}`}>
         {pillar.num}
@@ -132,7 +132,7 @@ function PillarCard({
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute bottom-4 sm:bottom-6 inset-x-4 sm:inset-x-6 flex justify-between items-end gap-3">
-            <div className="bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/20 shadow-xl flex gap-5">
+            <div className="bg-white/95 px-4 py-3 rounded-2xl border border-white/20 shadow-xl flex gap-5">
               {pillar.stats.map((s, i) => (
                 <div key={i} className={i > 0 ? "border-l border-slate-200 pl-5" : ""}>
                   <span className="block font-mono text-[8px] text-slate-400 uppercase tracking-widest font-black mb-1">{s.label}</span>
@@ -512,20 +512,6 @@ export default function CampusLife() {
                 <stop offset="55%" stopColor="#B8933E" />
                 <stop offset="100%" stopColor="#2D2424" />
               </linearGradient>
-              <filter id="mapLineGlow" x="-30%" y="-30%" width="160%" height="160%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-              <filter id="nodeRadarGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="4" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
             </defs>
 
             <path ref={guidePathRef} stroke="#A88B74" strokeWidth="2.5" strokeDasharray="8 8" strokeOpacity="0.25" fill="none" vectorEffect="non-scaling-stroke" />
@@ -589,23 +575,6 @@ export default function CampusLife() {
       <div className="md:hidden absolute top-0 left-0 right-0 pointer-events-none z-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
           <svg ref={mobileSvgRef} className="w-full absolute top-0 left-0 overflow-visible" preserveAspectRatio="none">
-            <defs>
-              <filter id="mMapLineGlow" x="-30%" y="-30%" width="160%" height="160%">
-                <feGaussianBlur stdDeviation="2.5" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-              <filter id="mNodeRadarGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
             <path ref={mobileGuidePathRef} stroke="#A88B74" strokeWidth="2" strokeDasharray="7 7" strokeOpacity="0.25" fill="none" vectorEffect="non-scaling-stroke" />
             <path ref={mobileHaloPathRef} stroke="#2D2424" strokeWidth="10" strokeOpacity="0.15" fill="none" vectorEffect="non-scaling-stroke" />
 
@@ -727,7 +696,7 @@ export default function CampusLife() {
                       decoding="async"
                       referrerPolicy="no-referrer"
                     />
-                    <span className="absolute top-1.5 left-1.5 bg-slate-900/80 backdrop-blur-sm text-white font-mono text-[6.5px] sm:text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded">
+                    <span className="absolute top-1.5 left-1.5 bg-slate-900/90 text-white font-mono text-[6.5px] sm:text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded">
                       {p.tag}
                     </span>
                   </div>
@@ -761,7 +730,7 @@ export default function CampusLife() {
                       decoding="async"
                       referrerPolicy="no-referrer"
                     />
-                    <span className="absolute top-1.5 left-1.5 bg-slate-900/80 backdrop-blur-sm text-white font-mono text-[6.5px] sm:text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded">
+                    <span className="absolute top-1.5 left-1.5 bg-slate-900/90 text-white font-mono text-[6.5px] sm:text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded">
                       {p.tag}
                     </span>
                   </div>
