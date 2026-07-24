@@ -831,7 +831,7 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
         className={[
           'relative flex items-center max-w-full w-full min-w-0 overflow-x-auto no-scrollbar',
           'bg-white/[0.08] dark:bg-slate-950/[0.35] backdrop-blur-md',
-          'px-1.5 sm:px-3 md:px-2 lg:px-3.5 py-1 sm:py-2 md:py-1.5 lg:py-2 rounded-[18px] sm:rounded-2xl',
+          'px-1.5 sm:px-3 md:px-2 lg:px-3.5 py-2 sm:py-2.5 md:py-1.5 lg:py-2 rounded-[18px] sm:rounded-2xl',
           'border border-white/35',
           'shadow-[0_10px_36px_rgba(0,0,0,0.18),inset_0_1px_1px_rgba(255,255,255,0.25)]',
           'touch-pan-x select-none cursor-grab active:cursor-grabbing',
@@ -892,7 +892,7 @@ function GlassPillBtn({
 
       {Icon && (
         <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-[#D4AF37]' : 'text-white/70'}`}>
-          <Icon className="w-[17.5px] h-[17.5px] sm:w-[15px] sm:h-[15px] md:w-[13.5px] md:h-[13.5px] lg:w-4 lg:h-4" />
+          <Icon className="w-[18.5px] h-[18.5px] sm:w-[15px] sm:h-[15px] md:w-[13.5px] md:h-[13.5px] lg:w-4 lg:h-4" />
         </span>
       )}
 
@@ -926,7 +926,7 @@ function BottomScrollNav({ activeSection, setActiveSection, onItemClick }: NavPr
                 onClick={() => navigate('/')}
                 className="flex items-center gap-1 px-3 sm:px-3 py-2 sm:py-2 rounded-[12px] sm:rounded-[14px] text-[8.5px] sm:text-[10px] font-black uppercase tracking-[0.12em] text-white hover:text-[#D4AF37] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95"
               >
-                <HomeIcon className="w-[17.5px] h-[17.5px] sm:w-[13px] sm:h-[13px]" />
+                <HomeIcon className="w-[18.5px] h-[18.5px] sm:w-[13px] sm:h-[13px]" />
                 <span className="hidden sm:inline">Home</span>
               </button>
 
