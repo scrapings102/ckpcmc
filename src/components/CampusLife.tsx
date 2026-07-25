@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useLenis } from "../context/LenisContext";
+import { useModalScrollLock } from "../hooks/useModalScrollLock";
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -89,6 +90,7 @@ function PillarCard({
   const localRef = useRef<HTMLDivElement>(null);
   const isEven = index % 2 === 0;
   const [selectedSide, setSelectedSide] = useState(false);
+  useModalScrollLock(selectedSide);
 
   useEffect(() => { registerRef(localRef.current); }, [registerRef]);
 
@@ -155,9 +157,10 @@ function PillarCard({
       <AnimatePresence>
         {selectedSide && (
           <motion.div
+            data-lenis-prevent="true"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
             onClick={() => setSelectedSide(false)}
           >
             <motion.div
@@ -214,20 +217,7 @@ export default function CampusLife() {
 
   const [selectedGalleryImg, setSelectedGalleryImg] = useState<string | null>(null);
   const lenis = useLenis();
-
-  useEffect(() => {
-    if (selectedGalleryImg) {
-      lenis?.stop();
-      document.body.style.overflow = 'hidden';
-    } else {
-      lenis?.start();
-      document.body.style.overflow = '';
-    }
-    return () => {
-      lenis?.start();
-      document.body.style.overflow = '';
-    };
-  }, [selectedGalleryImg, lenis]);
+  useModalScrollLock(selectedGalleryImg !== null);
 
   const [containerWidth, setContainerWidth] = useState(1200);
   const [activeTrailPoint, setActiveTrailPoint] = useState(1);
@@ -757,8 +747,8 @@ export default function CampusLife() {
 
       <AnimatePresence>
         {selectedGalleryImg && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6"
+          <motion.div data-lenis-prevent="true" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
             onClick={() => setSelectedGalleryImg(null)}>
             <motion.div initial={{ scale: 0.93, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.93, y: 20 }}
               className="bg-white rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>

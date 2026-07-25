@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useLenis } from "../context/LenisContext";
+import { useModalScrollLock } from "../hooks/useModalScrollLock";
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -661,6 +662,7 @@ export default function NewsBlogs() {
   }, []);
 
   const [selectedItem, setSelectedItem] = useState<ArticleUnion | null>(null);
+  useModalScrollLock(selectedItem !== null);
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [bulletinTab, setBulletinTab] = useState<'news' | 'events' | 'sports' | 'admission' | 'student'>('news');
@@ -960,7 +962,7 @@ export default function NewsBlogs() {
           ========================================================== */}
       <AnimatePresence>
         {selectedItem && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div data-lenis-prevent="true" className="fixed inset-0 z-50 flex items-center justify-center p-4">
             
             {/* Glass backdrop overlay */}
             <motion.div 

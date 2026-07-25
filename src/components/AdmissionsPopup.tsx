@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ExternalLink } from "lucide-react";
 import { useLenis } from "../context/LenisContext";
+import { useModalScrollLock } from "../hooks/useModalScrollLock";
 
 interface AdmissionsPopupProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ const ADMISSION_IMG = "https://images.unsplash.com/photo-1541339907198-e08756ded
 
 export default function AdmissionsPopup({ isOpen, onClose }: AdmissionsPopupProps) {
   const lenis = useLenis();
+  useModalScrollLock(isOpen);
 
   // Close modal on Escape key press
   useEffect(() => {
@@ -23,24 +25,17 @@ export default function AdmissionsPopup({ isOpen, onClose }: AdmissionsPopupProp
 
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
-      lenis?.stop();
-      document.body.style.overflow = 'hidden';
-    } else {
-      lenis?.start();
-      document.body.style.overflow = '';
     }
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      lenis?.start();
-      document.body.style.overflow = '';
     };
-  }, [isOpen, onClose, lenis]);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto pointer-events-auto">
+        <div data-lenis-prevent="true" className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto pointer-events-auto">
           {/* Backdrop Overlay with premium blur */}
           <motion.div
             initial={{ opacity: 0 }}
