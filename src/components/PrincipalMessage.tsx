@@ -1,6 +1,7 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
 import { motion } from 'motion/react';
+import { cdn } from '../utils/image';
 
 export const PrincipalMessage = () => {
   return (
@@ -11,7 +12,7 @@ export const PrincipalMessage = () => {
           
           <div className="relative shrink-0">
             <img 
-              src="https://ckpcmc.org/images/WhatsApp%20Image%202025-08-25%20at%2013.09.22.jpeg" 
+              src={cdn("https://ckpcmc.org/images/WhatsApp%20Image%202025-08-25%20at%2013.09.22.jpeg", 800, 90)} 
               alt="Dr. Chetan Chhotubhai Patel - Principal" 
               className="w-48 h-48 rounded-full border-4 border-white object-cover shadow-lg"
               loading="lazy"

@@ -1,3 +1,5 @@
+import { cdn } from '../utils/image';
+
 export interface StaffMember {
   name: string;
   designation: string;
@@ -42,7 +44,7 @@ export interface NewsItem {
   icon_image?: string;
 }
 
-export const STAFF_MEMBERS: StaffMember[] = [
+const _STAFF_MEMBERS: StaffMember[] = [
   {
     name: "Dr. Chaitanya Desai",
     designation: "Campus Director",
@@ -462,7 +464,7 @@ export const COMMITTEES_DATA = {
   ]
 };
 
-export const GALLERY_IMAGES: Record<string, string[]> = {
+const _GALLERY_IMAGES: Record<string, string[]> = {
   sports: [
     "https://ckpcmc.org/images/sport_01.jpeg",
     "https://ckpcmc.org/images/sport_02.jpeg",
@@ -557,7 +559,7 @@ export const GALLERY_IMAGES: Record<string, string[]> = {
   ]
 };
 
-export const ACHIEVEMENTS_DATA: AchievementItem[] = [
+const _ACHIEVEMENTS_DATA: AchievementItem[] = [
   {
     title: "Chess Competition Victory",
     image_url: "https://ckpcmc.org/images/ch.jpg",
@@ -600,7 +602,7 @@ export const ACHIEVEMENTS_DATA: AchievementItem[] = [
   }
 ];
 
-export const EVENTS_DATA: EventItem[] = [
+const _EVENTS_DATA: EventItem[] = [
   {
     title: "Poetry Recitation Competition",
     image_url: "https://ckpcmc.org/images/WhatsApp%20Image%202024-09-09%20at%209.58.07%20PM.jpeg",
@@ -635,7 +637,7 @@ export const EVENTS_DATA: EventItem[] = [
   }
 ];
 
-export const NEWS_DATA: NewsItem[] = [
+const _NEWS_DATA: NewsItem[] = [
   {
     title: "Sanklan : Inter College Competition",
     description: "Inter College Competition event details & guidelines for participating teams.",
@@ -655,3 +657,31 @@ export const NEWS_DATA: NewsItem[] = [
     icon_image: "https://ckpcmc.org/images/new.gif"
   }
 ];
+
+export const STAFF_MEMBERS: StaffMember[] = _STAFF_MEMBERS.map((member) => ({
+  ...member,
+  image_url: cdn(member.image_url, 800, 90),
+}));
+
+export const GALLERY_IMAGES: Record<string, string[]> = Object.fromEntries(
+  Object.entries(_GALLERY_IMAGES).map(([key, urls]) => [
+    key,
+    urls.map((url) => cdn(url, 1000, 90)),
+  ])
+);
+
+export const ACHIEVEMENTS_DATA: AchievementItem[] = _ACHIEVEMENTS_DATA.map((item) => ({
+  ...item,
+  image_url: cdn(item.image_url, 800, 90),
+}));
+
+export const EVENTS_DATA: EventItem[] = _EVENTS_DATA.map((item) => ({
+  ...item,
+  image_url: cdn(item.image_url, 800, 90),
+}));
+
+export const NEWS_DATA: NewsItem[] = _NEWS_DATA.map((item) => ({
+  ...item,
+  icon_image: item.icon_image ? cdn(item.icon_image, 200, 90) : undefined,
+}));
+

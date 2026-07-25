@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Award, GraduationCap, Building2, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
+import { cdn } from '../utils/image';
 
 export const AboutSection = () => {
   const navigate = useNavigate();
@@ -117,7 +118,7 @@ export const AboutSection = () => {
           >
             <div className="relative z-10 rounded-[32px] sm:rounded-[40px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.18)] border border-[#2B2323]/10 bg-[#2B2323]">
               <img 
-                src="https://ckpcet.ac.in/img/home-page/slider/si-01.jpg" 
+                src={cdn("https://ckpcet.ac.in/img/home-page/slider/si-01.jpg", 1200, 90)} 
                 alt="CKPCMC Campus Surat" 
                 className="w-full h-[360px] sm:h-[460px] object-cover hover:scale-105 transition-transform duration-700 ease-out"
                 loading="lazy"

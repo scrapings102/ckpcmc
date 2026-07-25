@@ -1,6 +1,7 @@
 import React from "react";
 import { Quote, Mail, GraduationCap, Check, Sparkles, Award } from "lucide-react";
 import SubPageLayout from "../../components/SubPageLayout";
+import { cdn } from "../../utils/image";
 
 export default function PrincipalsMessage() {
   const priorities = [
@@ -27,13 +28,13 @@ export default function PrincipalsMessage() {
             <div className="bg-[#FAF8F3] border-2 border-[#D4AF37]/40 rounded-3xl p-6 sm:p-8 text-center space-y-6 shadow-lg relative overflow-hidden group">
               <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 mx-auto rounded-full overflow-hidden border-4 border-[#D4AF37] p-2 bg-white shadow-2xl group-hover:scale-105 transition-transform duration-500">
                 <img 
-                  src="https://ckpcmc.org/images/WhatsApp%20Image%202025-08-25%20at%2013.09.22.jpeg" 
+                  src={cdn("https://ckpcmc.org/images/WhatsApp%20Image%202025-08-25%20at%2013.09.22.jpeg", 800, 90)} 
                   alt="Dr. Chetan Chhotubhai Patel" 
                   className="w-full h-full object-cover rounded-full"
                   loading="lazy"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800&h=800";
+                    (e.target as HTMLImageElement).src = cdn("https://ckpcmc.org/images/WhatsApp%20Image%202025-08-25%20at%2013.09.22.jpeg", 800, 90);
                   }}
                 />
               </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Mail, Check, Quote, Award } from "lucide-react";
 import SubPageLayout from "../../components/SubPageLayout";
+import { cdn } from "../../utils/image";
 
 export default function HodsMessage() {
   const currentHod = {
@@ -8,7 +9,7 @@ export default function HodsMessage() {
     role: "Head of Department (HOD)",
     credentials: "Ph.D. (Pursuing), MCA, NET",
     email: "hv.ckpcmc@gmail.com",
-    photo: "https://ckpcmc.org/images/HV.jpeg",
+    photo: cdn("https://ckpcmc.org/images/HV.jpeg", 800, 90),
     message: "Welcome to C.K. Pithawalla College of Commerce & Management. As Head of Department, my commitment is to deliver an empowering academic environment across our B.Com, BBA, and BCA programs. We bridge foundational theory with cutting-edge practical skills, industry internships, and ethical leadership to shape high-caliber graduates ready for top university ranks and rewarding careers.",
     goals: [
       "Integrated skill development bootcamps, industry guest sessions, and career readiness workshops.",

@@ -2,40 +2,41 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Award, BookOpen, Clock, Users, Building, GraduationCap, Check, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import SubPageLayout from "../../components/SubPageLayout";
+import { cdn } from "../../utils/image";
 
 const CAMPUS_IMAGES = [
   {
-    url: "https://ckpcet.ac.in/img/home-page/slider/si-01.jpg",
+    url: cdn("https://ckpcet.ac.in/img/home-page/slider/si-01.jpg", 1600, 90),
     title: "Surat-Dumas Road Main Campus",
     subtitle: "C. K. Pithawalla Educational Complex",
   },
   {
-    url: "https://ckpcmc.org/images/classrooms.jpg",
+    url: cdn("https://ckpcmc.org/images/classrooms.jpg", 1600, 90),
     title: "Digital Smart Classrooms",
     subtitle: "Interactive Learning & Multimedia Facilities",
   },
   {
-    url: "https://ckpcmc.org/images/gal_01.jpeg",
+    url: cdn("https://ckpcmc.org/images/gal_01.jpeg", 1600, 90),
     title: "College Auditorium & Seminar Hall",
     subtitle: "Host for National Conferences & Cultural Events",
   },
   {
-    url: "https://ckpcmc.org/images/inter_01.jpeg",
+    url: cdn("https://ckpcmc.org/images/inter_01.jpeg", 1600, 90),
     title: "Youth Fest & Inter-College Meets",
     subtitle: "VNSGU Cultural & Academic Competitions",
   },
   {
-    url: "https://ckpcmc.org/images/canteen.jpg",
+    url: cdn("https://ckpcmc.org/images/canteen.jpg", 1600, 90),
     title: "Campus Cafeteria & Student Hub",
     subtitle: "Hygienic Dining & Collaborative Spaces",
   },
   {
-    url: "https://ckpcmc.org/images/sport_01.jpeg",
+    url: cdn("https://ckpcmc.org/images/sport_01.jpeg", 1600, 90),
     title: "Sports & Fitness Infrastructure",
     subtitle: "Basketball, Volleyball & Indoor Sports Complex",
   },
   {
-    url: "https://ckpcmc.org/images/drama_youth_Dec_2024.jpeg",
+    url: cdn("https://ckpcmc.org/images/drama_youth_Dec_2024.jpeg", 1600, 90),
     title: "Cultural Arts & Drama Performances",
     subtitle: "Youth Festival Showcase & Talent Platform",
   },
@@ -122,7 +123,7 @@ With the latest equipment and the most advanced tools, including Library, Advanc
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = "https://ckpcet.ac.in/img/home-page/slider/si-01.jpg";
+                  (e.target as HTMLImageElement).src = cdn("https://ckpcet.ac.in/img/home-page/slider/si-01.jpg", 1600, 90);
                 }}
               />
             </AnimatePresence>
