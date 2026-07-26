@@ -86,10 +86,10 @@ export default function AdmissionsPopup({ isOpen, onClose }: AdmissionsPopupProp
 
             {/* Floating content: Apply Now Button & minimal text info */}
             <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 flex flex-col items-center justify-end z-10 text-center">
-              <span className="font-mono text-[9px] sm:text-[10px] font-black tracking-[0.25em] text-[#D4AF37] uppercase mb-1">
+              <span className="font-mono text-[10px] sm:text-[11px] font-black tracking-[0.25em] text-[#D4AF37] uppercase mb-4 sm:mb-5">
                 Admissions Open 2026-27
               </span>
-              <h3 className="font-serif font-bold text-lg sm:text-xl text-white mb-4 sm:mb-5 tracking-wide">
+              <h3 className="font-serif font-bold text-lg sm:text-xl text-white tracking-wide hidden">
                 C.K. Pithawalla College
               </h3>
               
