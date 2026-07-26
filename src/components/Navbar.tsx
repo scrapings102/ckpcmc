@@ -798,14 +798,24 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.button !== 0) return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
     isDraggingRef.current = true;
     didDragRef.current = false;
     dragStartXRef.current = getLocalX(e.clientX);
     capsuleStartXRef.current = currentXRef.current;
     velocityXRef.current = 0;
     velocityWRef.current = 0;
-    shellRef.current?.setPointerCapture(e.pointerId);
+    try { shellRef.current?.setPointerCapture(e.pointerId); } catch (_) {}
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length !== 1) return;
+    isDraggingRef.current = true;
+    didDragRef.current = false;
+    dragStartXRef.current = getLocalX(e.touches[0].clientX);
+    capsuleStartXRef.current = currentXRef.current;
+    velocityXRef.current = 0;
+    velocityWRef.current = 0;
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -825,10 +835,30 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
     currentXRef.current = newX;
   };
 
-  const releasePointer = (e: React.PointerEvent<HTMLDivElement>) => {
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current || e.touches.length !== 1) return;
+    const localX = getLocalX(e.touches[0].clientX);
+    const dx = localX - dragStartXRef.current;
+    if (Math.abs(dx) > 3) {
+      didDragRef.current = true;
+      if (e.cancelable) e.preventDefault();
+    }
+
+    let newX = capsuleStartXRef.current + dx;
+    const tabs = tabsRef.current;
+    const maxX = tabs.length > 0 ? tabs[tabs.length - 1].left + tabs[tabs.length - 1].width - currentWRef.current : 0;
+
+    if (newX < 0) newX = newX * 0.22;
+    if (newX > maxX) newX = maxX + (newX - maxX) * 0.22;
+
+    velocityXRef.current = newX - currentXRef.current;
+    currentXRef.current = newX;
+  };
+
+  const releasePointer = (e?: any) => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
-    try { shellRef.current?.releasePointerCapture(e.pointerId); } catch (_) {}
+    try { if (e?.pointerId) shellRef.current?.releasePointerCapture(e.pointerId); } catch (_) {}
 
     const tabs = tabsRef.current;
     if (!tabs.length) return;
@@ -867,21 +897,27 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
         onPointerMove={handlePointerMove}
         onPointerUp={releasePointer}
         onPointerLeave={releasePointer}
+        onPointerCancel={releasePointer}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={releasePointer}
+        onTouchCancel={releasePointer}
         onWheel={handleWheel}
         onClickCapture={handleClickCapture}
+        style={{ touchAction: 'pan-y' }}
         className={[
-          'relative flex items-center max-w-full w-full min-w-0 overflow-x-auto no-scrollbar',
+          'relative flex items-center max-w-full w-fit min-w-0 overflow-x-auto no-scrollbar mx-auto',
           'bg-black/25 backdrop-blur-2xl',
-          'px-3 py-3 rounded-[999px]',
+          'px-2 sm:px-2.5 lg:px-3 py-2 sm:py-2.5 lg:py-3 rounded-[999px]',
           'border border-white/20 border-t-white/35 border-b-black/40',
           'shadow-[0_24px_50px_-12px_rgba(0,0,0,0.7),0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.25)]',
-          'touch-pan-x select-none cursor-grab active:cursor-grabbing',
+          'touch-pan-y select-none cursor-grab active:cursor-grabbing',
         ].join(' ')}
       >
         <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,transparent_45%)] z-10" />
         <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(135deg,rgba(255,255,255,0.08)_0%,transparent_55%)] z-10" />
 
-        <div ref={flexRef} className="relative flex items-center flex-nowrap gap-1.5 shrink-0 z-20 px-0.5">
+        <div ref={flexRef} className="relative flex items-center flex-nowrap gap-0.5 md:gap-0.5 lg:gap-1 shrink-0 z-20 px-0.5">
           {children}
 
           <div
@@ -914,7 +950,7 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
                 WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                 WebkitMaskComposite: 'xor', maskComposite: 'exclude',
               }} />
-            <div className="absolute bottom-[5px] left-5 right-5 h-[2px] rounded-full bg-[#D4AF37]/90 shadow-[0_0_10px_rgba(212,175,55,0.65)]" />
+            <div className="hidden md:block absolute bottom-[5px] left-3.5 md:left-3 lg:left-4 xl:left-5 right-3.5 md:right-3 lg:right-4 xl:right-5 h-[2px] rounded-full bg-[#D4AF37]/90 shadow-[0_0_10px_rgba(212,175,55,0.65)]" />
           </div>
         </div>
       </div>
@@ -947,21 +983,21 @@ function GlassPillBtn({
       data-active={isActive ? "true" : "false"}
       onClick={onClick}
       className={[
-        'relative z-20 flex items-center gap-1.5 sm:gap-2',
-        'px-4 sm:px-5 md:px-4 lg:px-5 py-2.5 sm:py-2.5 md:py-2 lg:py-2.5',
+        'relative z-20 flex items-center gap-1 md:gap-1 lg:gap-1.5',
+        'px-3 md:px-2 lg:px-3 xl:px-4 py-1.5 md:py-1.5 lg:py-2',
         'rounded-[999px]',
-        'text-[10px] min-[380px]:text-[11px] sm:text-[12px] md:text-[11.5px] lg:text-[12.5px] font-bold uppercase tracking-wider',
+        'text-[10px] md:text-[9.5px] lg:text-[11px] xl:text-[11.5px] font-bold uppercase tracking-wider',
         'transition-colors duration-200 cursor-pointer select-none shrink-0',
         'active:scale-95',
         isActive ? 'text-white font-extrabold drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]' : 'text-white/85 hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]',
       ].join(' ')}
     >
       {Icon && (
-        <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]' : 'text-white/85'}`}>
-          <Icon className="w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-4 md:h-4 lg:w-[18px] lg:h-[18px]" />
+        <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-[#D4AF37] md:text-white drop-shadow-[0_0_10px_rgba(212,175,55,0.8)] md:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]' : 'text-white/85'}`}>
+          <Icon className="w-4 h-4 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 xl:w-[16px] xl:h-[16px]" />
         </span>
       )}
-      <span className={`relative z-10 whitespace-nowrap inline ${isActive ? 'drop-shadow-[0_0_12px_rgba(255,255,255,0.7)] font-extrabold' : ''}`}>
+      <span className={`relative z-10 whitespace-nowrap hidden md:inline ${isActive ? 'drop-shadow-[0_0_12px_rgba(255,255,255,0.7)] font-extrabold' : ''}`}>
         {label}
       </span>
     </button>
@@ -988,11 +1024,11 @@ function BottomScrollNav({ activeSection, setActiveSection, onItemClick }: NavPr
           >
             <GlassDock activeValue={location.pathname}>
               <button
-                onClick={() => navigate('/')}
-                className="flex items-center gap-1 px-3 sm:px-3 py-2 sm:py-2 rounded-[12px] sm:rounded-[14px] text-[9.5px] sm:text-[10.5px] font-black uppercase tracking-[0.12em] text-white hover:text-[#D4AF37] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
+                 onClick={() => navigate('/')}
+                className="flex items-center gap-1 px-2 md:px-2 lg:px-2.5 xl:px-3 py-1.5 md:py-1.5 lg:py-2 rounded-[12px] sm:rounded-[14px] text-[9.5px] md:text-[9.5px] lg:text-[10.5px] font-black uppercase tracking-[0.12em] text-white hover:text-[#D4AF37] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
               >
                 <HomeIcon className="w-[18.5px] h-[18.5px] sm:w-[13px] sm:h-[13px]" />
-                <span className="inline">Home</span>
+                <span className="hidden md:inline">Home</span>
               </button>
 
               <span className="text-white/20 font-thin select-none shrink-0 text-sm px-0.5">|</span>
