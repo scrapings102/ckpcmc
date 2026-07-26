@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence, LayoutGroup } from 'motion/react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
@@ -709,144 +709,220 @@ const getShortName = (name: string): string => {
   return shortNames[name] || name;
 };
 
-// ─── Apple-grade glassmorphic dock track ──────────
+// ─── Apple Liquid Glass Dock Track ──────────
 const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activeValue?: string | boolean }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isDownRef = useRef(false);
-  const startXRef = useRef(0);
-  const scrollLeftRef = useRef(0);
-  const hasMovedRef = useRef(false);
-  const velocityRef = useRef(0);
-  const lastXRef = useRef(0);
-  const lastTimeRef = useRef(0);
-  const inertiaRafRef = useRef<number | null>(null);
+  const shellRef = useRef<HTMLDivElement>(null);
+  const flexRef = useRef<HTMLDivElement>(null);
+  const capsuleRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll active button into view when activeValue changes
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const activeBtn = containerRef.current.querySelector('[data-active="true"]') as HTMLElement;
-    if (activeBtn) {
-      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  const tabsRef = useRef<{ left: number; width: number; value: string }[]>([]);
+  const currentXRef = useRef(0);
+  const targetXRef = useRef(0);
+  const currentWRef = useRef(0);
+  const targetWRef = useRef(0);
+  const velocityXRef = useRef(0);
+  const velocityWRef = useRef(0);
+  const fluidStretchRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const capsuleStartXRef = useRef(0);
+  const didDragRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
+
+  const measureAndSync = useCallback(() => {
+    if (!flexRef.current) return;
+    const pills = Array.from(flexRef.current.querySelectorAll('[data-pill]'));
+    const tabs = pills.map((el) => {
+      const htmlEl = el as HTMLElement;
+      return { left: htmlEl.offsetLeft, width: htmlEl.offsetWidth, value: htmlEl.getAttribute('data-value') || '' };
+    });
+    tabsRef.current = tabs;
+
+    const idx = tabs.findIndex((t) => t.value === String(activeValue));
+    const activeIdx = idx >= 0 ? idx : 0;
+    if (tabs[activeIdx] && !isDraggingRef.current) {
+      targetXRef.current = tabs[activeIdx].left;
+      targetWRef.current = tabs[activeIdx].width;
     }
   }, [activeValue]);
 
-  const stopInertia = () => {
-    if (inertiaRafRef.current) {
-      cancelAnimationFrame(inertiaRafRef.current);
-      inertiaRafRef.current = null;
-    }
+  useEffect(() => {
+    measureAndSync();
+    const ro = new ResizeObserver(measureAndSync);
+    if (flexRef.current) ro.observe(flexRef.current);
+    window.addEventListener('resize', measureAndSync);
+    return () => { ro.disconnect(); window.removeEventListener('resize', measureAndSync); };
+  }, [measureAndSync]);
+
+  useEffect(() => {
+    if (!shellRef.current) return;
+    const activeBtn = shellRef.current.querySelector('[data-active="true"]') as HTMLElement;
+    if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }, [activeValue]);
+
+  useEffect(() => {
+    const loop = () => {
+      if (!isDraggingRef.current) {
+        const springX = (targetXRef.current - currentXRef.current) * 0.18;
+        velocityXRef.current = (velocityXRef.current + springX) * 0.78;
+        currentXRef.current += velocityXRef.current;
+
+        const springW = (targetWRef.current - currentWRef.current) * 0.18;
+        velocityWRef.current = (velocityWRef.current + springW) * 0.78;
+        currentWRef.current += velocityWRef.current;
+      }
+
+      const speed = Math.abs(velocityXRef.current);
+      const targetStretch = isDraggingRef.current
+        ? Math.min(speed * 0.014 + 0.06, 0.28)
+        : Math.min(speed * 0.010, 0.20);
+      fluidStretchRef.current += (targetStretch - fluidStretchRef.current) * 0.16;
+
+      const scaleX = 1 + fluidStretchRef.current;
+      const scaleY = 1 - fluidStretchRef.current * 0.42;
+
+      if (capsuleRef.current) {
+        capsuleRef.current.style.width = `${currentWRef.current}px`;
+        capsuleRef.current.style.transform = `translate3d(${currentXRef.current}px, 0, 0) scale(${scaleX.toFixed(4)}, ${scaleY.toFixed(4)})`;
+      }
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
+
+  const getLocalX = (clientX: number) => {
+    if (!flexRef.current) return 0;
+    const rect = flexRef.current.getBoundingClientRect();
+    return clientX - rect.left + flexRef.current.scrollLeft;
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
-    stopInertia();
-
-    isDownRef.current = true;
-    hasMovedRef.current = false;
-    startXRef.current = e.clientX;
-    lastXRef.current = e.clientX;
-    lastTimeRef.current = performance.now();
-    velocityRef.current = 0;
-
-    if (containerRef.current) {
-      scrollLeftRef.current = containerRef.current.scrollLeft;
-      containerRef.current.style.scrollBehavior = 'auto';
-    }
+    isDraggingRef.current = true;
+    didDragRef.current = false;
+    dragStartXRef.current = getLocalX(e.clientX);
+    capsuleStartXRef.current = currentXRef.current;
+    velocityXRef.current = 0;
+    velocityWRef.current = 0;
+    shellRef.current?.setPointerCapture(e.pointerId);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDownRef.current || !containerRef.current) return;
-    const dx = e.clientX - startXRef.current;
+    if (!isDraggingRef.current) return;
+    const localX = getLocalX(e.clientX);
+    const dx = localX - dragStartXRef.current;
+    if (Math.abs(dx) > 3) didDragRef.current = true;
 
-    if (Math.abs(dx) > 4) {
-      hasMovedRef.current = true;
-    }
+    let newX = capsuleStartXRef.current + dx;
+    const tabs = tabsRef.current;
+    const maxX = tabs.length > 0 ? tabs[tabs.length - 1].left + tabs[tabs.length - 1].width - currentWRef.current : 0;
 
-    if (hasMovedRef.current) {
-      const now = performance.now();
-      const dt = Math.max(1, now - lastTimeRef.current);
-      const moveDx = e.clientX - lastXRef.current;
-      velocityRef.current = moveDx / dt;
+    if (newX < 0) newX = newX * 0.22;
+    if (newX > maxX) newX = maxX + (newX - maxX) * 0.22;
 
-      lastXRef.current = e.clientX;
-      lastTimeRef.current = now;
-
-      containerRef.current.scrollLeft = scrollLeftRef.current - dx;
-    }
+    velocityXRef.current = newX - currentXRef.current;
+    currentXRef.current = newX;
   };
 
-  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDownRef.current) return;
-    isDownRef.current = false;
+  const releasePointer = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    try { shellRef.current?.releasePointerCapture(e.pointerId); } catch (_) {}
 
-    if (hasMovedRef.current && containerRef.current) {
-      let currentVelocity = velocityRef.current * 16; // px per frame
-      if (Math.abs(currentVelocity) > 0.5) {
-        const step = () => {
-          if (!containerRef.current || Math.abs(currentVelocity) < 0.2) {
-            stopInertia();
-            if (containerRef.current) containerRef.current.style.scrollBehavior = '';
-            return;
-          }
-          containerRef.current.scrollLeft -= currentVelocity;
-          currentVelocity *= 0.93; // smooth exponential decay
-          inertiaRafRef.current = requestAnimationFrame(step);
-        };
-        inertiaRafRef.current = requestAnimationFrame(step);
-      } else {
-        if (containerRef.current) containerRef.current.style.scrollBehavior = '';
-      }
-    } else {
-      if (containerRef.current) containerRef.current.style.scrollBehavior = '';
+    const tabs = tabsRef.current;
+    if (!tabs.length) return;
+
+    if (didDragRef.current) {
+      const currentCenter = currentXRef.current + currentWRef.current / 2;
+      let nearestIdx = 0, minDist = Infinity;
+      tabs.forEach((tab, i) => {
+        const dist = Math.abs(tab.left + tab.width / 2 - currentCenter);
+        if (dist < minDist) { minDist = dist; nearestIdx = i; }
+      });
+      targetXRef.current = tabs[nearestIdx].left;
+      targetWRef.current = tabs[nearestIdx].width;
+      setTimeout(() => {
+        (flexRef.current?.querySelectorAll('[data-pill]')[nearestIdx] as HTMLElement)?.click();
+      }, 0);
     }
+    requestAnimationFrame(() => { didDragRef.current = false; });
   };
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    stopInertia();
+    if (!shellRef.current) return;
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (delta !== 0) {
-      containerRef.current.scrollLeft += delta;
-    }
+    if (delta) shellRef.current.scrollLeft += delta * 0.6;
   };
 
   const handleClickCapture = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (hasMovedRef.current) {
-      e.stopPropagation();
-      e.preventDefault();
-      hasMovedRef.current = false;
-    }
+    if (didDragRef.current) { e.stopPropagation(); e.preventDefault(); }
   };
 
   return (
     <div className="relative group/dock max-w-full w-full min-w-0">
       <div
-        ref={containerRef}
+        ref={shellRef}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
+        onPointerUp={releasePointer}
+        onPointerLeave={releasePointer}
         onWheel={handleWheel}
         onClickCapture={handleClickCapture}
         className={[
           'relative flex items-center max-w-full w-full min-w-0 overflow-x-auto no-scrollbar',
-          'bg-white/[0.08] dark:bg-slate-950/[0.35] backdrop-blur-md',
-          'px-1.5 sm:px-3 md:px-2 lg:px-3.5 py-2 sm:py-2.5 md:py-1.5 lg:py-2 rounded-[18px] sm:rounded-2xl',
-          'border border-white/35',
-          'shadow-[0_10px_36px_rgba(0,0,0,0.18),inset_0_1px_1px_rgba(255,255,255,0.25)]',
+          'bg-black/25 backdrop-blur-2xl',
+          'px-3 py-3 rounded-[999px]',
+          'border border-white/20 border-t-white/35 border-b-black/40',
+          'shadow-[0_24px_50px_-12px_rgba(0,0,0,0.7),0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.25)]',
           'touch-pan-x select-none cursor-grab active:cursor-grabbing',
         ].join(' ')}
       >
-        <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(135deg,rgba(255,255,255,0.18)_0%,transparent_60%)] z-10" />
-        <div className="relative flex items-center flex-nowrap gap-1 sm:gap-1.5 md:gap-2 lg:gap-2.5 shrink-0 z-20">
+        <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,transparent_45%)] z-10" />
+        <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(135deg,rgba(255,255,255,0.08)_0%,transparent_55%)] z-10" />
+
+        <div ref={flexRef} className="relative flex items-center flex-nowrap gap-1.5 shrink-0 z-20 px-0.5">
           {children}
+
+          <div
+            ref={capsuleRef}
+            className="absolute top-0 left-0 z-[15] pointer-events-none will-change-transform rounded-[999px] overflow-hidden"
+            style={{
+              height: '100%',
+              background: 'rgba(255, 255, 255, 0.14)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              boxShadow: `
+                0 8px 24px -4px rgba(0,0,0,0.4),
+                0 0 16px rgba(255,255,255,0.15),
+                inset 0 1px 1.5px rgba(255,255,255,0.8),
+                inset 0 -1px 1.5px rgba(0,0,0,0.25)
+              `,
+            }}
+          >
+            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-10"
+              style={{
+                padding: '1.5px',
+                background: 'linear-gradient(170deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 45%, transparent 70%)',
+                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                WebkitMaskComposite: 'xor', maskComposite: 'exclude',
+              }} />
+            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-10"
+              style={{
+                padding: '1.5px',
+                background: 'linear-gradient(135deg, transparent 35%, rgba(255,255,255,0.4) 60%, rgba(210,180,255,0.25) 82%, rgba(160,210,255,0.3) 100%)',
+                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                WebkitMaskComposite: 'xor', maskComposite: 'exclude',
+              }} />
+            <div className="absolute bottom-[5px] left-5 right-5 h-[2px] rounded-full bg-[#D4AF37]/90 shadow-[0_0_10px_rgba(212,175,55,0.65)]" />
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-// ─── Single pill button ──────
+// ─── Liquid Glass Pill Button ──────
 function GlassPillBtn({
   label,
   value,
@@ -871,32 +947,21 @@ function GlassPillBtn({
       data-active={isActive ? "true" : "false"}
       onClick={onClick}
       className={[
-        'relative flex items-center gap-1 sm:gap-1.5 md:gap-1.5 lg:gap-2',
-        'px-2.5 sm:px-2.5 md:px-2 lg:px-3 py-1.5 sm:py-1.5 md:py-1 lg:py-1.5',
-        'rounded-xl sm:rounded-2xl',
-        'text-[8px] min-[380px]:text-[9.5px] sm:text-[10.5px] md:text-[9.5px] lg:text-[10.5px] xl:text-[11.5px] font-bold uppercase tracking-tight sm:tracking-normal md:tracking-normal lg:tracking-[0.1em]',
-        'transition-all duration-200 cursor-pointer select-none shrink-0',
+        'relative z-20 flex items-center gap-1.5 sm:gap-2',
+        'px-4 sm:px-5 md:px-4 lg:px-5 py-2.5 sm:py-2.5 md:py-2 lg:py-2.5',
+        'rounded-[999px]',
+        'text-[10px] min-[380px]:text-[11px] sm:text-[12px] md:text-[11.5px] lg:text-[12.5px] font-bold uppercase tracking-wider',
+        'transition-colors duration-200 cursor-pointer select-none shrink-0',
         'active:scale-95',
-        isActive ? 'text-white font-extrabold' : 'text-white/70 hover:text-white hover:bg-white/10',
+        isActive ? 'text-white font-extrabold drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]' : 'text-white/85 hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]',
       ].join(' ')}
     >
-      {isActive && (
-        <motion.div
-          layoutId={`${layoutPrefix}-active-capsule`}
-          className="absolute inset-0 rounded-xl sm:rounded-2xl border border-white/40 bg-gradient-to-b from-white/30 via-white/10 to-white/5 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.6)] z-0 pointer-events-none"
-          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-        >
-          <div className="absolute bottom-[2px] left-3 right-3 h-[2px] rounded-full bg-[#D4AF37] shadow-[0_0_8px_#D4AF37]" />
-        </motion.div>
-      )}
-
       {Icon && (
-        <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-[#D4AF37]' : 'text-white/70'}`}>
-          <Icon className="w-[18.5px] h-[18.5px] sm:w-[15px] sm:h-[15px] md:w-[13.5px] md:h-[13.5px] lg:w-4 lg:h-4" />
+        <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]' : 'text-white/85'}`}>
+          <Icon className="w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-4 md:h-4 lg:w-[18px] lg:h-[18px]" />
         </span>
       )}
-
-      <span className="relative z-10 whitespace-nowrap hidden sm:inline drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+      <span className={`relative z-10 whitespace-nowrap inline ${isActive ? 'drop-shadow-[0_0_12px_rgba(255,255,255,0.7)] font-extrabold' : ''}`}>
         {label}
       </span>
     </button>
@@ -924,13 +989,13 @@ function BottomScrollNav({ activeSection, setActiveSection, onItemClick }: NavPr
             <GlassDock activeValue={location.pathname}>
               <button
                 onClick={() => navigate('/')}
-                className="flex items-center gap-1 px-3 sm:px-3 py-2 sm:py-2 rounded-[12px] sm:rounded-[14px] text-[8.5px] sm:text-[10px] font-black uppercase tracking-[0.12em] text-white hover:text-[#D4AF37] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95"
+                className="flex items-center gap-1 px-3 sm:px-3 py-2 sm:py-2 rounded-[12px] sm:rounded-[14px] text-[9.5px] sm:text-[10.5px] font-black uppercase tracking-[0.12em] text-white hover:text-[#D4AF37] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
               >
                 <HomeIcon className="w-[18.5px] h-[18.5px] sm:w-[13px] sm:h-[13px]" />
-                <span className="hidden sm:inline">Home</span>
+                <span className="inline">Home</span>
               </button>
 
-              <span className="text-white/10 font-thin select-none shrink-0 text-sm px-0.5">|</span>
+              <span className="text-white/20 font-thin select-none shrink-0 text-sm px-0.5">|</span>
 
               <LayoutGroup id="subpage-nav">
                 {subItems.map((subItem) => {
