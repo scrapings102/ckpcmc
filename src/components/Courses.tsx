@@ -133,7 +133,14 @@ export default function Courses() {
               <button 
                 onClick={() => {
                   const el = document.getElementById("admissions");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                  if (el) {
+                    if ((window as any).lenis) {
+                      (window as any).lenis.start();
+                      (window as any).lenis.scrollTo(el, { offset: -80, duration: 1.2 });
+                    } else {
+                      el.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }
                 }}
                 className="px-8 py-4 bg-[#D4AF37] hover:bg-[#2D2424] text-[#2D2424] hover:text-white font-sans font-bold text-sm uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center gap-2 group shadow-xl shadow-[#D4AF37]/25 cursor-pointer select-none active:scale-95"
               >

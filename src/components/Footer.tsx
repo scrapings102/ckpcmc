@@ -1,14 +1,31 @@
 import React from 'react';
 import CkpcmcLogo from './CkpcmcLogo';
 import { MapPin, Phone, Mail, ShieldCheck, Award } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Footer() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollToId = (id: string) => {
-    const el = document.getElementById(id);
+    let normalizedId = id;
+    if (normalizedId === 'staff') normalizedId = 'faculty';
+    if (normalizedId === 'activities' || normalizedId === 'news' || normalizedId === 'events') normalizedId = 'university-gazette';
+    if (normalizedId === 'blogs') normalizedId = 'blogs-magazine';
+
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: normalizedId } });
+      return;
+    }
+
+    const el = document.getElementById(normalizedId);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.href = `/#${id}`;
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+        (window as any).lenis.scrollTo(el, { offset: -80, duration: 1.2 });
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

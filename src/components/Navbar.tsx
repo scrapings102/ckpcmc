@@ -77,23 +77,33 @@ function useSmoothScrollTo() {
   const location = useLocation();
   
   return (targetId: string) => {
+    let normalizedId = targetId;
+    if (normalizedId === 'staff') normalizedId = 'faculty';
+    if (normalizedId === 'activities' || normalizedId === 'news' || normalizedId === 'events') normalizedId = 'university-gazette';
+    if (normalizedId === 'blogs') normalizedId = 'blogs-magazine';
+    if (normalizedId === 'principal' || normalizedId === 'principal-message') normalizedId = 'principal-message';
+    if (normalizedId === 'committees' || normalizedId === 'iqac') normalizedId = 'about';
+    if (normalizedId === 'student-corner') normalizedId = 'campus-life';
+
     if (location.pathname !== '/') {
-      navigate('/', { state: { scrollTo: targetId } });
+      navigate('/', { state: { scrollTo: normalizedId } });
       return;
     }
 
-    if (targetId === 'home') {
+    if (normalizedId === 'home') {
       if (lenis) {
-        lenis.scrollTo(0);
+        lenis.start();
+        lenis.scrollTo(0, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } else {
-      const el = document.getElementById(targetId);
+      const el = document.getElementById(normalizedId);
       if (el) {
         if (lenis) {
+          lenis.start();
           lenis.resize();
-          lenis.scrollTo(el, { offset: -80 });
+          lenis.scrollTo(el, { offset: -80, duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
         } else {
           const rect = el.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -757,20 +767,26 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
   }, [measureAndSync]);
 
   useEffect(() => {
-    if (!shellRef.current) return;
+    const container = flexRef.current;
+    if (!container || !shellRef.current) return;
     const activeBtn = shellRef.current.querySelector('[data-active="true"]') as HTMLElement;
-    if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if (activeBtn && container.scrollWidth > container.clientWidth) {
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = activeBtn.getBoundingClientRect();
+      const scrollLeft = container.scrollLeft + (btnRect.left - containerRect.left) - (container.clientWidth / 2) + (btnRect.width / 2);
+      container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
   }, [activeValue]);
 
   useEffect(() => {
     const loop = () => {
       if (!isDraggingRef.current) {
-        const springX = (targetXRef.current - currentXRef.current) * 0.25;
-        velocityXRef.current = (velocityXRef.current + springX) * 0.65;
+        const springX = (targetXRef.current - currentXRef.current) * 0.28;
+        velocityXRef.current = (velocityXRef.current + springX) * 0.70;
         currentXRef.current += velocityXRef.current;
 
-        const springW = (targetWRef.current - currentWRef.current) * 0.25;
-        velocityWRef.current = (velocityWRef.current + springW) * 0.65;
+        const springW = (targetWRef.current - currentWRef.current) * 0.28;
+        velocityWRef.current = (velocityWRef.current + springW) * 0.70;
         currentWRef.current += velocityWRef.current;
       }
 
@@ -1140,31 +1156,36 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
       const targetId = location.state.scrollTo;
       window.history.replaceState({}, document.title);
 
-      const timer = setTimeout(() => {
+      let attempts = 0;
+      const tryScroll = () => {
         if (targetId === 'home') {
           if (lenis) {
+            lenis.start();
             lenis.scrollTo(0, { immediate: true });
           } else {
             window.scrollTo(0, 0);
           }
-        } else {
-          const el = document.getElementById(targetId);
-          if (el) {
-            if (lenis) {
-              lenis.resize();
-              lenis.scrollTo(el, {
-                offset: -80,
-                immediate: true
-              });
-            } else {
-              const rect = el.getBoundingClientRect();
-              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-              window.scrollTo({ top: rect.top + scrollTop - 80 });
-            }
-          }
+          return;
         }
-      }, 100);
 
+        const el = document.getElementById(targetId);
+        if (el) {
+          if (lenis) {
+            lenis.start();
+            lenis.resize();
+            lenis.scrollTo(el, { offset: -80, duration: 1.2 });
+          } else {
+            const rect = el.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            window.scrollTo({ top: rect.top + scrollTop - 80, behavior: 'smooth' });
+          }
+        } else if (attempts < 10) {
+          attempts++;
+          setTimeout(tryScroll, 60);
+        }
+      };
+
+      const timer = setTimeout(tryScroll, 50);
       return () => clearTimeout(timer);
     }
   }, [location.pathname, location.state, lenis]);
@@ -1271,9 +1292,9 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
           setVisible(true);
           setShowBottomNav(false);
         } else if (zone === 'footer') {
-          // Footer reached: both navbars hidden.
+          // Footer reached: header hidden, bottom nav visible.
           setVisible(false);
-          setShowBottomNav(false);
+          setShowBottomNav(true);
         } else {
           // Everywhere else (including scrolling back up from the footer through
           // Admissions etc, on any device): bottom nav only.
@@ -1492,13 +1513,21 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
 const OVERLAY_TREE: { key: string; label: string }[] = [
   { key: 'About Us', label: 'About College' },
   { key: 'Courses', label: 'Courses' },
+  { key: 'Staff', label: 'Faculty & Staff' },
+  { key: 'Committees', label: 'Committees' },
+  { key: 'IQAC', label: 'IQAC Cell' },
+  { key: 'Campus Life', label: 'Campus Life' },
   { key: 'Student Corner', label: 'Student Corner' },
-  { key: 'Activities', label: 'Activities' },
+  { key: 'Activities', label: 'News & Events' },
 ];
 
 const overlaySectionMap: Record<string, string> = {
   'About Us': 'about',
   'Courses': 'courses',
+  'Staff': 'faculty',
+  'Committees': 'about',
+  'IQAC': 'about',
+  'Campus Life': 'campus-life',
   'Student Corner': 'campus-life',
   'Activities': 'university-gazette'
 };

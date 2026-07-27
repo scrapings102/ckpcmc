@@ -68,18 +68,23 @@ export default function App() {
     }
   }, [isSubPage]);
 
-  // Scroll to top on route change & recalculate scroll bounds
+  // Scroll to top on route change & recalculate scroll bounds (unless scrolling to target)
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!location.state?.scrollTo) {
+      window.scrollTo(0, 0);
+      if (typeof window !== 'undefined' && (window as any).lenis) {
+        const lenis = (window as any).lenis;
+        lenis.scrollTo(0, { immediate: true });
+      }
+    }
     if (typeof window !== 'undefined' && (window as any).lenis) {
       const lenis = (window as any).lenis;
-      lenis.scrollTo(0, { immediate: true });
       const timer = setTimeout(() => {
         lenis.resize();
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.state]);
 
   return (
     <>
