@@ -828,9 +828,6 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId);
-    } catch (err) {}
     isDraggingRef.current = true;
     didDragRef.current = false;
     dragStartXRef.current = getLocalX(e.clientX);
@@ -844,7 +841,14 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
     if (!isDraggingRef.current) return;
     const localX = getLocalX(e.clientX);
     const dx = localX - dragStartXRef.current;
-    if (Math.abs(dx) > 8) didDragRef.current = true;
+    if (Math.abs(dx) > 8) {
+      if (!didDragRef.current) {
+        didDragRef.current = true;
+        try {
+          e.currentTarget.setPointerCapture(e.pointerId);
+        } catch (err) {}
+      }
+    }
 
     let newX = capsuleStartXRef.current + dx;
     const tabs = tabsRef.current;
