@@ -547,7 +547,7 @@ function NavContent({
       {/* ── MOBILE / TABLET header — optimized for small viewports & zero overlap ── */}
       <div className={`lg:hidden flex items-center justify-between w-full px-2 min-[360px]:px-3 min-[380px]:px-4 py-1 sm:px-5 transition-all duration-300 ${isScrolled ? 'h-[44px] sm:h-[48px]' : 'h-[52px] sm:h-[58px]'}`}>
         <div
-          className="flex items-center gap-1.5 min-[360px]:gap-2 sm:gap-3 shrink-0 cursor-pointer group/logo justify-start select-none min-w-0 max-w-[70%] sm:max-w-none"
+          className="flex items-center gap-1.5 min-[360px]:gap-2 sm:gap-3 shrink-0 cursor-pointer group/logo justify-start select-none min-w-0 max-w-[58%] min-[360px]:max-w-[62%] sm:max-w-none"
           onClick={() => scrollToId('home')}
         >
           <div className={`rounded-full bg-white border-2 border-[#D4AF37] flex items-center justify-center p-0.5 shadow-md transition-all duration-300 group-hover/logo:scale-[1.05] active:scale-95 shrink-0 ${
@@ -556,17 +556,17 @@ function NavContent({
             <CkpcmcLogo className="w-full h-full" showText={false} />
           </div>
           <div className="flex flex-col text-left justify-center select-none min-w-0">
-            <span className={`font-sans font-black tracking-[0.03em] text-white leading-none whitespace-nowrap ${
+            <span className={`font-sans font-black tracking-[0.02em] text-white leading-none whitespace-nowrap ${
               isScrolled 
-                ? 'text-[10px] min-[360px]:text-[11px] min-[390px]:text-[11.8px] sm:text-[13.5px]' 
-                : 'text-[11px] min-[360px]:text-[12.2px] min-[390px]:text-[13.2px] sm:text-[15.5px]'
+                ? 'text-[8.5px] min-[360px]:text-[9.2px] min-[390px]:text-[10px] sm:text-[12px]' 
+                : 'text-[9.5px] min-[360px]:text-[10.2px] min-[390px]:text-[11.2px] sm:text-[13.5px]'
             }`}>
               C.K. PITHAWALLA COLLEGE
             </span>
-            <div className={`tracking-[0.02em] uppercase text-[#D4AF37] font-sans font-extrabold leading-[1.15] mt-0.5 flex flex-col ${
+            <div className={`tracking-[0.02em] uppercase text-[#D4AF37] font-sans font-extrabold leading-[1.12] mt-0.5 flex flex-col ${
               isScrolled 
-                ? 'text-[5.5px] min-[360px]:text-[6px] min-[390px]:text-[6.5px] sm:text-[7.5px]' 
-                : 'text-[6px] min-[360px]:text-[6.8px] min-[390px]:text-[7.5px] sm:text-[8.5px]'
+                ? 'text-[4.8px] min-[360px]:text-[5.2px] min-[390px]:text-[5.8px] sm:text-[6.8px]' 
+                : 'text-[5.2px] min-[360px]:text-[5.8px] min-[390px]:text-[6.5px] sm:text-[7.5px]'
             }`}>
               <span className="whitespace-nowrap">OF COMMERCE - MANAGEMENT</span>
               <span className="whitespace-nowrap">- COMPUTER APPLICATION</span>
