@@ -501,10 +501,10 @@ function NavContent({
             <CkpcmcLogo className="w-full h-full" showText={false} />
           </div>
           <div className="flex flex-col text-left justify-center">
-            <span className="font-sans font-black tracking-[0.04em] text-white leading-none text-[10.5px] xl:text-[11.5px] 2xl:text-[13px] uppercase">
+            <span className="font-sans font-black tracking-[0.04em] text-white leading-none text-[10.5px] xl:text-[12px] 2xl:text-[13.5px] uppercase">
               C.K. PITHAWALLA COLLEGE
             </span>
-            <span className="tracking-[0.03em] uppercase text-[#D4AF37] font-sans font-black text-[5.8px] xl:text-[6.5px] 2xl:text-[7.5px] leading-none mt-0.5 opacity-95 whitespace-nowrap">
+            <span className="tracking-[0.03em] uppercase text-[#D4AF37] font-sans font-black text-[7.5px] xl:text-[8.5px] 2xl:text-[9.8px] leading-none mt-0.5 opacity-95 whitespace-nowrap">
               OF COMMERCE - MANAGEMENT - COMPUTER APPLICATION
             </span>
           </div>
