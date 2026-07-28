@@ -767,9 +767,9 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
   }, [measureAndSync]);
 
   useEffect(() => {
-    const container = flexRef.current;
-    if (!container || !shellRef.current) return;
-    const activeBtn = shellRef.current.querySelector('[data-active="true"]') as HTMLElement;
+    const container = shellRef.current;
+    if (!container) return;
+    const activeBtn = container.querySelector('[data-active="true"]') as HTMLElement;
     if (activeBtn && container.scrollWidth > container.clientWidth) {
       const containerRect = container.getBoundingClientRect();
       const btnRect = activeBtn.getBoundingClientRect();
@@ -788,6 +788,10 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
         const springW = (targetWRef.current - currentWRef.current) * 0.28;
         velocityWRef.current = (velocityWRef.current + springW) * 0.70;
         currentWRef.current += velocityWRef.current;
+      } else {
+        const dragSpringX = (targetXRef.current - currentXRef.current) * 0.55;
+        velocityXRef.current = dragSpringX;
+        currentXRef.current += dragSpringX;
       }
 
       const speed = Math.abs(velocityXRef.current);
@@ -812,25 +816,19 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
   const getLocalX = (clientX: number) => {
     if (!flexRef.current) return 0;
     const rect = flexRef.current.getBoundingClientRect();
-    return clientX - rect.left + flexRef.current.scrollLeft;
+    return clientX - rect.left;
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch (err) {}
     isDraggingRef.current = true;
     didDragRef.current = false;
     dragStartXRef.current = getLocalX(e.clientX);
     capsuleStartXRef.current = currentXRef.current;
-    velocityXRef.current = 0;
-    velocityWRef.current = 0;
-  };
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (e.touches.length !== 1) return;
-    isDraggingRef.current = true;
-    didDragRef.current = false;
-    dragStartXRef.current = getLocalX(e.touches[0].clientX);
-    capsuleStartXRef.current = currentXRef.current;
+    targetXRef.current = currentXRef.current;
     velocityXRef.current = 0;
     velocityWRef.current = 0;
   };
@@ -839,7 +837,7 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
     if (!isDraggingRef.current) return;
     const localX = getLocalX(e.clientX);
     const dx = localX - dragStartXRef.current;
-    if (Math.abs(dx) > 12) didDragRef.current = true;
+    if (Math.abs(dx) > 8) didDragRef.current = true;
 
     let newX = capsuleStartXRef.current + dx;
     const tabs = tabsRef.current;
@@ -848,32 +846,14 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
     if (newX < 0) newX = newX * 0.22;
     if (newX > maxX) newX = maxX + (newX - maxX) * 0.22;
 
-    velocityXRef.current = newX - currentXRef.current;
-    currentXRef.current = newX;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current || e.touches.length !== 1) return;
-    const localX = getLocalX(e.touches[0].clientX);
-    const dx = localX - dragStartXRef.current;
-    if (Math.abs(dx) > 12) {
-      didDragRef.current = true;
-      if (e.cancelable) e.preventDefault();
-    }
-
-    let newX = capsuleStartXRef.current + dx;
-    const tabs = tabsRef.current;
-    const maxX = tabs.length > 0 ? tabs[tabs.length - 1].left + tabs[tabs.length - 1].width - currentWRef.current : 0;
-
-    if (newX < 0) newX = newX * 0.22;
-    if (newX > maxX) newX = maxX + (newX - maxX) * 0.22;
-
-    velocityXRef.current = newX - currentXRef.current;
-    currentXRef.current = newX;
+    targetXRef.current = newX;
   };
 
   const releasePointer = (e?: any) => {
     if (!isDraggingRef.current) return;
+    if (e && e.currentTarget && e.pointerId !== undefined) {
+      try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (err) {}
+    }
     isDraggingRef.current = false;
 
     const tabs = tabsRef.current;
@@ -914,12 +894,7 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={releasePointer}
-        onPointerLeave={releasePointer}
         onPointerCancel={releasePointer}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={releasePointer}
-        onTouchCancel={releasePointer}
         onWheel={handleWheel}
         onClickCapture={handleClickCapture}
         style={{ touchAction: 'pan-y' }}

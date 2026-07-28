@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import SEO from './SEO';
 import { 
   Compass, 
   Home, 
@@ -214,6 +215,13 @@ export default function SubPageLayout({
 
   return (
     <div className="bg-[#FCFAF7] min-h-screen text-[#3B3131] font-sans pb-24 pt-0">
+      <SEO 
+        title={title} 
+        subtitle={subtitle} 
+        category={category} 
+        activeItemLabel={activeItemLabel} 
+        image={imageUrl} 
+      />
       {/* ── BREADCRUMBS & TOP NAVIGATION SECTION ── */}
       <div className="bg-[#1B1515] text-white/50 text-[10px] md:text-xs py-2.5 border-b border-white/5">
         <div className="w-full max-w-[1580px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between">

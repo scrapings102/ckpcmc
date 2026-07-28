@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import SmoothScroll from "./components/SmoothScroll";
+import SEO from "./components/SEO";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import { AboutSection } from "./components/About";
@@ -89,6 +90,7 @@ export default function App() {
   return (
     <>
       <SmoothScroll>
+        <SEO />
         <ChatbotButton />
 
         {/* Header bar container with animations */}
