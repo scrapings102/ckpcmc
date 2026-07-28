@@ -502,7 +502,7 @@ function NavContent({
           </div>
           <div className="flex flex-col text-left justify-center">
             <span className="font-sans font-black tracking-[0.05em] text-white leading-none text-[12.5px] xl:text-[13.5px] 2xl:text-[14.5px] uppercase">
-              C. K. PITHAWALLA
+              C.K. PITHAWALLA
             </span>
             <div className="flex flex-col tracking-[0.05em] uppercase text-[#D4AF37] font-sans font-extrabold text-[7px] xl:text-[7.5px] 2xl:text-[8.2px] leading-[1.1] mt-0.5 opacity-95">
               <span>COMMERCE - MANAGEMENT</span>
@@ -558,7 +558,7 @@ function NavContent({
           </div>
           <div className="flex flex-col text-left justify-center select-none min-w-0">
             <span className={`font-sans font-black tracking-[0.05em] text-white leading-none whitespace-nowrap ${isScrolled ? 'text-[11px] sm:text-[13px]' : 'text-[12.5px] min-[360px]:text-[13.5px] sm:text-[15px]'}`}>
-              C. K. PITHAWALLA
+              C.K. PITHAWALLA
             </span>
             <div className={`tracking-[0.05em] uppercase text-[#D4AF37] font-sans font-extrabold leading-[1.1] mt-0.5 whitespace-nowrap flex flex-col ${isScrolled ? 'text-[6.2px] sm:text-[7.5px]' : 'text-[7px] min-[360px]:text-[7.8px] sm:text-[8.5px]'}`}>
               <span>COMMERCE - MANAGEMENT</span>

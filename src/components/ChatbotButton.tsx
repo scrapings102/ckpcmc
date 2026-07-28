@@ -111,7 +111,7 @@ export default function ChatbotButton() {
   return (
     <>
       {/* Floating Buttons Column */}
-      <div id="chatbot-wrapper" className="fixed bottom-[65px] sm:bottom-[80px] md:bottom-[96px] xl:bottom-10 right-4 sm:right-8 md:right-10 z-50 flex flex-col items-end gap-3 pointer-events-auto">
+      <div id="chatbot-wrapper" className="fixed bottom-[78px] sm:bottom-[84px] md:bottom-[96px] xl:bottom-10 right-4 sm:right-8 md:right-10 z-50 flex flex-col items-end gap-3 pointer-events-auto">
         {/* Back to top button */}
         <AnimatePresence>
           {showBackToTop && (

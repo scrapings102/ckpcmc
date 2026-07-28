@@ -348,3 +348,22 @@ html.lenis, html.lenis body {
 .prose-content-area tr:hover td {
   background-color: rgba(87, 78, 69, 0.03) !important;
 }
+
+/* Premium smooth hardware-accelerated float animation to eliminate scroll lag */
+@keyframes premiumScrollFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-premium-float {
+  animation: premiumScrollFloat 2.2s ease-in-out infinite;
+  will-change: transform;
+}
+

@@ -28,17 +28,20 @@ export const AboutSection = () => {
               <span>Established 2005 • VNSGU Affiliated</span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[#2B2323] font-bold leading-[1.18] mb-6">
-              Pioneering Academic Excellence & <br className="hidden sm:inline" />
+            <h2 
+              className="text-3xl sm:text-4xl md:text-5xl text-[#2B2323] font-bold leading-[1.18] mb-6"
+              style={{ fontFamily: "'Rhymes', 'Playfair Display', serif" }}
+            >
+              Where Academic Excellence Meets <br className="hidden sm:inline" />
               <span className="text-[#C19A20] relative inline-block">
-                Modern Professional Vision
+                Future-Ready Innovation
                 <span className="absolute left-0 bottom-1 w-full h-[3px] bg-[#D4AF37]/40 rounded-full" />
               </span>
             </h2>
 
             <div className="space-y-4 text-[#4A3E3E] leading-relaxed font-sans text-sm md:text-base font-normal mb-8">
               <p>
-                <strong className="text-[#2B2323] font-semibold">C. K. Pithawalla College of Commerce, Management & Computer Application</strong> is a premier higher education institution in Surat, Gujarat. Managed by the esteemed <span className="text-[#2B2323] font-semibold">Navyug Vidyabhavan Trust</span>, our campus is dedicated to nurturing future business leaders, finance experts, and computer software innovators.
+                <strong className="text-[#2B2323] font-semibold">C.K. Pithawalla College of Commerce - Management - Computer Application</strong> is a premier higher education institution in Surat, Gujarat. Managed by the esteemed <span className="text-[#2B2323] font-semibold">Navyug Vidyabhavan Trust</span>, our campus is dedicated to nurturing future business leaders, finance experts, and computer software innovators.
               </p>
               <p className="text-sm text-[#5C4F4F]">
                 Situated along Dumas Road near Malvan Mandir, our institution blends rigorous academic curricula with hands-on skill development, modern smart classrooms, digital computer laboratories, and comprehensive placement support.

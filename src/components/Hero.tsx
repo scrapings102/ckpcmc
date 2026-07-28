@@ -26,28 +26,41 @@ const HERO_IMAGES = [
 const TABLET_MEDIA_QUERY = "(max-width: 1024px)";
 
 /**
- * Splits an element's text content into individual letter <span>s for
- * GSAP letter-by-letter stagger animation, while keeping it accessible:
+ * Splits an element's text content into individual word <span>s for
+ * GSAP word-by-word stagger animation, while keeping it accessible:
  * the original text is preserved via aria-label on the parent, and each
- * letter span is aria-hidden so screen readers read the real sentence,
- * not individual characters.
+ * word span is aria-hidden so screen readers read the real sentence,
+ * not individual fragments.
  */
-function splitToLetters(el: HTMLElement | null): HTMLSpanElement[] {
+function splitToWords(el: HTMLElement | null): HTMLSpanElement[] {
   if (!el) return [];
   const text = el.textContent || "";
   el.setAttribute("aria-label", text);
   el.innerHTML = "";
 
-  const letters: HTMLSpanElement[] = [];
-  [...text].forEach((char) => {
+  const words = text.split(/\s+/).filter(Boolean);
+  const spans: HTMLSpanElement[] = [];
+
+  words.forEach((word, index) => {
+    // Word span
     const span = document.createElement("span");
-    span.className = "letter inline-block";
-    span.textContent = char === " " ? "\u00A0" : char;
+    span.className = "word-span inline-block px-[1.5px] py-[0.5px] whitespace-nowrap";
+    span.textContent = word;
     span.setAttribute("aria-hidden", "true");
     el.appendChild(span);
-    letters.push(span);
+    spans.push(span);
+
+    // Spacer span (so that words wrap normally on mobile)
+    if (index < words.length - 1) {
+      const spacer = document.createElement("span");
+      spacer.className = "inline-block";
+      spacer.textContent = "\u00A0"; // non-breaking space
+      spacer.setAttribute("aria-hidden", "true");
+      el.appendChild(spacer);
+    }
   });
-  return letters;
+
+  return spans;
 }
 
 export default function Hero({ loaded = true, onQuotesComplete, onAnimationComplete, isSubPage, onOpenAdmissions }: HeroProps) {
@@ -93,7 +106,7 @@ export default function Hero({ loaded = true, onQuotesComplete, onAnimationCompl
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      const quoteLetters = splitToLetters(quoteTextRef.current);
+      const quoteWords = splitToWords(quoteTextRef.current);
 
       const tl = gsap.timeline({
         defaults: { ease: "power4.out" },
@@ -145,25 +158,36 @@ export default function Hero({ loaded = true, onQuotesComplete, onAnimationCompl
       // ---------- 2. QUOTE TEXT (starts once wipe is ~80% done) ----------
       const QUOTE_START = 0.8;
 
+      const card = quoteRef.current?.querySelector(".hero-card");
+
       tl.fromTo(
         quoteRef.current,
-        { opacity: 1 }, // parent stays visible; letters carry the reveal
+        { opacity: 1 }, // parent stays visible; children carry the reveal
         { opacity: 1, duration: 0.01 },
         QUOTE_START,
       );
 
-      if (quoteLetters.length) {
+      if (card) {
         tl.fromTo(
-          quoteLetters,
-          { opacity: 0, y: 14 },
+          card,
+          { opacity: 0, y: 25, scale: 0.98 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" },
+          QUOTE_START
+        );
+      }
+
+      if (quoteWords.length) {
+        tl.fromTo(
+          quoteWords,
+          { opacity: 0, y: 8 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.4,
-            ease: "power3.out",
-            stagger: 0.008,
+            duration: 0.45,
+            ease: "power2.out",
+            stagger: 0.02,
           },
-          QUOTE_START,
+          QUOTE_START + 0.3
         );
       }
 
@@ -275,31 +299,44 @@ export default function Hero({ loaded = true, onQuotesComplete, onAnimationCompl
         />
       </div>
 
-      <div className="relative z-10 h-full w-full flex flex-col justify-between items-center text-center px-3 sm:px-4 pt-20 sm:pt-24 md:pt-20 lg:pt-32 pb-3 sm:pb-4 md:pb-3 lg:pb-6">
-        <div className="flex-grow min-h-[40px]" />
+      <div className="relative z-10 h-full w-full flex flex-col justify-between items-center text-center px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 pb-4 sm:pb-6">
+        <div className="flex-[14_14_0%]" />
 
-        {/* Bottom content: Quote & Scroll Indicator */}
-        <div className="flex flex-col items-center w-full pt-4 pb-1 sm:pb-2">
-          <div
-            ref={quoteRef}
-            className="mb-2 sm:mb-3 md:mb-2 lg:mb-4 max-w-[92vw] md:max-w-2xl lg:max-w-4xl px-2 sm:px-4 pointer-events-none select-none"
-          >
+        {/* Brand Tagline sitting elegantly at the bottom */}
+        <div
+          ref={quoteRef}
+          className="w-full max-w-4xl mx-auto flex flex-col items-center select-none pointer-events-none mb-2 sm:mb-4"
+        >
+          {/* Premium compact styled Tagline container */}
+          <div className="hero-card relative w-full max-w-[76vw] sm:max-w-md md:max-w-lg lg:max-w-xl px-4 sm:px-7 py-2 sm:py-3 rounded-lg bg-black/40 backdrop-blur-md border border-white/8 shadow-[0_12px_40px_rgba(0,0,0,0.55)] opacity-0">
+            {/* Elegant luxury gold corner accents */}
+            <div className="absolute top-2 left-2 w-2 h-2 border-t border-l border-[#D4AF37]/45" />
+            <div className="absolute top-2 right-2 w-2 h-2 border-t border-r border-[#D4AF37]/45" />
+            <div className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-[#D4AF37]/45" />
+            <div className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-[#D4AF37]/45" />
+
+            {/* Quote Marks */}
+            <span className="absolute -top-2.5 left-2 text-lg sm:text-xl md:text-2xl font-serif text-[#D4AF37]/30 pointer-events-none">“</span>
+            <span className="absolute -bottom-4 right-2 text-lg sm:text-xl md:text-2xl font-serif text-[#D4AF37]/30 pointer-events-none">”</span>
+
             <p
               ref={quoteTextRef}
-              className="text-[11.5px] min-[360px]:text-[12.5px] sm:text-sm md:text-sm lg:text-base font-sans font-medium text-white/95 italic leading-relaxed tracking-wide text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
+              className="text-[9.5px] min-[360px]:text-[10.5px] sm:text-[11.5px] md:text-[13px] font-sans font-medium text-white/95 italic leading-relaxed tracking-wide text-center drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-1"
             >
-              "A legacy of academic and professional excellence in Surat. Shaping the next generation of commerce leaders, management experts, and tech innovators since 2005."
+              "A legacy of academic and professional excellence in Surat. Inspiring and preparing the next generation of innovators in commerce, management, and technology since 2005."
             </p>
           </div>
+        </div>
 
+        <div className="w-full mt-auto flex flex-col items-center">
           <div
             ref={scrollIndicatorRef}
-            className="flex flex-col items-center gap-1 sm:gap-1.5 pointer-events-none select-none"
+            className="flex flex-col items-center gap-1 sm:gap-1.5 pointer-events-none select-none mt-1 animate-premium-float"
           >
-            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.25em] text-white/70 font-sans font-semibold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] animate-pulse">
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.25em] text-[#D4AF37] font-sans font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
               Scroll to explore
             </span>
-            <div className="w-[1px] h-4 sm:h-6 md:h-5 lg:h-7 bg-gradient-to-b from-[#D4AF37]/90 to-transparent" />
+            <div className="w-[1px] h-6 sm:h-10 md:h-12 bg-gradient-to-b from-[#D4AF37] via-[#D4AF37]/60 to-transparent" />
           </div>
         </div>
       </div>
