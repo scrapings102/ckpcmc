@@ -547,7 +547,7 @@ function NavContent({
       {/* ── MOBILE / TABLET header — optimized for small viewports & zero overlap ── */}
       <div className={`lg:hidden flex items-center justify-between w-full px-2 min-[360px]:px-3 min-[380px]:px-4 py-1 sm:px-5 transition-all duration-300 ${isScrolled ? 'h-[44px] sm:h-[48px]' : 'h-[52px] sm:h-[58px]'}`}>
         <div
-          className="flex items-center gap-1.5 min-[360px]:gap-2 sm:gap-3 shrink-0 cursor-pointer group/logo justify-start select-none min-w-0 max-w-[62%] sm:max-w-none"
+          className="flex items-center gap-1.5 min-[360px]:gap-2 sm:gap-3 shrink-0 cursor-pointer group/logo justify-start select-none min-w-0 max-w-[70%] sm:max-w-none"
           onClick={() => scrollToId('home')}
         >
           <div className={`rounded-full bg-white border-2 border-[#D4AF37] flex items-center justify-center p-0.5 shadow-md transition-all duration-300 group-hover/logo:scale-[1.05] active:scale-95 shrink-0 ${
@@ -558,15 +558,15 @@ function NavContent({
           <div className="flex flex-col text-left justify-center select-none min-w-0">
             <span className={`font-sans font-black tracking-[0.03em] text-white leading-none whitespace-nowrap ${
               isScrolled 
-                ? 'text-[8.2px] min-[360px]:text-[9px] min-[390px]:text-[9.8px] sm:text-[11.5px]' 
-                : 'text-[9px] min-[360px]:text-[10px] min-[390px]:text-[10.8px] sm:text-[13.5px]'
+                ? 'text-[10px] min-[360px]:text-[11px] min-[390px]:text-[11.8px] sm:text-[13.5px]' 
+                : 'text-[11px] min-[360px]:text-[12.2px] min-[390px]:text-[13.2px] sm:text-[15.5px]'
             }`}>
               C.K. PITHAWALLA COLLEGE
             </span>
-            <div className={`tracking-[0.02em] uppercase text-[#D4AF37] font-sans font-black leading-[1.15] mt-0.5 flex flex-col ${
+            <div className={`tracking-[0.02em] uppercase text-[#D4AF37] font-sans font-extrabold leading-[1.15] mt-0.5 flex flex-col ${
               isScrolled 
-                ? 'text-[4.5px] min-[360px]:text-[4.8px] min-[390px]:text-[5.4px] sm:text-[6.2px]' 
-                : 'text-[5px] min-[360px]:text-[5.5px] min-[390px]:text-[6.2px] sm:text-[7.2px]'
+                ? 'text-[5.5px] min-[360px]:text-[6px] min-[390px]:text-[6.5px] sm:text-[7.5px]' 
+                : 'text-[6px] min-[360px]:text-[6.8px] min-[390px]:text-[7.5px] sm:text-[8.5px]'
             }`}>
               <span className="whitespace-nowrap">OF COMMERCE - MANAGEMENT</span>
               <span className="whitespace-nowrap">- COMPUTER APPLICATION</span>
@@ -577,7 +577,7 @@ function NavContent({
         <div className="flex items-center gap-1 min-[360px]:gap-1.5 sm:gap-2 shrink-0">
           <button
             onClick={() => scrollToId('admissions')}
-            className="px-2 min-[360px]:px-2.5 min-[380px]:px-3 sm:px-4 py-1.5 rounded-full text-[8px] min-[360px]:text-[8.8px] min-[380px]:text-[9.5px] sm:text-[11px] font-black uppercase tracking-wider bg-[#D4AF37] hover:bg-[#C19A20] text-[#1a1208] transition-all duration-300 active:scale-95 shadow-md cursor-pointer select-none min-h-[26px] min-[360px]:min-h-[28px] sm:min-h-[32px] flex items-center justify-center shrink-0 whitespace-nowrap"
+            className="px-2 min-[360px]:px-2.5 min-[380px]:px-3 sm:px-4 py-1.5 rounded-full text-[8.5px] min-[360px]:text-[9px] min-[380px]:text-[9.5px] sm:text-[11px] font-black uppercase tracking-wider bg-[#D4AF37] hover:bg-[#C19A20] text-[#1a1208] transition-all duration-300 active:scale-95 shadow-md cursor-pointer select-none min-h-[26px] min-[360px]:min-h-[28px] sm:min-h-[32px] flex items-center justify-center shrink-0 whitespace-nowrap"
           >
             <span>APPLY</span>
           </button>
@@ -586,11 +586,11 @@ function NavContent({
             whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.4)' }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="text-white px-1.5 min-[360px]:px-2 min-[380px]:px-2.5 sm:px-3.5 py-1.5 bg-white/10 hover:bg-white/20 active:bg-white/10 rounded-full border border-white/20 transition-all duration-300 flex items-center gap-1 text-[8px] min-[360px]:text-[8.8px] min-[380px]:text-[9.5px] sm:text-[11px] font-black uppercase tracking-wider cursor-pointer select-none min-h-[26px] min-[360px]:min-h-[28px] sm:min-h-[32px] shrink-0 whitespace-nowrap"
+            className="text-white p-1.5 min-[380px]:px-2.5 sm:px-3.5 py-1.5 bg-white/10 hover:bg-white/20 active:bg-white/10 rounded-full border border-white/20 transition-all duration-300 flex items-center gap-1 text-[8.5px] min-[360px]:text-[9px] min-[380px]:text-[9.5px] sm:text-[11px] font-black uppercase tracking-wider cursor-pointer select-none min-h-[26px] min-[360px]:min-h-[28px] sm:min-h-[32px] shrink-0 whitespace-nowrap"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            <Menu size={10} className="text-white shrink-0 stroke-[2.5] sm:w-[13px] sm:h-[13px]" />
-            <span>{menuOpen ? 'CLOSE' : 'MENU'}</span>
+            <Menu size={11} className="text-white shrink-0 stroke-[2.5] sm:w-[13px] sm:h-[13px]" />
+            <span className="hidden min-[380px]:inline">{menuOpen ? 'CLOSE' : 'MENU'}</span>
           </motion.button>
         </div>
       </div>
