@@ -828,9 +828,6 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId);
-    } catch (err) {}
     isDraggingRef.current = true;
     didDragRef.current = false;
     dragStartXRef.current = getLocalX(e.clientX);
@@ -845,8 +842,15 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
     const localX = getLocalX(e.clientX);
     const dx = localX - dragStartXRef.current;
     if (Math.abs(dx) > 6) {
-      didDragRef.current = true;
+      if (!didDragRef.current) {
+        didDragRef.current = true;
+        try {
+          e.currentTarget.setPointerCapture(e.pointerId);
+        } catch (err) {}
+      }
     }
+
+    if (!didDragRef.current) return;
 
     let newX = capsuleStartXRef.current + dx;
     const tabs = tabsRef.current;
@@ -874,15 +878,18 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
 
   const releasePointer = (e?: any) => {
     if (!isDraggingRef.current) return;
+    const wasDragging = didDragRef.current;
     if (e && e.currentTarget && e.pointerId !== undefined) {
-      try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (err) {}
+      try {
+        if (e.currentTarget.hasPointerCapture && e.currentTarget.hasPointerCapture(e.pointerId)) {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        }
+      } catch (err) {}
     }
     isDraggingRef.current = false;
 
     const tabs = tabsRef.current;
-    if (!tabs.length) return;
-
-    if (didDragRef.current) {
+    if (tabs.length && wasDragging) {
       const currentCenter = currentXRef.current + currentWRef.current / 2;
       let nearestIdx = 0, minDist = Infinity;
       tabs.forEach((tab, i) => {
@@ -897,7 +904,10 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
         (flexRef.current?.querySelectorAll('[data-pill]')[nearestIdx] as HTMLElement)?.click();
       }, 0);
     }
-    requestAnimationFrame(() => { didDragRef.current = false; });
+
+    setTimeout(() => {
+      didDragRef.current = false;
+    }, 100);
   };
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
@@ -920,14 +930,14 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
         onPointerCancel={releasePointer}
         onWheel={handleWheel}
         onClickCapture={handleClickCapture}
-        style={{ touchAction: 'none' }}
+        style={{ touchAction: 'pan-x' }}
         className={[
           'relative flex items-center max-w-full w-fit min-w-0 overflow-x-auto no-scrollbar mx-auto',
           'bg-black/25 backdrop-blur-3xl saturate-150',
           'px-2.5 sm:px-3 md:px-3.5 lg:px-4 py-2 sm:py-2.5 md:py-3 lg:py-3.5 rounded-[999px]',
           'border border-white/20 border-t-white/35 border-b-black/40',
           'shadow-[0_24px_50px_-12px_rgba(0,0,0,0.7),0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.25)]',
-          'touch-none select-none cursor-grab active:cursor-grabbing',
+          'touch-pan-x select-none cursor-grab active:cursor-grabbing',
         ].join(' ')}
       >
         <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,transparent_45%)] z-10" />
@@ -1243,7 +1253,7 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
     let rafId: number | null = null;
     const HIDE_THRESHOLD = 150;          // announcement bar collapse point
     const HERO_FALLBACK_THRESHOLD = 450; // used only if #home isn't found in DOM
-    const FOOTER_REVEAL_FRACTION = 0.5;  // footer counts as "reached" once its top crosses 50% of viewport
+    const FOOTER_REVEAL_FRACTION = 0.85; // footer counts as "reached" once its top enters viewport
     const HERO_EL_ID = 'home';
     const FOOTER_EL_ID = 'footer';
 
@@ -1290,12 +1300,11 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
           setVisible(true);
           setShowBottomNav(false);
         } else if (zone === 'footer') {
-          // Footer reached: header hidden, bottom nav visible.
+          // Footer reached on landing page: header hidden, bottom nav hidden.
           setVisible(false);
-          setShowBottomNav(true);
+          setShowBottomNav(false);
         } else {
-          // Everywhere else (including scrolling back up from the footer through
-          // Admissions etc, on any device): bottom nav only.
+          // Everywhere else in body: bottom nav only.
           setVisible(false);
           setShowBottomNav(true);
         }
