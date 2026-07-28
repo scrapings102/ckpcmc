@@ -828,6 +828,9 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch (err) {}
     isDraggingRef.current = true;
     didDragRef.current = false;
     dragStartXRef.current = getLocalX(e.clientX);
@@ -841,13 +844,8 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
     if (!isDraggingRef.current) return;
     const localX = getLocalX(e.clientX);
     const dx = localX - dragStartXRef.current;
-    if (Math.abs(dx) > 8) {
-      if (!didDragRef.current) {
-        didDragRef.current = true;
-        try {
-          e.currentTarget.setPointerCapture(e.pointerId);
-        } catch (err) {}
-      }
+    if (Math.abs(dx) > 6) {
+      didDragRef.current = true;
     }
 
     let newX = capsuleStartXRef.current + dx;
@@ -858,6 +856,20 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
     if (newX > maxX) newX = maxX + (newX - maxX) * 0.22;
 
     targetXRef.current = newX;
+
+    if (shellRef.current && shellRef.current.scrollWidth > shellRef.current.clientWidth) {
+      const scrollLeft = shellRef.current.scrollLeft;
+      const clientWidth = shellRef.current.clientWidth;
+      const capsuleRight = newX + currentWRef.current;
+      if (newX < scrollLeft + 20) {
+        shellRef.current.scrollLeft = Math.max(0, newX - 20);
+      } else if (capsuleRight > scrollLeft + clientWidth - 20) {
+        shellRef.current.scrollLeft = Math.min(
+          shellRef.current.scrollWidth - clientWidth,
+          capsuleRight - clientWidth + 20
+        );
+      }
+    }
   };
 
   const releasePointer = (e?: any) => {
@@ -908,14 +920,14 @@ const GlassDock = ({ children, activeValue }: { children: React.ReactNode; activ
         onPointerCancel={releasePointer}
         onWheel={handleWheel}
         onClickCapture={handleClickCapture}
-        style={{ touchAction: 'pan-y' }}
+        style={{ touchAction: 'none' }}
         className={[
           'relative flex items-center max-w-full w-fit min-w-0 overflow-x-auto no-scrollbar mx-auto',
           'bg-black/25 backdrop-blur-3xl saturate-150',
           'px-2.5 sm:px-3 md:px-3.5 lg:px-4 py-2 sm:py-2.5 md:py-3 lg:py-3.5 rounded-[999px]',
           'border border-white/20 border-t-white/35 border-b-black/40',
           'shadow-[0_24px_50px_-12px_rgba(0,0,0,0.7),0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.25)]',
-          'touch-pan-y select-none cursor-grab active:cursor-grabbing',
+          'touch-none select-none cursor-grab active:cursor-grabbing',
         ].join(' ')}
       >
         <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,transparent_45%)] z-10" />
