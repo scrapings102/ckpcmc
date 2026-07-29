@@ -92,6 +92,12 @@ function PillarCard({
   const [selectedSide, setSelectedSide] = useState(false);
   useModalScrollLock(selectedSide);
 
+  useEffect(() => {
+    const handleClose = () => setSelectedSide(false);
+    window.addEventListener('closeAllModals', handleClose);
+    return () => window.removeEventListener('closeAllModals', handleClose);
+  }, []);
+
   useEffect(() => { registerRef(localRef.current); }, [registerRef]);
 
   return (
@@ -160,7 +166,7 @@ function PillarCard({
             data-lenis-prevent="true"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+            className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 pb-20 sm:pb-24 overflow-y-auto"
             onClick={() => setSelectedSide(false)}
           >
             <motion.div
@@ -218,6 +224,12 @@ export default function CampusLife() {
   const [selectedGalleryImg, setSelectedGalleryImg] = useState<string | null>(null);
   const lenis = useLenis();
   useModalScrollLock(selectedGalleryImg !== null);
+
+  useEffect(() => {
+    const handleClose = () => setSelectedGalleryImg(null);
+    window.addEventListener('closeAllModals', handleClose);
+    return () => window.removeEventListener('closeAllModals', handleClose);
+  }, []);
 
   const [containerWidth, setContainerWidth] = useState(1200);
   const [activeTrailPoint, setActiveTrailPoint] = useState(1);
@@ -748,7 +760,7 @@ export default function CampusLife() {
       <AnimatePresence>
         {selectedGalleryImg && (
           <motion.div data-lenis-prevent="true" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+            className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 pb-20 sm:pb-24 overflow-y-auto"
             onClick={() => setSelectedGalleryImg(null)}>
             <motion.div initial={{ scale: 0.93, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.93, y: 20 }}
               className="bg-white rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>

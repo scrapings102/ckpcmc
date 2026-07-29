@@ -201,6 +201,15 @@ export default function BlogsAndMagazine() {
   const [selectedMagazine, setSelectedMagazine] = useState<MagazineIssue | null>(null);
   const lenis = useLenis();
   useModalScrollLock(Boolean(selectedPost || selectedMagazine));
+
+  useEffect(() => {
+    const handleClose = () => {
+      setSelectedPost(null);
+      setSelectedMagazine(null);
+    };
+    window.addEventListener('closeAllModals', handleClose);
+    return () => window.removeEventListener('closeAllModals', handleClose);
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [likesMap, setLikesMap] = useState<Record<string, number>>({
     'blog-1': 142,
@@ -455,7 +464,7 @@ export default function BlogsAndMagazine() {
       {/* ARTICLE READER MODAL - LUXUS NO-AI EDITORIAL MODAL DESIGN */}
       <AnimatePresence>
         {selectedPost && (
-          <div data-lenis-prevent="true" className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div data-lenis-prevent="true" className="fixed inset-0 z-50 flex items-center justify-center p-4 pb-20 sm:pb-24">
             
             {/* Glass backdrop overlay */}
             <motion.div 
@@ -606,7 +615,7 @@ export default function BlogsAndMagazine() {
       {/* MAGAZINE PREVIEW MODAL */}
       <AnimatePresence>
         {selectedMagazine && (
-          <div data-lenis-prevent="true" className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-md">
+          <div data-lenis-prevent="true" className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pb-20 sm:pb-24 bg-black/70 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}

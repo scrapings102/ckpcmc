@@ -90,6 +90,12 @@ function useSmoothScrollTo() {
       return;
     }
 
+    window.dispatchEvent(new Event('closeAllModals'));
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+    document.body.style.overscrollBehavior = '';
+    document.documentElement.style.overscrollBehavior = '';
+
     if (normalizedId === 'home') {
       if (lenis) {
         lenis.start();
@@ -1486,7 +1492,7 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 90, opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 z-50 w-[98vw] md:w-[96vw] max-w-6xl flex justify-center items-center pointer-events-auto select-none px-1 sm:px-2"
+            className="fixed bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 z-[100] w-[98vw] md:w-[96vw] max-w-6xl flex justify-center items-center pointer-events-auto select-none px-1 sm:px-2"
           >
             <div className="max-w-full">
               <BottomScrollNav

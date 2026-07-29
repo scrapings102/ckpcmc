@@ -10,7 +10,6 @@ export default function Bcom() {
   const [activeSem, setActiveSem] = useState<number | null>(0);
 
   const bcomStats = [
-    { label: "Intake Capacity", val: "150 Seats", desc: "English Medium co-education" },
     { label: "Duration", val: "3 Years", desc: "6 Full-time Semesters" },
     { label: "Specialty", val: "Advanced Accountancy", desc: "Core Auditing & Taxation" },
     { label: "Affiliation", val: "VNSGU, Surat", desc: "Veer Narmad SG University" }
@@ -137,7 +136,7 @@ export default function Bcom() {
             <h3 className="text-xs font-mono font-bold uppercase text-[#D4AF37] tracking-[0.2em] mb-1">PROGRAM DETAILS</h3>
             <p className="text-lg font-serif font-black text-slate-800">Enrollment & Academic Blueprint</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-3 gap-4">
             {bcomStats.map((stat, i) => (
               <div key={i} className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-sm text-center space-y-1 hover:border-[#D4AF37]/30 transition-colors">
                 <span className="text-slate-400 font-mono text-[9px] uppercase tracking-wider block">{stat.label}</span>

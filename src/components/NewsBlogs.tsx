@@ -663,6 +663,12 @@ export default function NewsBlogs() {
 
   const [selectedItem, setSelectedItem] = useState<ArticleUnion | null>(null);
   useModalScrollLock(selectedItem !== null);
+
+  useEffect(() => {
+    const handleClose = () => setSelectedItem(null);
+    window.addEventListener('closeAllModals', handleClose);
+    return () => window.removeEventListener('closeAllModals', handleClose);
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [bulletinTab, setBulletinTab] = useState<'news' | 'events' | 'sports' | 'admission' | 'student'>('news');
@@ -962,7 +968,7 @@ export default function NewsBlogs() {
           ========================================================== */}
       <AnimatePresence>
         {selectedItem && (
-          <div data-lenis-prevent="true" className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div data-lenis-prevent="true" className="fixed inset-0 z-50 flex items-center justify-center p-4 pb-20 sm:pb-24">
             
             {/* Glass backdrop overlay */}
             <motion.div 
