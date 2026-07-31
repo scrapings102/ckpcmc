@@ -1234,6 +1234,30 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
     return typeof window !== 'undefined' ? window.scrollY > 450 : false;
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const checkModal = () => {
+      const hasOverflowHidden = document.body.style.overflow === 'hidden';
+      setIsModalOpen(hasOverflowHidden);
+    };
+
+    checkModal();
+
+    const observer = new MutationObserver(() => {
+      checkModal();
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   // Subpages: header never shows, bottom nav always shows. No scroll math needed —
   // this alone guarantees the header can never appear on a subpage on any device.
   useEffect(() => {
@@ -1485,7 +1509,7 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
 
       {/* ── BOTTOM FLOATING NAV — Appears strictly when reaching footer section ── */}
       <AnimatePresence>
-        {showBottomNav && (
+        {showBottomNav && !isModalOpen && (
           <motion.nav
             key="bottom-nav"
             initial={{ y: 90, opacity: 0 }}
