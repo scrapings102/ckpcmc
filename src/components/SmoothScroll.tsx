@@ -31,15 +31,37 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       (window as any).lenis = lenisInstance;
     }
 
+    ScrollTrigger.scrollerProxy(document.body, {
+      scrollTop(value) {
+        if (arguments.length && typeof value === 'number') {
+          lenisInstance.scrollTo(value, { immediate: true });
+          return;
+        }
+        return lenisInstance.scroll;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+      pinType: document.body.style.transform ? 'transform' : 'fixed',
+    });
+
     lenisInstance.on('scroll', ScrollTrigger.update);
 
     // Synchronize Lenis with GSAP's native ticker for buttery smooth rendering
     const updateLenis = (time: number) => {
       lenisInstance.raf(time * 1000);
     };
-    
+
     gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);
+
+    ScrollTrigger.addEventListener('refresh', () => lenisInstance.resize());
+    ScrollTrigger.refresh();
 
     return () => {
       gsap.ticker.remove(updateLenis);
