@@ -55,7 +55,7 @@ export const AboutSection = () => {
                   <Award size={18} />
                 </div>
                 <div>
-                  <h4 className="font-sans font-extrabold text-xs text-[#2B2323] uppercase tracking-wide">Legacy Trust</h4>
+                  <h4 className="font-sans font-bold text-xs text-[#2B2323] uppercase tracking-wide">Legacy Trust</h4>
                   <p className="font-sans text-[11px] text-[#6E5E5E] leading-tight mt-0.5">Navyug Vidyabhavan Trust leadership</p>
                 </div>
               </div>
@@ -65,7 +65,7 @@ export const AboutSection = () => {
                   <GraduationCap size={18} />
                 </div>
                 <div>
-                  <h4 className="font-sans font-extrabold text-xs text-[#2B2323] uppercase tracking-wide">3 Core Programs</h4>
+                  <h4 className="font-sans font-bold text-xs text-[#2B2323] uppercase tracking-wide">3 Core Programs</h4>
                   <p className="font-sans text-[11px] text-[#6E5E5E] leading-tight mt-0.5">B.Com, BBA & BCA degrees</p>
                 </div>
               </div>
@@ -75,7 +75,7 @@ export const AboutSection = () => {
                   <Building2 size={18} />
                 </div>
                 <div>
-                  <h4 className="font-sans font-extrabold text-xs text-[#2B2323] uppercase tracking-wide">Smart Campus</h4>
+                  <h4 className="font-sans font-bold text-xs text-[#2B2323] uppercase tracking-wide">Smart Campus</h4>
                   <p className="font-sans text-[11px] text-[#6E5E5E] leading-tight mt-0.5">Digitized IT labs & library</p>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export const AboutSection = () => {
                   <ShieldCheck size={18} />
                 </div>
                 <div>
-                  <h4 className="font-sans font-extrabold text-xs text-[#2B2323] uppercase tracking-wide">Placement Cell</h4>
+                  <h4 className="font-sans font-bold text-xs text-[#2B2323] uppercase tracking-wide">Placement Cell</h4>
                   <p className="font-sans text-[11px] text-[#6E5E5E] leading-tight mt-0.5">Active industry recruitment</p>
                 </div>
               </div>

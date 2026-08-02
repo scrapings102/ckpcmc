@@ -103,7 +103,7 @@ export default function Bba() {
               <span className="w-2.5 h-2.5 rounded-full bg-[#D4AF37] animate-pulse" />
               <span className="text-[#D4AF37] font-mono text-[11px] font-bold uppercase tracking-[0.2em]">Department of Management</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-serif font-black text-slate-900 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold text-slate-900 leading-tight">
               Shaping Future Corporate & Startup Architects
             </h2>
             <p className="text-slate-600 font-sans text-sm md:text-base leading-relaxed">
@@ -134,13 +134,13 @@ export default function Bba() {
         <section className="bg-slate-50 border border-slate-150 rounded-3xl p-6 md:p-8">
           <div className="text-center max-w-xl mx-auto mb-6">
             <h3 className="text-xs font-mono font-bold uppercase text-[#D4AF37] tracking-[0.2em] mb-1">PROGRAM DETAILS</h3>
-            <p className="text-lg font-serif font-black text-slate-800">Enrollment & Academic Blueprint</p>
+            <p className="text-lg font-serif font-bold text-slate-800">Enrollment & Academic Blueprint</p>
           </div>
           <div className="grid sm:grid-cols-3 gap-4">
             {bbaStats.map((stat, i) => (
               <div key={i} className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-sm text-center space-y-1 hover:border-[#D4AF37]/30 transition-colors">
                 <span className="text-slate-400 font-mono text-[9px] uppercase tracking-wider block">{stat.label}</span>
-                <span className="text-lg font-serif font-black text-slate-800 block">{stat.val}</span>
+                <span className="text-lg font-serif font-bold text-slate-800 block">{stat.val}</span>
                 <span className="text-[11px] text-slate-500 block font-medium">{stat.desc}</span>
               </div>
             ))}
@@ -151,7 +151,7 @@ export default function Bba() {
         <section className="space-y-6">
           <div className="space-y-1.5">
             <span className="text-[#D4AF37] font-mono text-[10px] font-bold uppercase tracking-wider block">EXECUTIVE FOCUS</span>
-            <h3 className="text-xl md:text-2xl font-serif font-black text-slate-800">Core Competency Blueprint</h3>
+            <h3 className="text-xl md:text-2xl font-serif font-bold text-slate-800">Core Competency Blueprint</h3>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             {executiveCompetencies.map((comp, i) => {
@@ -176,7 +176,7 @@ export default function Bba() {
           
           {/* Industrial Interface on Left */}
           <div className="md:col-span-5 space-y-5">
-            <h3 className="text-lg font-serif font-black text-slate-800">Operational Industrial Alliances</h3>
+            <h3 className="text-lg font-serif font-bold text-slate-800">Operational Industrial Alliances</h3>
             <p className="text-xs text-slate-500 font-sans leading-relaxed">
               We leverage Surat's prominent positions in logistics, maritime shipping, textiles, and diamond manufacturing. Students undergo a compulsory summer internship, working under certified managers to audit actual commercial systems.
             </p>
@@ -201,7 +201,7 @@ export default function Bba() {
 
           {/* Syllabus Accordion on Right */}
           <div className="md:col-span-7 space-y-4">
-            <h3 className="text-lg font-serif font-black text-slate-800 flex items-center gap-2">
+            <h3 className="text-lg font-serif font-bold text-slate-800 flex items-center gap-2">
               <BookOpen size={18} className="text-[#D4AF37]" /> Structured Curriculum (VNSGU)
             </h3>
             <p className="text-xs text-slate-500 font-sans leading-relaxed">
@@ -258,7 +258,7 @@ export default function Bba() {
         <section className="pt-6 border-t border-slate-100 space-y-6">
           <div className="space-y-1.5">
             <span className="text-[#D4AF37] font-mono text-[10px] font-bold uppercase tracking-wider block">GRADUATE PLACEMENT</span>
-            <h3 className="text-xl font-serif font-black text-slate-800">Placement & Executive Job Demographics</h3>
+            <h3 className="text-xl font-serif font-bold text-slate-800">Placement & Executive Job Demographics</h3>
             <p className="text-xs text-slate-500 font-sans max-w-2xl leading-relaxed">
               We empower students to secure jobs with regional, national, and multinational brands, or launch independent businesses with our institutional guidance:
             </p>

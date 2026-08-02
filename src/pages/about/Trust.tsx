@@ -62,7 +62,7 @@ export default function Trust() {
                 <Landmark size={14} />
                 <span>Established 1965</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black text-white tracking-tight max-w-2xl leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-white tracking-tight max-w-2xl leading-tight">
                 Over 55 Years of Educational Service & Governance
               </h2>
               <p className="text-slate-300 text-xs sm:text-sm font-sans mt-2 max-w-xl leading-relaxed">
@@ -74,7 +74,7 @@ export default function Trust() {
 
         {/* NARRATIVE SECTION */}
         <section className="bg-[#FAF8F3] border border-slate-200 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm space-y-6">
-          <h2 className="text-2xl font-serif font-black text-[#7E1B1F] tracking-tight">Genesis of Navyug Trust</h2>
+          <h2 className="text-2xl font-serif font-bold text-[#7E1B1F] tracking-tight">Genesis of Navyug Trust</h2>
           <div className="h-1 w-16 bg-[#D4AF37] rounded-full" />
           
           <div className="text-slate-700 leading-relaxed font-sans text-sm sm:text-base space-y-4">
@@ -94,7 +94,7 @@ export default function Trust() {
         <section className="space-y-6">
           <div className="text-center md:text-left space-y-1">
             <span className="text-[#7E1B1F] font-mono text-xs font-bold uppercase tracking-widest">Educational Hub</span>
-            <h3 className="text-2xl font-serif font-black text-slate-800">Sister & Associated Academies</h3>
+            <h3 className="text-2xl font-serif font-bold text-slate-800">Sister & Associated Academies</h3>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

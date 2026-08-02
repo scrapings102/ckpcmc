@@ -33,8 +33,8 @@ export default function DirectorsMessage() {
               </div>
 
               <div>
-                <h3 className="font-serif font-black text-2xl sm:text-3xl text-slate-900 leading-tight">Dr. Chaitanya K. Desai</h3>
-                <p className="text-sm text-[#D4AF37] font-mono uppercase tracking-widest mt-2 font-black">Campus Director</p>
+                <h3 className="font-serif font-bold text-2xl sm:text-3xl text-slate-900 leading-tight">Dr. Chaitanya K. Desai</h3>
+                <p className="text-sm text-[#D4AF37] font-mono uppercase tracking-widest mt-2 font-bold">Campus Director</p>
                 <p className="text-xs text-slate-500 font-sans block mt-1 font-medium">PhD in Business Governance & Administration</p>
               </div>
               
@@ -60,11 +60,11 @@ export default function DirectorsMessage() {
             <Quote className="absolute top-6 right-6 text-slate-200/80 shrink-0 pointer-events-none -z-0" size={72} />
             
             <div className="relative z-10 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#D4AF37] font-black block">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#D4AF37] font-bold block">
                 Dear Students, Parents & Stakeholders,
               </span>
               
-              <h2 className="text-2xl sm:text-3xl font-serif font-black text-slate-900 leading-snug">
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 leading-snug">
                 Building Professional Mastery in Commerce, Management & Computer Science
               </h2>
               
@@ -83,7 +83,7 @@ export default function DirectorsMessage() {
               </div>
 
               <div className="pt-6 border-t border-slate-200 flex flex-col items-end">
-                <span className="font-serif font-black text-xl text-[#1B1515]">Dr. Chaitanya K. Desai</span>
+                <span className="font-serif font-bold text-xl text-[#1B1515]">Dr. Chaitanya K. Desai</span>
                 <span className="text-xs text-slate-500 font-sans uppercase tracking-widest mt-1 font-bold">Campus Director, CKPCMC</span>
               </div>
             </div>

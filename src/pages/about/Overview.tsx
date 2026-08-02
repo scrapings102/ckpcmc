@@ -81,14 +81,14 @@ export default function Overview() {
         
         {/* Editorial introduction with dropcap */}
         <section className="space-y-6">
-          <h2 className="text-2xl md:text-3xl font-serif font-black text-[#1B1515] tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#1B1515] tracking-tight">
             Institutional Legacy & Character
           </h2>
           <div className="h-1 w-16 bg-[#D4AF37] rounded-full" />
           
           <div className="text-[#3B3131]/90 leading-relaxed font-sans text-sm md:text-base space-y-4">
             <p>
-              <span className="float-left text-6xl font-serif font-black text-[#D4AF37] mr-3 mt-1 leading-[0.8]">E</span>
+              <span className="float-left text-6xl font-serif font-bold text-[#D4AF37] mr-3 mt-1 leading-[0.8]">E</span>
               stablished in the year 1998, <strong>C. K. Pithawalla College of Commerce, Management & Computer Application (CKPCMC)</strong> is managed by the Navyug Vidyabhavan Trust. Over the past two and a half decades, the college has established itself as one of Surat’s elite hubs for undergraduate education, providing a launching pad for thousands of careers.
             </p>
             <p>
@@ -209,7 +209,7 @@ With the latest equipment and the most advanced tools, including Library, Advanc
             <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center shrink-0">
               <GraduationCap size={20} />
             </div>
-            <h4 className="font-serif font-black text-slate-800 text-[16px]">VNSGU Standard Curriculum</h4>
+            <h4 className="font-serif font-bold text-slate-800 text-[16px]">VNSGU Standard Curriculum</h4>
             <p className="text-xs text-slate-600 leading-relaxed font-sans">
               Strict compliance with VNSGU academic guidelines, continuously updated syllabus parameters, regular continuous internal evaluation (CIE), and expert university-approved faculty.
             </p>
@@ -219,7 +219,7 @@ With the latest equipment and the most advanced tools, including Library, Advanc
             <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center shrink-0">
               <Building size={20} />
             </div>
-            <h4 className="font-serif font-black text-slate-800 text-[16px]">Excellent Infrastructure</h4>
+            <h4 className="font-serif font-bold text-slate-800 text-[16px]">Excellent Infrastructure</h4>
             <p className="text-xs text-slate-600 leading-relaxed font-sans">
               Fully digitized smart lecture theaters, sophisticated computer programming laboratories with fiber broadband, centralized student library, and indoor-outdoor sports grounds.
             </p>
@@ -228,7 +228,7 @@ With the latest equipment and the most advanced tools, including Library, Advanc
 
         {/* Historical Timeline */}
         <section className="pt-6 border-t border-slate-100 space-y-6">
-          <h3 className="text-xl font-serif font-black text-slate-800">Our Journey of Excellence</h3>
+          <h3 className="text-xl font-serif font-bold text-slate-800">Our Journey of Excellence</h3>
           <p className="text-xs text-slate-500 font-sans leading-relaxed">
             The steady evolution of CKPCMC from a newly founded institute into one of VNSGU's top-tier affiliated self-financed colleges.
           </p>
@@ -240,7 +240,7 @@ With the latest equipment and the most advanced tools, including Library, Advanc
                 <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-[#D4AF37] ring-4 ring-white shadow-sm transition-transform duration-300 group-hover:scale-125" />
                 
                 <div className="space-y-1">
-                  <span className="font-serif text-base font-black text-[#D4AF37]">{item.year}</span>
+                  <span className="font-serif text-base font-bold text-[#D4AF37]">{item.year}</span>
                   <h4 className="font-serif font-bold text-[#3B3131]">{item.title}</h4>
                   <p className="text-xs text-slate-600 leading-relaxed max-w-2xl font-sans">{item.desc}</p>
                 </div>

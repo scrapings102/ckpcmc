@@ -44,8 +44,8 @@ export default function HodsMessage() {
               </div>
 
               <div>
-                <h3 className="font-serif font-black text-2xl sm:text-3xl text-slate-900 leading-tight">{currentHod.name}</h3>
-                <p className="text-sm text-[#D4AF37] font-mono uppercase tracking-widest mt-2 font-black">{currentHod.role}</p>
+                <h3 className="font-serif font-bold text-2xl sm:text-3xl text-slate-900 leading-tight">{currentHod.name}</h3>
+                <p className="text-sm text-[#D4AF37] font-mono uppercase tracking-widest mt-2 font-bold">{currentHod.role}</p>
                 <p className="text-xs text-slate-500 font-sans block mt-1 font-medium">{currentHod.credentials}</p>
               </div>
               
@@ -67,7 +67,7 @@ export default function HodsMessage() {
             <Quote className="absolute top-6 right-6 text-slate-200/80 shrink-0 pointer-events-none -z-0" size={72} />
             
             <div className="relative z-10 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#D4AF37] font-black block">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#D4AF37] font-bold block">
                 Departmental Leadership Message:
               </span>
               
@@ -90,7 +90,7 @@ export default function HodsMessage() {
 
               <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
                 <span className="text-xs font-mono font-bold text-slate-500 uppercase">Head of Department, CKPCMC</span>
-                <span className="font-serif font-black text-slate-900">{currentHod.name}</span>
+                <span className="font-serif font-bold text-slate-900">{currentHod.name}</span>
               </div>
             </div>
           </div>

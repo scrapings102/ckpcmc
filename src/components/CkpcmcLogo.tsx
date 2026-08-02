@@ -98,7 +98,7 @@ export default function CkpcmcLogo({ className = 'h-12 w-auto', showText = true 
       )}
       {showText && (
         <div className="flex flex-col text-left font-montserrat tracking-tight leading-none">
-          <span className="text-[14px] md:text-[16px] font-black text-white tracking-widest uppercase">
+          <span className="text-[14px] md:text-[16px] font-bold text-white tracking-widest uppercase">
             CKPCMC
           </span>
           <span className="text-[8px] md:text-[9.5px] font-bold text-white/70 tracking-tight mt-0.5 uppercase">

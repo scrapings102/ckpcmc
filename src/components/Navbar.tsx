@@ -340,7 +340,7 @@ function NavItemDesktop({ item, isActive, onMouseEnter, onMouseLeave, onToggle }
             onToggle();
           }
         }}
-        className={`flex items-center gap-1 text-[10px] min-[1320px]:text-[11px] min-[1400px]:text-[12.5px] 2xl:text-[14.5px] font-sans font-extrabold py-2 px-0.5 min-[1320px]:px-1 min-[1400px]:px-2 transition-all duration-200 relative whitespace-nowrap cursor-pointer hover:scale-[1.02] active:scale-[0.98] shrink-0 ${
+        className={`flex items-center gap-1 text-[10px] min-[1320px]:text-[11px] min-[1400px]:text-[12.5px] 2xl:text-[14.5px] font-sans font-bold py-2 px-0.5 min-[1320px]:px-1 min-[1400px]:px-2 transition-all duration-200 relative whitespace-nowrap cursor-pointer hover:scale-[1.02] active:scale-[0.98] shrink-0 ${
           isActive ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'
         }`}
       >
@@ -374,7 +374,7 @@ function NavItemDesktop({ item, isActive, onMouseEnter, onMouseLeave, onToggle }
                       {config.columns.map((col) => (
                         <div key={col.title} className="flex flex-col">
                           <div className="mb-3 flex items-center justify-between border-b border-white/15 pb-2">
-                            <span className="text-[10px] font-mono tracking-[0.2em] text-[#D4AF37] uppercase font-black">
+                            <span className="text-[10px] font-mono tracking-[0.2em] text-[#D4AF37] uppercase font-bold">
                               {col.title}
                             </span>
                           </div>
@@ -391,7 +391,7 @@ function NavItemDesktop({ item, isActive, onMouseEnter, onMouseLeave, onToggle }
                                   }}
                                   className="group/menu-item text-left flex flex-col gap-0.5 py-1.5 px-3 -mx-3 rounded-xl hover:bg-white/10 border border-transparent hover:border-white/15 transition-all duration-200 w-full cursor-pointer"
                                 >
-                                  <span className="font-sans font-extrabold text-[13px] text-white group-hover/menu-item:text-[#D4AF37] transition-colors flex items-center gap-1.5">
+                                  <span className="font-sans font-bold text-[13px] text-white group-hover/menu-item:text-[#D4AF37] transition-colors flex items-center gap-1.5">
                                     <span>{subItemName}</span>
                                     <ArrowRight size={11} className="opacity-0 -translate-x-1 group-hover/menu-item:opacity-100 group-hover/menu-item:translate-x-0 transition-all duration-200 text-[#D4AF37]" />
                                   </span>
@@ -459,7 +459,7 @@ function NavItemDesktop({ item, isActive, onMouseEnter, onMouseLeave, onToggle }
                           referrerPolicy="no-referrer"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-3">
-                          <span className="text-[8.5px] font-mono font-extrabold uppercase tracking-widest text-[#D4AF37] mb-0.5">
+                          <span className="text-[8.5px] font-mono font-bold uppercase tracking-widest text-[#D4AF37] mb-0.5">
                             {config.images.landscape.tag}
                           </span>
                           <h4 className="text-white text-[11px] font-bold leading-tight font-sans">
@@ -507,10 +507,10 @@ function NavContent({
             <CkpcmcLogo className="w-full h-full" showText={false} />
           </div>
           <div className="flex flex-col text-left justify-center">
-            <span className="font-sans font-black tracking-[0.04em] text-white leading-none text-[10.5px] xl:text-[12px] 2xl:text-[13.5px] uppercase">
+            <span className="font-sans font-bold tracking-[0.04em] text-white leading-none text-[10.5px] xl:text-[12px] 2xl:text-[13.5px] uppercase">
               C.K. PITHAWALLA COLLEGE
             </span>
-            <span className="tracking-[0.03em] uppercase text-[#D4AF37] font-sans font-black text-[7.5px] xl:text-[8.5px] 2xl:text-[9.8px] leading-none mt-0.5 opacity-95 whitespace-nowrap">
+            <span className="tracking-[0.03em] uppercase text-[#D4AF37] font-sans font-bold text-[7.5px] xl:text-[8.5px] 2xl:text-[9.8px] leading-none mt-0.5 opacity-95 whitespace-nowrap">
               OF COMMERCE - MANAGEMENT - COMPUTER APPLICATION
             </span>
           </div>
@@ -534,7 +534,7 @@ function NavContent({
         <div className="flex items-center gap-x-1.5 shrink-0">
           <button
             onClick={() => scrollToId('admissions')}
-            className="group/btn flex items-center gap-1.5 px-2.5 lg:px-4 py-1.5 rounded-full text-[9px] lg:text-[9.5px] font-black uppercase tracking-wider transition-all duration-300 bg-[#D4AF37] hover:bg-[#C9A227] text-[#1a1208] hover:shadow-[0_4px_18px_rgba(212,175,55,0.45)] hover:scale-105 active:scale-95 shadow-md cursor-pointer whitespace-nowrap select-none"
+            className="group/btn flex items-center gap-1.5 px-2.5 lg:px-4 py-1.5 rounded-full text-[9px] lg:text-[9.5px] font-bold uppercase tracking-wider transition-all duration-300 bg-[#D4AF37] hover:bg-[#C9A227] text-[#1a1208] hover:shadow-[0_4px_18px_rgba(212,175,55,0.45)] hover:scale-105 active:scale-95 shadow-md cursor-pointer whitespace-nowrap select-none"
           >
             <span>APPLY NOW</span>
             <ArrowRight size={10} className="transition-transform duration-300 group-hover/btn:translate-x-0.5 stroke-[3]" />
@@ -542,7 +542,7 @@ function NavContent({
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex items-center gap-1.5 px-2 lg:px-3 py-1.5 rounded-full text-[9px] lg:text-[9.5px] font-black uppercase tracking-wider transition-all duration-300 bg-white/10 hover:bg-white/18 border border-white/18 hover:border-white/30 text-white active:scale-95 cursor-pointer whitespace-nowrap select-none"
+            className="flex items-center gap-1.5 px-2 lg:px-3 py-1.5 rounded-full text-[9px] lg:text-[9.5px] font-bold uppercase tracking-wider transition-all duration-300 bg-white/10 hover:bg-white/18 border border-white/18 hover:border-white/30 text-white active:scale-95 cursor-pointer whitespace-nowrap select-none"
           >
             <Menu size={12} className="shrink-0 stroke-[2.5]" />
             <span>{menuOpen ? 'CLOSE' : 'MENU'}</span>
@@ -562,14 +562,14 @@ function NavContent({
             <CkpcmcLogo className="w-full h-full" showText={false} />
           </div>
           <div className="flex flex-col text-left justify-center select-none min-w-0">
-            <span className={`font-sans font-black tracking-[0.02em] text-white leading-none whitespace-nowrap ${
+            <span className={`font-sans font-bold tracking-[0.02em] text-white leading-none whitespace-nowrap ${
               isScrolled 
                 ? 'text-[8.5px] min-[360px]:text-[9.2px] min-[390px]:text-[10px] sm:text-[12px]' 
                 : 'text-[9.5px] min-[360px]:text-[10.2px] min-[390px]:text-[11.2px] sm:text-[13.5px]'
             }`}>
               C.K. PITHAWALLA COLLEGE
             </span>
-            <div className={`tracking-[0.02em] uppercase text-[#D4AF37] font-sans font-extrabold leading-[1.12] mt-0.5 flex flex-col ${
+            <div className={`tracking-[0.02em] uppercase text-[#D4AF37] font-sans font-bold leading-[1.12] mt-0.5 flex flex-col ${
               isScrolled 
                 ? 'text-[4.8px] min-[360px]:text-[5.2px] min-[390px]:text-[5.8px] sm:text-[6.8px]' 
                 : 'text-[5.2px] min-[360px]:text-[5.8px] min-[390px]:text-[6.5px] sm:text-[7.5px]'
@@ -583,7 +583,7 @@ function NavContent({
         <div className="flex items-center gap-1 min-[360px]:gap-1.5 sm:gap-2 shrink-0">
           <button
             onClick={() => scrollToId('admissions')}
-            className="px-2 min-[360px]:px-2.5 min-[380px]:px-3 sm:px-4 py-1.5 rounded-full text-[8.5px] min-[360px]:text-[9px] min-[380px]:text-[9.5px] sm:text-[11px] font-black uppercase tracking-wider bg-[#D4AF37] hover:bg-[#C19A20] text-[#1a1208] transition-all duration-300 active:scale-95 shadow-md cursor-pointer select-none min-h-[26px] min-[360px]:min-h-[28px] sm:min-h-[32px] flex items-center justify-center shrink-0 whitespace-nowrap"
+            className="px-2 min-[360px]:px-2.5 min-[380px]:px-3 sm:px-4 py-1.5 rounded-full text-[8.5px] min-[360px]:text-[9px] min-[380px]:text-[9.5px] sm:text-[11px] font-bold uppercase tracking-wider bg-[#D4AF37] hover:bg-[#C19A20] text-[#1a1208] transition-all duration-300 active:scale-95 shadow-md cursor-pointer select-none min-h-[26px] min-[360px]:min-h-[28px] sm:min-h-[32px] flex items-center justify-center shrink-0 whitespace-nowrap"
           >
             <span>APPLY</span>
           </button>
@@ -592,7 +592,7 @@ function NavContent({
             whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.4)' }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="text-white p-1.5 min-[380px]:px-2.5 sm:px-3.5 py-1.5 bg-white/10 hover:bg-white/20 active:bg-white/10 rounded-full border border-white/20 transition-all duration-300 flex items-center gap-1 text-[8.5px] min-[360px]:text-[9px] min-[380px]:text-[9.5px] sm:text-[11px] font-black uppercase tracking-wider cursor-pointer select-none min-h-[26px] min-[360px]:min-h-[28px] sm:min-h-[32px] shrink-0 whitespace-nowrap"
+            className="text-white p-1.5 min-[380px]:px-2.5 sm:px-3.5 py-1.5 bg-white/10 hover:bg-white/20 active:bg-white/10 rounded-full border border-white/20 transition-all duration-300 flex items-center gap-1 text-[8.5px] min-[360px]:text-[9px] min-[380px]:text-[9.5px] sm:text-[11px] font-bold uppercase tracking-wider cursor-pointer select-none min-h-[26px] min-[360px]:min-h-[28px] sm:min-h-[32px] shrink-0 whitespace-nowrap"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <Menu size={11} className="text-white shrink-0 stroke-[2.5] sm:w-[13px] sm:h-[13px]" />
@@ -635,7 +635,7 @@ function BottomNavItem({
           if (subItems.length === 0) onItemClick(item.name, item.id);
           else setIsOpen(!isOpen);
         }}
-        className={`relative px-4 sm:px-5 py-2.5 mx-0.5 text-[9.5px] sm:text-[11px] xl:text-[12px] uppercase tracking-wider font-extrabold transition-all duration-300 rounded-2xl overflow-visible hover:scale-105 active:scale-95 cursor-pointer select-none flex items-center gap-1 ${
+        className={`relative px-4 sm:px-5 py-2.5 mx-0.5 text-[9.5px] sm:text-[11px] xl:text-[12px] uppercase tracking-wider font-bold transition-all duration-300 rounded-2xl overflow-visible hover:scale-105 active:scale-95 cursor-pointer select-none flex items-center gap-1 ${
           'text-white'
         }`}
       >
@@ -1021,7 +1021,7 @@ function GlassPillBtn({
         'text-[10px] md:text-[9.5px] lg:text-[10px] xl:text-[10.5px] font-bold uppercase tracking-wider',
         'transition-colors duration-200 cursor-pointer select-none shrink-0',
         'active:scale-95',
-        isActive ? 'text-white font-extrabold drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]' : 'text-white/85 hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]',
+        isActive ? 'text-white font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]' : 'text-white/85 hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]',
       ].join(' ')}
     >
       {Icon && (
@@ -1029,7 +1029,7 @@ function GlassPillBtn({
           <Icon className="w-4 h-4 md:w-3 md:h-3 lg:w-3.5 lg:h-3.5 xl:w-4 xl:h-4" />
         </span>
       )}
-      <span className={`relative z-10 whitespace-nowrap hidden md:inline ${isActive ? 'drop-shadow-[0_0_12px_rgba(255,255,255,0.7)] font-extrabold' : ''}`}>
+      <span className={`relative z-10 whitespace-nowrap hidden md:inline ${isActive ? 'drop-shadow-[0_0_12px_rgba(255,255,255,0.7)] font-bold' : ''}`}>
         {label}
       </span>
     </button>
@@ -1057,7 +1057,7 @@ function BottomScrollNav({ activeSection, setActiveSection, onItemClick }: NavPr
             <GlassDock activeValue={location.pathname}>
               <button
                  onClick={() => navigate('/')}
-                className="flex items-center gap-1 px-2.5 md:px-3 lg:px-3.5 xl:px-4 py-2 md:py-2 lg:py-2 rounded-[12px] sm:rounded-[14px] text-[9.5px] md:text-[9.5px] lg:text-[10px] font-black uppercase tracking-[0.12em] text-white hover:text-[#EFBF04] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
+                className="flex items-center gap-1 px-2.5 md:px-3 lg:px-3.5 xl:px-4 py-2 md:py-2 lg:py-2 rounded-[12px] sm:rounded-[14px] text-[9.5px] md:text-[9.5px] lg:text-[10px] font-bold uppercase tracking-[0.12em] text-white hover:text-[#EFBF04] hover:bg-white/8 transition-all duration-200 cursor-pointer shrink-0 active:scale-95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
               >
                 <HomeIcon className="w-[18.5px] h-[18.5px] sm:w-[13px] sm:h-[13px] md:w-[12px] md:h-[12px] lg:w-[13px] lg:h-[13px]" />
                 <span className="hidden md:inline">Home</span>
@@ -1464,7 +1464,7 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
             }`}>
               <div className="w-full flex items-center justify-between font-sans text-[10px] xl:text-[11px] font-bold text-white/95 leading-normal select-none relative">
                 <div className="flex items-center gap-x-4">
-                  <div className="flex items-center gap-1.5 font-black text-white tracking-wide">
+                  <div className="flex items-center gap-1.5 font-bold text-white tracking-wide">
                     <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     <span>NAVYUG VIDYABHAVAN TRUST</span>
                   </div>
@@ -1474,7 +1474,7 @@ export default function Navbar({ isReady = true, onOpenAdmissions }: NavbarProps
                 <div className="flex items-center gap-x-4">
                   <button
                     onClick={onOpenAdmissions}
-                    className="font-extrabold text-[10px] uppercase text-[#D4AF37] hover:text-white border border-[#D4AF37]/50 hover:border-[#D4AF37] bg-[#D4AF37]/10 hover:bg-[#D4AF37]/30 px-2.5 py-0.5 rounded-md select-none tracking-wider cursor-pointer transition-all flex items-center gap-1"
+                    className="font-bold text-[10px] uppercase text-[#D4AF37] hover:text-white border border-[#D4AF37]/50 hover:border-[#D4AF37] bg-[#D4AF37]/10 hover:bg-[#D4AF37]/30 px-2.5 py-0.5 rounded-md select-none tracking-wider cursor-pointer transition-all flex items-center gap-1"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
                     <span>Admissions Open 2026-27</span>
@@ -1691,7 +1691,7 @@ function OverlayMenu({
         aria-label="Close menu"
         className="absolute top-4 right-4 md:top-6 md:right-6 z-[80] flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2D2424] text-white hover:bg-[#D4AF37] hover:text-[#2D2424] border border-[#D4AF37]/50 hover:border-transparent transition-all duration-300 active:scale-95 cursor-pointer group/close shadow-[0_4px_25px_rgba(0,0,0,0.3)] backdrop-blur-md"
       >
-        <span className="font-sans text-[10px] font-black uppercase tracking-[0.15em] transition-colors duration-300 text-white group-hover/close:text-[#2D2424]">Close</span>
+        <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] transition-colors duration-300 text-white group-hover/close:text-[#2D2424]">Close</span>
         <X size={15} className="stroke-[3] transition-all duration-300 group-hover/close:rotate-90 text-[#D4AF37] group-hover/close:text-[#2D2424]" />
       </motion.button>
 
@@ -1770,7 +1770,7 @@ function OverlayMenu({
             </div>
             <button
               onClick={() => { setMenuOpen(false); scrollToId('admissions'); }}
-              className="bg-[#D4AF37] hover:bg-[#C19A20] text-[#2D2424] font-sans font-black text-[10px] md:text-[11px] lg:text-[12px] tracking-wider uppercase py-2 px-5 md:py-2.5 md:px-6 transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-1.5 shadow-[0_10px_20px_rgba(212,175,55,0.15)] hover:shadow-[0_15px_30px_rgba(212,175,55,0.3)] hover:scale-[1.02] mx-auto rounded-md"
+              className="bg-[#D4AF37] hover:bg-[#C19A20] text-[#2D2424] font-sans font-bold text-[10px] md:text-[11px] lg:text-[12px] tracking-wider uppercase py-2 px-5 md:py-2.5 md:px-6 transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-1.5 shadow-[0_10px_20px_rgba(212,175,55,0.15)] hover:shadow-[0_15px_30px_rgba(212,175,55,0.3)] hover:scale-[1.02] mx-auto rounded-md"
             >
               Apply Now <ArrowRight size={13} className="stroke-[3] shrink-0" />
             </button>
@@ -1849,7 +1849,7 @@ function OverlayMenu({
                       className="group/row w-full flex items-center justify-between gap-4 py-4 border-b border-[#2D2424]/12 text-left cursor-pointer"
                     >
                       <span className="flex items-center gap-4">
-                        <span className="font-mono text-[10px] font-black text-[#C19A20] bg-[#D4AF37]/12 rounded px-2 py-0.5">0{i + 1}</span>
+                        <span className="font-mono text-[10px] font-bold text-[#C19A20] bg-[#D4AF37]/12 rounded px-2 py-0.5">0{i + 1}</span>
                         <span className="relative font-serif font-semibold text-[22px] md:text-[26px] uppercase tracking-tight after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-[#C19A20] after:origin-left after:scale-x-0 group-hover/row:after:scale-x-100 after:transition-transform after:duration-300 group-hover/row:text-[#C19A20] transition-colors">
                           {item.label}
                         </span>

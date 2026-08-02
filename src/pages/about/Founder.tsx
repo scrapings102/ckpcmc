@@ -39,14 +39,14 @@ export default function Founder() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1B1515]/90 via-transparent to-transparent" />
                 
                 <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-[#1B1515]/90 backdrop-blur-md border border-[#D4AF37]/40 text-center">
-                  <span className="font-serif font-black text-white text-lg block">Late Shri Chhotubhai Pithawalla</span>
+                  <span className="font-serif font-bold text-white text-lg block">Late Shri Chhotubhai Pithawalla</span>
                   <span className="font-mono text-xs tracking-widest text-[#D4AF37] uppercase font-bold block mt-1">Visionary Founder & Benefactor</span>
                 </div>
               </div>
             </div>
 
             <div className="p-4 rounded-2xl bg-white border border-slate-200 text-center shadow-sm max-w-sm mx-auto lg:max-w-none">
-              <span className="font-mono text-[10px] tracking-widest text-[#D4AF37] uppercase font-black block">Philanthropic Motto</span>
+              <span className="font-mono text-[10px] tracking-widest text-[#D4AF37] uppercase font-bold block">Philanthropic Motto</span>
               <p className="text-xs text-slate-700 italic mt-1 font-serif leading-relaxed">
                 "Education is the highest form of service to humanity and nation building."
               </p>
@@ -60,13 +60,13 @@ export default function Founder() {
               <span>A Legacy of Philanthropy</span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black text-[#1B1515] leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#1B1515] leading-tight">
               A Life Dedicated to Educational Upliftment in South Gujarat
             </h2>
 
             <div className="text-slate-700 leading-relaxed font-sans text-sm sm:text-base space-y-4">
               <p>
-                <span className="float-left text-6xl font-serif font-black text-[#D4AF37] mr-3 mt-1 leading-[0.8]">S</span>
+                <span className="float-left text-6xl font-serif font-bold text-[#D4AF37] mr-3 mt-1 leading-[0.8]">S</span>
                 hri Chhotubhai Pithawalla was an exceptional industrialist, philanthropist, and visionary educational reformer. Born into a modest family, he went on to build prominent industrial business lines in Gujarat, but his heart remained dedicated to social welfare and educational upliftment.
               </p>
               <p>
@@ -86,13 +86,13 @@ export default function Founder() {
 
         {/* HISTORICAL TIMELINE */}
         <section className="pt-6 border-t border-slate-200 space-y-6">
-          <h3 className="text-xl font-serif font-black text-slate-800">Key Historical Highlights</h3>
+          <h3 className="text-xl font-serif font-bold text-slate-800">Key Historical Highlights</h3>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {contributions.map((item, idx) => (
               <div key={idx} className="bg-[#FAF8F3] border border-slate-200 p-6 rounded-2xl relative flex flex-col justify-between hover:border-[#D4AF37] transition-colors shadow-sm">
                 <div>
-                  <span className="font-serif text-2xl font-black text-[#D4AF37] block mb-1">{item.year}</span>
+                  <span className="font-serif text-2xl font-bold text-[#D4AF37] block mb-1">{item.year}</span>
                   <h4 className="font-serif font-bold text-slate-800 text-base leading-tight">{item.title}</h4>
                   <p className="mt-2 text-xs text-slate-600 leading-relaxed font-sans">{item.desc}</p>
                 </div>

@@ -300,7 +300,7 @@ export default function DynamicSubPage() {
         {isStaffPage && (
           <div className="space-y-6">
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <h3 className="font-serif font-black text-xl text-slate-800">
+              <h3 className="font-serif font-bold text-xl text-slate-800">
                 {isTeachingPage ? "Teaching Faculty Directory" : "Administrative & Technical Staff"}
               </h3>
               <span className="text-xs font-mono font-bold text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1 rounded-full border border-[#D4AF37]/20">
@@ -329,10 +329,10 @@ export default function DynamicSubPage() {
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h4 className="font-serif font-black text-slate-800 text-sm sm:text-base leading-tight truncate">
+                        <h4 className="font-serif font-bold text-slate-800 text-sm sm:text-base leading-tight truncate">
                           {staff.name}
                         </h4>
-                        <p className="text-xs font-mono text-[#D4AF37] font-extrabold mt-0.5 truncate">
+                        <p className="text-xs font-mono text-[#D4AF37] font-bold mt-0.5 truncate">
                           {staff.designation}
                         </p>
                         <p className="text-[11px] text-slate-400 font-sans truncate">
@@ -373,7 +373,7 @@ export default function DynamicSubPage() {
         {/* 2. COMMITTEES TABLE / CARDS */}
         {path.startsWith("committees/") && (
           <div className="space-y-6">
-            <h3 className="font-serif font-black text-xl text-slate-800 border-b border-slate-200 pb-3">
+            <h3 className="font-serif font-bold text-xl text-slate-800 border-b border-slate-200 pb-3">
               Committee Members & Representatives
             </h3>
 
@@ -381,7 +381,7 @@ export default function DynamicSubPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {COMMITTEES_DATA.anti_ragging.map((mem, idx) => (
                   <div key={idx} className="bg-[#FAF8F3] border border-slate-200/80 rounded-2xl p-5 space-y-2 shadow-xs">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#D4AF37] font-black block">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#D4AF37] font-bold block">
                       {mem.role}
                     </span>
                     <h4 className="font-serif font-bold text-slate-800 text-sm">{mem.name}</h4>
@@ -424,7 +424,7 @@ export default function DynamicSubPage() {
         {galleryImages.length > 0 && (
           <div className="space-y-6">
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <h3 className="font-serif font-black text-xl text-slate-800">
+              <h3 className="font-serif font-bold text-xl text-slate-800">
                 Official Media Showcase
               </h3>
               <span className="text-xs font-mono font-bold text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1 rounded-full border border-[#D4AF37]/20">
@@ -459,7 +459,7 @@ export default function DynamicSubPage() {
         {/* 4. ACTIVITIES: ACHIEVEMENTS */}
         {path === "activities/achievements" && (
           <div className="space-y-6">
-            <h3 className="font-serif font-black text-xl text-slate-800 border-b border-slate-200 pb-3">
+            <h3 className="font-serif font-bold text-xl text-slate-800 border-b border-slate-200 pb-3">
               Recent Honors & Student Victories
             </h3>
 
@@ -480,7 +480,7 @@ export default function DynamicSubPage() {
                       </div>
                     </div>
                     <div className="p-5 space-y-3">
-                      <h4 className="font-serif font-black text-slate-800 text-lg leading-snug">{ach.title}</h4>
+                      <h4 className="font-serif font-bold text-slate-800 text-lg leading-snug">{ach.title}</h4>
                       <p className="text-xs text-slate-600 leading-relaxed font-sans">{ach.description}</p>
                       <div className="pt-2 border-t border-slate-100 text-xs">
                         <span className="font-bold text-slate-700 block mb-1">Achievers:</span>
@@ -500,7 +500,7 @@ export default function DynamicSubPage() {
         {/* 5. ACTIVITIES: EVENTS */}
         {path === "activities/events" && (
           <div className="space-y-6">
-            <h3 className="font-serif font-black text-xl text-slate-800 border-b border-slate-200 pb-3">
+            <h3 className="font-serif font-bold text-xl text-slate-800 border-b border-slate-200 pb-3">
               Campus Events & Conclaves Schedule
             </h3>
 
@@ -523,7 +523,7 @@ export default function DynamicSubPage() {
                     </div>
 
                     <div>
-                      <h4 className="font-serif font-black text-slate-800 text-xl leading-tight">{evt.title}</h4>
+                      <h4 className="font-serif font-bold text-slate-800 text-xl leading-tight">{evt.title}</h4>
                       <div className="flex items-start gap-1.5 mt-2 text-xs text-slate-600 font-sans">
                         <MapPin size={14} className="text-[#D4AF37] shrink-0 mt-0.5" />
                         <span>{evt.venue_description}</span>
@@ -557,7 +557,7 @@ export default function DynamicSubPage() {
         {/* 6. ACTIVITIES: NEWS */}
         {path === "activities/news" && (
           <div className="space-y-6">
-            <h3 className="font-serif font-black text-xl text-slate-800 border-b border-slate-200 pb-3">
+            <h3 className="font-serif font-bold text-xl text-slate-800 border-b border-slate-200 pb-3">
               Official Recruitment Notices & Event Bulletins
             </h3>
 
@@ -567,9 +567,9 @@ export default function DynamicSubPage() {
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                      <span className="text-[10px] font-mono font-black text-[#D4AF37] uppercase tracking-wider">LATEST ANNOUNCEMENT</span>
+                      <span className="text-[10px] font-mono font-bold text-[#D4AF37] uppercase tracking-wider">LATEST ANNOUNCEMENT</span>
                     </div>
-                    <h4 className="font-serif font-black text-slate-800 text-lg leading-snug">{news.title}</h4>
+                    <h4 className="font-serif font-bold text-slate-800 text-lg leading-snug">{news.title}</h4>
                     <p className="text-xs text-slate-600 font-sans leading-relaxed">{news.description}</p>
                   </div>
 

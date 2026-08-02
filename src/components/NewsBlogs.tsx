@@ -775,7 +775,7 @@ export default function NewsBlogs() {
       {/* Editorial Watermark Background */}
       <div 
         ref={bgTextRef}
-        className="absolute right-0 top-32 text-[14rem] font-black text-slate-100/10 leading-none select-none pointer-events-none font-montserrat tracking-tighter uppercase hidden xl:block"
+        className="absolute right-0 top-32 text-[14rem] font-bold text-slate-100/10 leading-none select-none pointer-events-none font-montserrat tracking-tighter uppercase hidden xl:block"
       >
         GAZETTE
       </div>
@@ -793,7 +793,7 @@ export default function NewsBlogs() {
             </span>
             <span className="h-[1px] w-6 bg-[#3B3131]/20" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#3B3131] leading-tight uppercase font-montserrat">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#3B3131] leading-tight uppercase font-montserrat">
             University <span className="text-[#D4AF37]">Gazette Portal</span>
           </h2>
           <p className="font-montserrat text-slate-500 font-medium text-xs sm:text-sm leading-relaxed max-w-2xl pt-1">
@@ -821,7 +821,7 @@ export default function NewsBlogs() {
                   }}
                   className="relative py-2 px-1 text-[11px] sm:text-xs font-montserrat font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer"
                 >
-                  <span className={isActive ? 'text-[#3B3131] font-black' : 'text-slate-450 hover:text-slate-800'}>
+                  <span className={isActive ? 'text-[#3B3131] font-bold' : 'text-slate-450 hover:text-slate-800'}>
                     {tab.label}
                   </span>
                   {isActive && (
@@ -842,7 +842,7 @@ export default function NewsBlogs() {
           {filteredItems.length === 0 ? (
               <div className="py-16 text-center bg-white border border-slate-100 rounded-3xl shadow-xs">
                 <Newspaper className="mx-auto text-slate-300 mb-4 animate-bounce" size={40} />
-                <p className="font-montserrat text-[#3B3131] text-xs font-black uppercase tracking-widest">
+                <p className="font-montserrat text-[#3B3131] text-xs font-bold uppercase tracking-widest">
                   No articles matching your filters.
                 </p>
                 <p className="font-montserrat text-slate-400 text-[11px] mt-1">
@@ -854,7 +854,7 @@ export default function NewsBlogs() {
                 
                 {/* Discrete Feed Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3 select-none">
-                  <span className="font-mono text-[9px] text-[#3B3131] font-extrabold uppercase tracking-widest flex items-center gap-1.5">
+                  <span className="font-mono text-[9px] text-[#3B3131] font-bold uppercase tracking-widest flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
                     Gazette Bulletins [{filteredItems.length}]
                   </span>
@@ -894,10 +894,10 @@ export default function NewsBlogs() {
 
                           {/* High-end design focused date display */}
                           <div className="flex flex-col text-left shrink-0 select-none min-w-[75px] pt-0.5 sm:pt-0">
-                            <span className="font-mono text-[9.5px] uppercase font-extrabold text-[#3B3131] tracking-wider">
+                            <span className="font-mono text-[9.5px] uppercase font-bold text-[#3B3131] tracking-wider">
                               {getMonthLabel(item.date)}
                             </span>
-                            <span className="font-montserrat text-base font-black text-[#3B3131] leading-none mt-0.5">
+                            <span className="font-montserrat text-base font-bold text-[#3B3131] leading-none mt-0.5">
                               {getDayLabel(item.date)}
                             </span>
                             <span className="font-mono text-[9px] text-slate-400 leading-none mt-1">
@@ -911,7 +911,7 @@ export default function NewsBlogs() {
                           {/* Title and Excerpt Core content */}
                           <div className="space-y-1 flex-1 min-w-0">
                             <div className="flex flex-wrap items-center gap-2 select-none">
-                              <span className={`inline-block font-mono text-[7.5px] font-black tracking-widest uppercase px-2 py-0.5 rounded-md border ${
+                              <span className={`inline-block font-mono text-[7.5px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-md border ${
                                 item.type === 'notice' && item.critical
                                   ? 'bg-rose-50 text-rose-600 border-rose-100/60 animate-pulse'
                                   : 'bg-slate-50 text-slate-500 border-slate-200/40'
@@ -1011,7 +1011,7 @@ export default function NewsBlogs() {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
                     
                     <div className="absolute bottom-4 left-6 sm:left-10 z-10 text-left">
-                      <span className="font-mono text-[9px] font-extrabold tracking-widest text-[#3B3131] bg-amber-400 px-3 py-1.5 rounded uppercase border border-amber-500/20 shadow-lg">
+                      <span className="font-mono text-[9px] font-bold tracking-widest text-[#3B3131] bg-amber-400 px-3 py-1.5 rounded uppercase border border-amber-500/20 shadow-lg">
                         {'categoryTag' in selectedItem ? (selectedItem as any).categoryTag : 'Official Notice Publication'}
                       </span>
                     </div>
@@ -1020,7 +1020,7 @@ export default function NewsBlogs() {
 
                 {/* Refined Academic Gazette Header */}
                 <div className="bg-gradient-to-br from-[#3B3131]/5 to-[#3B3131]/10 p-8 sm:p-10 border-b border-slate-200 relative">
-                  <div className="flex flex-wrap items-center gap-2 mb-3 select-none text-[10px] font-montserrat font-extrabold tracking-widest">
+                  <div className="flex flex-wrap items-center gap-2 mb-3 select-none text-[10px] font-montserrat font-bold tracking-widest">
                     <span className="bg-[#3B3131] text-amber-400 px-3 py-1.5 rounded uppercase inline-block font-montserrat font-bold">
                       {'categoryTag' in selectedItem ? (selectedItem as any).categoryTag : 'Official Notice'}
                     </span>
@@ -1028,7 +1028,7 @@ export default function NewsBlogs() {
                       {'code' in selectedItem ? `• Code: ${(selectedItem as any).code}` : '• Gazette Archive'}
                     </span>
                   </div>
-                  <h3 className="font-montserrat text-2xl sm:text-3.5xl font-black text-[#3B3131] leading-tight tracking-tight uppercase">
+                  <h3 className="font-montserrat text-2xl sm:text-3.5xl font-bold text-[#3B3131] leading-tight tracking-tight uppercase">
                     {selectedItem.title}
                   </h3>
                 </div>
@@ -1039,7 +1039,7 @@ export default function NewsBlogs() {
                   {/* Alert panel for critical circular notices */}
                   {selectedItem.type === 'notice' && (
                     <div className="bg-amber-50/70 border-l-4 border-amber-500 p-5 rounded-r-2xl space-y-1">
-                      <div className="flex items-center gap-2 font-montserrat text-[11px] font-black text-amber-800 select-none">
+                      <div className="flex items-center gap-2 font-montserrat text-[11px] font-bold text-amber-800 select-none">
                         <AlertCircle size={14} className="text-amber-500" />
                         <span>VERIFIED BOARD COVENANT DIRECTIVE</span>
                       </div>
@@ -1064,7 +1064,7 @@ export default function NewsBlogs() {
 
                     <button
                       onClick={(e) => handleShare(selectedItem, e)}
-                      className="text-[10px] font-montserrat font-extrabold text-[#3B3131] hover:text-[#3B3131] flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg transition-colors cursor-pointer"
+                      className="text-[10px] font-montserrat font-bold text-[#3B3131] hover:text-[#3B3131] flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg transition-colors cursor-pointer"
                     >
                       {copiedId === selectedItem.id ? (
                         <>
@@ -1089,14 +1089,14 @@ export default function NewsBlogs() {
 
                         if (str.startsWith('## ')) {
                           return (
-                            <h4 key={idx} className="font-montserrat text-lg sm:text-xl font-black text-[#3B3131] border-b border-slate-100 pb-2.5 pt-4 tracking-tight uppercase">
+                            <h4 key={idx} className="font-montserrat text-lg sm:text-xl font-bold text-[#3B3131] border-b border-slate-100 pb-2.5 pt-4 tracking-tight uppercase">
                               {str.replace('## ', '')}
                             </h4>
                           );
                         }
                         if (str.startsWith('### ')) {
                           return (
-                            <h5 key={idx} className="font-montserrat text-[10px] font-black uppercase tracking-widest text-slate-400 pt-3 select-none">
+                            <h5 key={idx} className="font-montserrat text-[10px] font-bold uppercase tracking-widest text-slate-400 pt-3 select-none">
                               {str.replace('### ', '')}
                             </h5>
                           );
@@ -1118,12 +1118,12 @@ export default function NewsBlogs() {
                           <p key={idx} className="text-slate-600 font-montserrat leading-relaxed text-[13.5px] sm:text-[15px] tracking-wide">
                             {idx === 0 && !('image' in selectedItem) ? (
                               <>
-                                <span className="float-left text-5xl font-montserrat font-black text-[#3B3131] mr-2.5 mt-1 leading-none select-none">
+                                <span className="float-left text-5xl font-montserrat font-bold text-[#3B3131] mr-2.5 mt-1 leading-none select-none">
                                   {str.charAt(0)}
                                 </span>
                                 {str.slice(1).split(/\*\*(.*?)\*\*/g).map((part, pIdx) => {
                                   if (pIdx % 2 === 1) {
-                                    return <strong key={pIdx} className="font-black text-slate-800">{part}</strong>;
+                                    return <strong key={pIdx} className="font-bold text-slate-800">{part}</strong>;
                                   }
                                   return part;
                                 })}
@@ -1131,7 +1131,7 @@ export default function NewsBlogs() {
                             ) : (
                               str.split(/\*\*(.*?)\*\*/g).map((part, pIdx) => {
                                 if (pIdx % 2 === 1) {
-                                  return <strong key={pIdx} className="font-black text-slate-800">{part}</strong>;
+                                  return <strong key={pIdx} className="font-bold text-slate-800">{part}</strong>;
                                 }
                                 return part;
                               })
@@ -1151,17 +1151,17 @@ export default function NewsBlogs() {
                   {/* Speaker and location metadata (Events only) */}
                   {selectedItem.type === 'event' && (
                     <div className="bg-[#FAF9F5] p-6 border border-slate-200/60 rounded-2xl mt-5 select-none">
-                      <span className="text-[10px] font-montserrat font-extrabold text-slate-400 uppercase tracking-widest block mb-3 px-0.5">
+                      <span className="text-[10px] font-montserrat font-bold text-slate-400 uppercase tracking-widest block mb-3 px-0.5">
                         Venue &amp; Speaker Briefing
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs font-montserrat">
                         <div>
                           <p className="text-[9.5px] text-slate-400 font-bold uppercase tracking-wider">Distinguished Keynote Speaker</p>
-                          <p className="font-montserrat font-extrabold text-[#3B3131] text-sm mt-1">{(selectedItem as EventItem).speaker}</p>
+                          <p className="font-montserrat font-bold text-[#3B3131] text-sm mt-1">{(selectedItem as EventItem).speaker}</p>
                         </div>
                         <div>
                           <p className="text-[9.5px] text-slate-400 font-bold uppercase tracking-wider">Official Venue</p>
-                          <p className="font-montserrat font-extrabold text-[#3B3131] text-sm mt-1">{(selectedItem as EventItem).location}</p>
+                          <p className="font-montserrat font-bold text-[#3B3131] text-sm mt-1">{(selectedItem as EventItem).location}</p>
                         </div>
                       </div>
                     </div>
@@ -1171,11 +1171,11 @@ export default function NewsBlogs() {
                   {selectedItem.type === 'news' && (selectedItem as NewsItem).author && (
                     <div className="bg-[#FAF8F5] p-5 border border-slate-200 flex items-center justify-between gap-4 rounded-2xl mt-5 select-none animate-fade-in">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded bg-[#3B3131]/10 text-[#3B3131] border border-[#3B3131]/15 flex items-center justify-center font-montserrat text-xs font-black uppercase">
+                        <div className="w-9 h-9 rounded bg-[#3B3131]/10 text-[#3B3131] border border-[#3B3131]/15 flex items-center justify-center font-montserrat text-xs font-bold uppercase">
                           {(selectedItem as NewsItem).author.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
                         </div>
                         <div className="text-left font-montserrat">
-                          <h5 className="text-[13px] font-extrabold text-slate-700">
+                          <h5 className="text-[13px] font-bold text-slate-700">
                             {(selectedItem as NewsItem).author.name}
                           </h5>
                           <span className="text-[10px] text-slate-450 leading-none inline-block font-montserrat">

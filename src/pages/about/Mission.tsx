@@ -71,7 +71,7 @@ export default function Mission() {
                 <Target size={14} />
                 <span>Strategic Intent</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black text-white tracking-tight max-w-2xl leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-white tracking-tight max-w-2xl leading-tight">
                 Translating Educational Vision into Daily Excellence
               </h2>
               <p className="text-slate-300 text-xs sm:text-sm font-sans mt-2 max-w-xl leading-relaxed">
@@ -85,7 +85,7 @@ export default function Mission() {
         <section className="space-y-6">
           <div className="text-center md:text-left space-y-1">
             <span className="text-[#7E1B1F] font-mono text-xs font-bold uppercase tracking-widest">Execution Spheres</span>
-            <h3 className="text-2xl font-serif font-black text-slate-800">Four Pillars of Institutional Action</h3>
+            <h3 className="text-2xl font-serif font-bold text-slate-800">Four Pillars of Institutional Action</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -109,7 +109,7 @@ export default function Mission() {
                 
                 <div className="p-6 sm:p-8 space-y-3 flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-xl font-serif font-black text-[#1B1515] mb-2">{item.title}</h4>
+                    <h4 className="text-xl font-serif font-bold text-[#1B1515] mb-2">{item.title}</h4>
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">{item.desc}</p>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export default function Mission() {
           <div className="relative z-10 max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-2">
               <span className="text-[#D4AF37] font-mono text-xs font-bold uppercase tracking-widest block">Quality Benchmark</span>
-              <h3 className="text-2xl sm:text-3xl font-serif font-black text-white">Strategic Five-Year Milestones</h3>
+              <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">Strategic Five-Year Milestones</h3>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">

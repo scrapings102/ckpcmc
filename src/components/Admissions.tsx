@@ -95,10 +95,10 @@ export default function Admissions({ onOpenAdmissions }: AdmissionsProps) {
                 className="flex items-center gap-2.5 mb-6 cursor-pointer hover:opacity-80 transition-opacity"
               >
                 <span className="w-10 h-[1.5px] bg-[#D4AF37]" />
-                <span className="font-mono text-[9px] md:text-[10px] font-black tracking-[0.3em] text-[#D4AF37] uppercase">
+                <span className="font-mono text-[9px] md:text-[10px] font-bold tracking-[0.3em] text-[#D4AF37] uppercase">
                   ADMISSIONS 2026-27
                 </span>
-                <span className="font-sans text-[8.5px] font-extrabold bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 px-2.5 py-0.5 rounded-full uppercase shadow-2xs">
+                <span className="font-sans text-[8.5px] font-bold bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 px-2.5 py-0.5 rounded-full uppercase shadow-2xs">
                   OPEN
                 </span>
               </div>
@@ -119,12 +119,12 @@ export default function Admissions({ onOpenAdmissions }: AdmissionsProps) {
                       onOpenAdmissions();
                     }
                   }}
-                  className="bg-[#D4AF37] text-[#2D2424] hover:bg-white hover:text-[#2D2424] px-8 py-4 rounded-full text-xs font-black tracking-widest uppercase shadow-[0_12px_30px_rgba(212,175,55,0.2)] hover:scale-[1.02] active:scale-95 transition-all duration-300 w-full sm:w-auto cursor-pointer select-none"
+                  className="bg-[#D4AF37] text-[#2D2424] hover:bg-white hover:text-[#2D2424] px-8 py-4 rounded-full text-xs font-bold tracking-widest uppercase shadow-[0_12px_30px_rgba(212,175,55,0.2)] hover:scale-[1.02] active:scale-95 transition-all duration-300 w-full sm:w-auto cursor-pointer select-none"
                 >
                   Apply Online Now
                 </button>
                 
-                <button className="flex items-center gap-3.5 text-xs font-black uppercase tracking-widest text-white hover:text-[#D4AF37] transition-all group w-full sm:w-auto justify-center cursor-pointer select-none">
+                <button className="flex items-center gap-3.5 text-xs font-bold uppercase tracking-widest text-white hover:text-[#D4AF37] transition-all group w-full sm:w-auto justify-center cursor-pointer select-none">
                   <span>Download Prospectus</span>
                   <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#D4AF37] group-hover:border-transparent group-hover:text-[#2D2424] transition-all group-hover:scale-105">
                     <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -237,7 +237,7 @@ export default function Admissions({ onOpenAdmissions }: AdmissionsProps) {
                 </span>
                 <a 
                   href="mailto:info@ckpcmc.org"
-                  className="font-mono text-[10px] font-black text-[#D4AF37] hover:underline block mt-1 hover:text-white uppercase tracking-wider"
+                  className="font-mono text-[10px] font-bold text-[#D4AF37] hover:underline block mt-1 hover:text-white uppercase tracking-wider"
                 >
                   Contact Registry Desk — info@ckpcmc.org
                 </a>

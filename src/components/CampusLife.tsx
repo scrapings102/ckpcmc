@@ -110,7 +110,7 @@ function PillarCard({
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className="relative grid grid-cols-1 md:grid-cols-12 gap-10 items-center"
     >
-      <div className={`pillar-number-parallax absolute -z-10 font-black text-[7rem] sm:text-[12rem] lg:text-[15rem] text-slate-200/30 leading-none select-none pointer-events-none ${isEven ? '-right-2 sm:-right-6' : '-left-2 sm:-left-6'}`}>
+      <div className={`pillar-number-parallax absolute -z-10 font-bold text-[7rem] sm:text-[12rem] lg:text-[15rem] text-slate-200/30 leading-none select-none pointer-events-none ${isEven ? '-right-2 sm:-right-6' : '-left-2 sm:-left-6'}`}>
         {pillar.num}
       </div>
 
@@ -124,7 +124,7 @@ function PillarCard({
           </span>
         </div>
 
-        <h3 className="font-black text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight leading-[1.1] text-[#2D2424]">
+        <h3 className="font-bold text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight leading-[1.1] text-[#2D2424]">
           {pillar.title}
         </h3>
         <h4 className="text-base sm:text-lg font-semibold text-[#2D2424]">{pillar.headline}</h4>
@@ -143,8 +143,8 @@ function PillarCard({
             <div className="bg-white/95 px-4 py-3 rounded-2xl border border-white/20 shadow-xl flex gap-5">
               {pillar.stats.map((s, i) => (
                 <div key={i} className={i > 0 ? "border-l border-slate-200 pl-5" : ""}>
-                  <span className="block font-mono text-[8px] text-slate-400 uppercase tracking-widest font-black mb-1">{s.label}</span>
-                  <span className="block text-xs sm:text-sm font-black text-[#2D2424]">{s.value}</span>
+                  <span className="block font-mono text-[8px] text-slate-400 uppercase tracking-widest font-bold mb-1">{s.label}</span>
+                  <span className="block text-xs sm:text-sm font-bold text-[#2D2424]">{s.value}</span>
                 </div>
               ))}
             </div>
@@ -184,7 +184,7 @@ function PillarCard({
               <div className="p-6 bg-[#FAF9F5] border-t border-slate-100 flex items-center justify-between gap-4">
                 <div>
                   <span className="font-mono text-[9px] font-bold tracking-wider block mb-1" style={{ color: pillar.accent }}>✦ ACCREDITED ARCHIVE</span>
-                  <h4 className="font-extrabold text-base text-[#2D2424] uppercase tracking-tight">Experiential Highlights View</h4>
+                  <h4 className="font-bold text-base text-[#2D2424] uppercase tracking-tight">Experiential Highlights View</h4>
                 </div>
                 <button onClick={() => setSelectedSide(false)} className="px-4 py-2 text-white text-[11px] font-bold tracking-wider uppercase rounded-xl shrink-0" style={{ background: pillar.accent }}>
                   Close Photo
@@ -490,7 +490,7 @@ export default function CampusLife() {
                 <span className="flex items-center gap-1 font-bold"><Footprints className="w-3.5 h-3.5" /> Interactive Campus Trail</span>
               </div>
             </div>
-            <h2 className="font-black text-4xl sm:text-6xl uppercase tracking-tight leading-[1.05] text-[#2D2424]">
+            <h2 className="font-bold text-4xl sm:text-6xl uppercase tracking-tight leading-[1.05] text-[#2D2424]">
               Life Outside <br />
               <span className="relative inline-block text-[#2D2424] pb-3">
                 The Classroom
@@ -553,12 +553,12 @@ export default function CampusLife() {
                     className="transition-all duration-300 shadow-md"
                   />
                   <circle r={isActive ? "12" : "8"} fill={isActive ? accentColor : "#2D2424"} className="transition-all duration-300" />
-                  <text x="0" y="3.5" textAnchor="middle" fill="#ffffff" fontSize={isActive ? "10" : "8"} fontWeight="900" fontFamily="monospace" className="pointer-events-none select-none transition-all duration-300">
+                  <text x="0" y="3.5" textAnchor="middle" fill="#ffffff" fontSize={isActive ? "10" : "8"} fontWeight="700" fontFamily="monospace" className="pointer-events-none select-none transition-all duration-300">
                     0{i + 1}
                   </text>
                   <g transform={`translate(${tagOffset}, 0)`}>
                     <rect x={tagX} y="-13" width={tagWidth} height="26" rx="13" fill={isActive ? "#2D2424" : "#ffffff"} stroke={isActive ? accentColor : "#E2E8F0"} strokeWidth="1.5" className="shadow-lg transition-all duration-300" />
-                    <text x={isRightSide ? tagWidth / 2 : -tagWidth / 2} y="4" textAnchor="middle" fill={isActive ? "#ffffff" : "#2D2424"} fontSize="9.5" fontWeight="800" fontFamily="sans-serif" letterSpacing="0.06em" className="pointer-events-none select-none uppercase tracking-wider">
+                    <text x={isRightSide ? tagWidth / 2 : -tagWidth / 2} y="4" textAnchor="middle" fill={isActive ? "#ffffff" : "#2D2424"} fontSize="9.5" fontWeight="700" fontFamily="sans-serif" letterSpacing="0.06em" className="pointer-events-none select-none uppercase tracking-wider">
                       {pillar?.category.split(' ')[0] || `Stop 0${i + 1}`}
                     </text>
                   </g>
@@ -622,7 +622,7 @@ export default function CampusLife() {
                     className="transition-all duration-300"
                   />
                   <circle r={isActive ? "6" : "4"} fill={isActive ? accentColor : "#2D2424"} className="transition-all duration-300" />
-                  <text x="0" y={isActive ? "2.5" : "2"} textAnchor="middle" fill="#ffffff" fontSize={isActive ? "6.5" : "5.5"} fontWeight="900" fontFamily="monospace" className="pointer-events-none select-none transition-all duration-300">
+                  <text x="0" y={isActive ? "2.5" : "2"} textAnchor="middle" fill="#ffffff" fontSize={isActive ? "6.5" : "5.5"} fontWeight="700" fontFamily="monospace" className="pointer-events-none select-none transition-all duration-300">
                     0{m.index + 1}
                   </text>
                 </g>
@@ -648,7 +648,7 @@ export default function CampusLife() {
       <div className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10 select-none">
-            <h3 ref={archiveHeadingRef} className="font-montserrat text-3xl sm:text-4xl font-extrabold text-[#2D2424] tracking-tight uppercase">
+            <h3 ref={archiveHeadingRef} className="font-montserrat text-3xl sm:text-4xl font-bold text-[#2D2424] tracking-tight uppercase">
               Campus Memory Archive
             </h3>
             <p className="font-montserrat text-sm text-slate-500 font-medium max-w-xl mx-auto mt-2">
@@ -773,7 +773,7 @@ export default function CampusLife() {
               <div className="p-6 bg-[#FAF9F5] border-t border-slate-100 flex items-center justify-between gap-4">
                 <div>
                   <span className="font-mono text-[9px] font-bold text-[#2D2424] tracking-wider block mb-1">✦ ACCREDITED COLLEGIAL ARCHIVE</span>
-                  <h4 className="font-extrabold text-base text-[#2D2424] uppercase tracking-tight">Experiential Highlights View</h4>
+                  <h4 className="font-bold text-base text-[#2D2424] uppercase tracking-tight">Experiential Highlights View</h4>
                 </div>
                 <button onClick={() => setSelectedGalleryImg(null)} className="px-4 py-2 bg-[#2D2424] hover:bg-[#2D2424] text-white text-[11px] font-bold tracking-wider uppercase rounded-xl shrink-0">
                   Close Photo

@@ -506,7 +506,7 @@ export default function BlogsAndMagazine() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
                   
                   <div className="absolute bottom-4 left-6 sm:left-10 z-10 text-left">
-                    <span className="font-mono text-[9px] font-extrabold tracking-widest text-[#3B3131] bg-amber-400 px-3 py-1.5 rounded uppercase border border-amber-500/20 shadow-lg">
+                    <span className="font-mono text-[9px] font-bold tracking-widest text-[#3B3131] bg-amber-400 px-3 py-1.5 rounded uppercase border border-amber-500/20 shadow-lg">
                       {selectedPost.category}
                     </span>
                   </div>
@@ -514,7 +514,7 @@ export default function BlogsAndMagazine() {
 
                 {/* Refined Academic Blog Header */}
                 <div className="bg-gradient-to-br from-[#3B3131]/5 to-[#3B3131]/10 p-8 sm:p-10 border-b border-slate-200 relative">
-                  <div className="flex flex-wrap items-center gap-2 mb-3 select-none text-[10px] font-montserrat font-extrabold tracking-widest">
+                  <div className="flex flex-wrap items-center gap-2 mb-3 select-none text-[10px] font-montserrat font-bold tracking-widest">
                     <span className="bg-[#3B3131] text-amber-400 px-3 py-1.5 rounded uppercase inline-block font-montserrat font-bold">
                       {selectedPost.category}
                     </span>
@@ -522,7 +522,7 @@ export default function BlogsAndMagazine() {
                       • {selectedPost.subtitle}
                     </span>
                   </div>
-                  <h3 className="font-montserrat text-2xl sm:text-3.5xl font-black text-[#3B3131] leading-tight tracking-tight uppercase">
+                  <h3 className="font-montserrat text-2xl sm:text-3.5xl font-bold text-[#3B3131] leading-tight tracking-tight uppercase">
                     {selectedPost.title}
                   </h3>
                 </div>
@@ -549,7 +549,7 @@ export default function BlogsAndMagazine() {
                         navigator.clipboard?.writeText(window.location.href);
                         alert("Article link copied to clipboard!");
                       }}
-                      className="text-[10px] font-montserrat font-extrabold text-[#3B3131] hover:text-[#3B3131] flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg transition-colors cursor-pointer"
+                      className="text-[10px] font-montserrat font-bold text-[#3B3131] hover:text-[#3B3131] flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg transition-colors cursor-pointer"
                     >
                       <Share2 size={12} />
                       <span>Share Article</span>
@@ -562,7 +562,7 @@ export default function BlogsAndMagazine() {
                       <p key={idx} className="text-slate-600 font-montserrat leading-relaxed text-[13.5px] sm:text-[15px] tracking-wide">
                         {idx === 0 ? (
                           <>
-                            <span className="float-left text-5xl font-montserrat font-black text-[#3B3131] mr-2.5 mt-1 leading-none select-none">
+                            <span className="float-left text-5xl font-montserrat font-bold text-[#3B3131] mr-2.5 mt-1 leading-none select-none">
                               {paragraph.charAt(0)}
                             </span>
                             {paragraph.slice(1)}
@@ -585,7 +585,7 @@ export default function BlogsAndMagazine() {
                         referrerPolicy="no-referrer"
                       />
                       <div className="text-left font-montserrat">
-                        <h5 className="text-[13px] font-extrabold text-slate-700">
+                        <h5 className="text-[13px] font-bold text-slate-700">
                           {selectedPost.author.name}
                         </h5>
                         <span className="text-[10px] text-slate-450 leading-none inline-block font-montserrat">
@@ -652,7 +652,7 @@ export default function BlogsAndMagazine() {
                           alert(`Opening reader mode for ${selectedMagazine.title}...`);
                           setSelectedMagazine(null);
                         }}
-                        className="w-full bg-[#D4AF37] hover:bg-white text-[#2D2424] font-black text-xs uppercase tracking-widest py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg"
+                        className="w-full bg-[#D4AF37] hover:bg-white text-[#2D2424] font-bold text-xs uppercase tracking-widest py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg"
                       >
                         Open Digital Flipbook ({selectedMagazine.totalPages} Pages)
                       </button>

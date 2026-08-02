@@ -41,7 +41,7 @@ export default function VisionMission() {
                 <Sparkles size={14} />
                 <span>Institutional Charter</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black text-white tracking-tight max-w-2xl leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-white tracking-tight max-w-2xl leading-tight">
                 Empowering Minds, Shaping Ethics, Leading Innovation
               </h2>
               <p className="text-slate-300 text-xs sm:text-sm font-sans mt-2 max-w-xl leading-relaxed">
@@ -66,7 +66,7 @@ export default function VisionMission() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#1B1515] via-transparent to-transparent opacity-80" />
               <div className="absolute top-4 left-4 p-3 rounded-2xl bg-[#1B1515]/80 backdrop-blur-md border border-[#D4AF37]/40 text-[#D4AF37] flex items-center gap-2.5">
                 <Eye size={22} />
-                <span className="font-serif font-black text-sm text-white tracking-wider uppercase">Our Vision</span>
+                <span className="font-serif font-bold text-sm text-white tracking-wider uppercase">Our Vision</span>
               </div>
             </div>
             
@@ -93,7 +93,7 @@ export default function VisionMission() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#1B1515] via-transparent to-transparent opacity-80" />
               <div className="absolute top-4 left-4 p-3 rounded-2xl bg-[#1B1515]/80 backdrop-blur-md border border-[#7E1B1F]/40 text-[#7E1B1F] flex items-center gap-2.5">
                 <Rocket size={22} className="text-[#D4AF37]" />
-                <span className="font-serif font-black text-sm text-white tracking-wider uppercase">Our Mission</span>
+                <span className="font-serif font-bold text-sm text-white tracking-wider uppercase">Our Mission</span>
               </div>
             </div>
             
@@ -117,7 +117,7 @@ export default function VisionMission() {
           <div className="grid md:grid-cols-3 gap-6 items-center relative z-10">
             <div className="space-y-3 md:col-span-1">
               <span className="text-[#D4AF37] font-mono text-xs font-bold uppercase tracking-widest block">Campus Atmosphere</span>
-              <h3 className="font-serif font-black text-2xl text-white">Where Learning Meets Purpose</h3>
+              <h3 className="font-serif font-bold text-2xl text-white">Where Learning Meets Purpose</h3>
               <p className="text-slate-300 text-xs sm:text-sm font-sans leading-relaxed">
                 Our lush green campus on Dumas Road provides state-of-the-art computer labs, spacious seminar halls, and a vibrant community atmosphere.
               </p>
@@ -148,7 +148,7 @@ export default function VisionMission() {
         <section className="pt-6 space-y-6">
           <div className="text-center md:text-left space-y-1">
             <span className="text-[#7E1B1F] font-mono text-xs font-bold uppercase tracking-widest">Values We Practice</span>
-            <h3 className="text-2xl font-serif font-black text-slate-800">Our Core Institutional Values</h3>
+            <h3 className="text-2xl font-serif font-bold text-slate-800">Our Core Institutional Values</h3>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

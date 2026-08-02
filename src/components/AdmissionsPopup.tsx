@@ -86,7 +86,7 @@ export default function AdmissionsPopup({ isOpen, onClose }: AdmissionsPopupProp
 
             {/* Floating content: Apply Now Button & minimal text info */}
             <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 flex flex-col items-center justify-end z-10 text-center">
-              <span className="font-mono text-[10px] sm:text-[11px] font-black tracking-[0.25em] text-[#D4AF37] uppercase mb-4 sm:mb-5">
+              <span className="font-mono text-[10px] sm:text-[11px] font-bold tracking-[0.25em] text-[#D4AF37] uppercase mb-4 sm:mb-5">
                 Admissions Open 2026-27
               </span>
               <h3 className="font-serif font-bold text-lg sm:text-xl text-white tracking-wide hidden">
@@ -97,7 +97,7 @@ export default function AdmissionsPopup({ isOpen, onClose }: AdmissionsPopupProp
                 onClick={(e) => {
                   e.preventDefault();
                 }}
-                className="w-full bg-[#D4AF37] text-[#1B1515] hover:bg-white hover:text-[#1B1515] py-3 sm:py-3.5 px-5 rounded-xl text-[11px] sm:text-[12px] font-black tracking-[0.2em] uppercase flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer shadow-[0_12px_25px_rgba(212,175,55,0.25)] hover:shadow-[0_16px_35px_rgba(255,255,255,0.3)] active:scale-95 hover:scale-[1.02]"
+                className="w-full bg-[#D4AF37] text-[#1B1515] hover:bg-white hover:text-[#1B1515] py-3 sm:py-3.5 px-5 rounded-xl text-[11px] sm:text-[12px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer shadow-[0_12px_25px_rgba(212,175,55,0.25)] hover:shadow-[0_16px_35px_rgba(255,255,255,0.3)] active:scale-95 hover:scale-[1.02]"
               >
                 <span>Apply Now</span>
                 <ExternalLink size={12} className="stroke-[2.5]" />

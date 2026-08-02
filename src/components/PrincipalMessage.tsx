@@ -61,10 +61,10 @@ export const PrincipalMessage = () => {
               {/* Official Credentials & Seal */}
               <div className="w-full max-w-[340px] mt-8 text-center lg:text-left space-y-4">
                 <div className="border-b border-slate-200 pb-4">
-                  <h4 className="font-serif text-[#3B3131] font-extrabold text-xl tracking-tight leading-tight">
+                  <h4 className="font-serif text-[#3B3131] font-bold text-xl tracking-tight leading-tight">
                     Dr. Chetan Chhotubhai Patel
                   </h4>
-                  <p className="text-[#D4AF37] font-mono text-[10px] font-extrabold uppercase tracking-[0.2em] mt-1.5">
+                  <p className="text-[#D4AF37] font-mono text-[10px] font-bold uppercase tracking-[0.2em] mt-1.5">
                     Principal & Academic Dean
                   </p>
                   <p className="text-slate-450 text-xs font-serif italic mt-1">
@@ -82,10 +82,10 @@ export const PrincipalMessage = () => {
               
               {/* Header Title with fine lines */}
               <div className="space-y-2 text-center lg:text-left">
-                <span className="text-[#D4AF37] font-mono text-[11px] font-black uppercase tracking-[0.3em] block">
+                <span className="text-[#D4AF37] font-mono text-[11px] font-bold uppercase tracking-[0.3em] block">
                   Leadership Address
                 </span>
-                <h3 className="text-[#3B3131] font-serif text-3xl sm:text-4xl font-black uppercase tracking-tight leading-none">
+                <h3 className="text-[#3B3131] font-serif text-3xl sm:text-4xl font-bold uppercase tracking-tight leading-none">
                   Message from the Principal
                 </h3>
                 <div className="h-[1px] w-16 bg-[#D4AF37] mx-auto lg:mx-0 mt-4" />
@@ -113,7 +113,7 @@ export const PrincipalMessage = () => {
                   className="h-[280px] md:h-[320px] overflow-y-auto pr-2 space-y-6 text-slate-600 font-sans text-[14.5px] sm:text-[15.5px] leading-relaxed antialiased font-normal text-justify select-text no-scrollbar scroll-smooth"
                 >
                   <p>
-                    <span className="float-left text-6xl font-serif font-extrabold text-[#3B3131] mr-3 mt-1.5 leading-none select-none">
+                    <span className="float-left text-6xl font-serif font-bold text-[#3B3131] mr-3 mt-1.5 leading-none select-none">
                       I
                     </span>
                     t is with immense pride and a deep sense of responsibility that I welcome you to our distinguished academic community. Our institution has stood as a beacon of academic rigor, dedicated to fostering not only scientific and technical competence but also the ethical grounding and holistic resilience required to navigate and lead in an ever-evolving global society.
@@ -140,7 +140,7 @@ export const PrincipalMessage = () => {
               <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <button 
                   onClick={() => alert("Opening Academic Vision Prospectus...")}
-                  className="w-full sm:w-auto px-6 py-3 bg-[#3B3131] hover:bg-[#D4AF37] text-white hover:text-[#3B3131] rounded-xl font-sans font-black text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer select-none shadow-md hover:shadow-lg flex items-center justify-center gap-2 border border-transparent"
+                  className="w-full sm:w-auto px-6 py-3 bg-[#3B3131] hover:bg-[#D4AF37] text-white hover:text-[#3B3131] rounded-xl font-sans font-bold text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer select-none shadow-md hover:shadow-lg flex items-center justify-center gap-2 border border-transparent"
                 >
                   <Award size={14} />
                   <span>Academic Vision</span>
@@ -149,7 +149,7 @@ export const PrincipalMessage = () => {
 
                 <button 
                   onClick={() => alert("Loading Institutional Annual Report...")}
-                  className="w-full sm:w-auto px-6 py-3 bg-white hover:bg-slate-50 text-[#3B3131] border-2 border-slate-200 hover:border-slate-300 rounded-xl font-sans font-black text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer select-none shadow-sm flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 bg-white hover:bg-slate-50 text-[#3B3131] border-2 border-slate-200 hover:border-slate-300 rounded-xl font-sans font-bold text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer select-none shadow-sm flex items-center justify-center gap-2"
                 >
                   <FileText size={14} className="text-[#D4AF37]" />
                   <span>Annual Report</span>

@@ -47,7 +47,7 @@ export default function Trustee() {
         <section className="space-y-6">
           <div className="text-center md:text-left space-y-1">
             <span className="text-[#7E1B1F] font-mono text-xs font-bold uppercase tracking-widest">Board Leadership</span>
-            <h3 className="text-2xl sm:text-3xl font-serif font-black text-slate-800">Members of the Governing Board</h3>
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-800">Members of the Governing Board</h3>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-8">
@@ -73,7 +73,7 @@ export default function Trustee() {
                       <span className="inline-block px-3 py-1 rounded-md bg-[#D4AF37]/20 text-[#8F6F10] font-mono text-xs uppercase tracking-wider font-bold">
                         {tr.role}
                       </span>
-                      <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 leading-tight">{tr.name}</h4>
+                      <h4 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 leading-tight">{tr.name}</h4>
                       <p className="text-xs sm:text-sm text-slate-500 font-sans font-medium">{tr.field}</p>
                     </div>
                   </div>

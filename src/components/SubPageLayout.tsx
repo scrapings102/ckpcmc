@@ -228,9 +228,9 @@ export default function SubPageLayout({
           <div className="flex items-center gap-2 select-none font-mono tracking-wider">
             <span className="cursor-pointer hover:text-white transition-colors" onClick={() => navigate('/')}>HOME</span>
             <span>/</span>
-            <span className="text-[#D4AF37] font-black uppercase">{categoryDisplayName}</span>
+            <span className="text-[#D4AF37] font-bold uppercase">{categoryDisplayName}</span>
             <span>/</span>
-            <span className="text-white font-black uppercase truncate max-w-[160px] md:max-w-none">{activeItemLabel}</span>
+            <span className="text-white font-bold uppercase truncate max-w-[160px] md:max-w-none">{activeItemLabel}</span>
           </div>
         </div>
       </div>
@@ -239,10 +239,10 @@ export default function SubPageLayout({
       <div className="bg-gradient-to-br from-[#1B1515] to-[#2D2424] text-white py-6 md:py-10 border-b border-[#D4AF37]/25 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(rgba(212,175,55,0.04)_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
         <div className="w-full max-w-[1580px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 text-left">
-          <span className="font-mono text-[10px] md:text-xs tracking-[0.2em] text-[#D4AF37] uppercase font-black mb-3 block animate-pulse">
+          <span className="font-mono text-[10px] md:text-xs tracking-[0.2em] text-[#D4AF37] uppercase font-bold mb-3 block animate-pulse">
             {categoryDisplayName}
           </span>
-          <h1 className="font-serif font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white leading-tight tracking-tight mb-3">
+          <h1 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white leading-tight tracking-tight mb-3">
             {title}
           </h1>
           {subtitle && (
@@ -270,7 +270,7 @@ export default function SubPageLayout({
               <div className="mb-8 flex items-center justify-between border-b border-slate-100 pb-4">
                 <button 
                   onClick={() => navigate('/')} 
-                  className="flex items-center gap-2 font-sans font-black text-xs uppercase tracking-widest text-[#D4AF37] hover:text-[#2D2424] transition-colors cursor-pointer group"
+                  className="flex items-center gap-2 font-sans font-bold text-xs uppercase tracking-widest text-[#D4AF37] hover:text-[#2D2424] transition-colors cursor-pointer group"
                 >
                   <ArrowLeft size={14} className="stroke-[3] transition-transform group-hover:-translate-x-1" />
                   Back to Home

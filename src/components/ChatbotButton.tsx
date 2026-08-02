@@ -145,10 +145,10 @@ export default function ChatbotButton() {
               <div className="bg-[#1B1515] p-4 text-white flex items-center justify-between border-b border-[#D4AF37]/20">
                 <div className="flex items-center gap-2.5">
                   <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center p-1 border border-[#D4AF37]/50 shadow-inner">
-                    <span className="text-[#1B1515] font-black text-xs font-montserrat">CMC</span>
+                    <span className="text-[#1B1515] font-bold text-xs font-montserrat">CMC</span>
                   </div>
                   <div>
-                    <h4 className="font-montserrat font-extrabold text-[13px] tracking-wide leading-none uppercase text-white">CKPCMC GUIDE</h4>
+                    <h4 className="font-montserrat font-bold text-[13px] tracking-wide leading-none uppercase text-white">CKPCMC GUIDE</h4>
                     <div className="flex items-center gap-1 mt-1">
                       <span className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full animate-pulse" />
                       <span className="text-[9px] text-[#D4AF37] font-bold tracking-widest uppercase">Campus Assistant</span>

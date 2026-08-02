@@ -40,8 +40,8 @@ export default function PrincipalsMessage() {
               </div>
 
               <div>
-                <h3 className="font-serif font-black text-2xl sm:text-3xl text-slate-900 leading-tight">Dr. Chetan Chhotubhai Patel</h3>
-                <p className="text-sm text-[#D4AF37] font-mono uppercase tracking-widest mt-2 font-black">Principal</p>
+                <h3 className="font-serif font-bold text-2xl sm:text-3xl text-slate-900 leading-tight">Dr. Chetan Chhotubhai Patel</h3>
+                <p className="text-sm text-[#D4AF37] font-mono uppercase tracking-widest mt-2 font-bold">Principal</p>
                 <p className="text-xs text-slate-500 font-sans block mt-1 font-medium">PhD, NET, M.Phil, M.Com, B.Com, B.Ed</p>
               </div>
               
@@ -67,11 +67,11 @@ export default function PrincipalsMessage() {
             <Quote className="absolute top-6 right-6 text-slate-200/80 shrink-0 pointer-events-none -z-0" size={72} />
             
             <div className="relative z-10 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#D4AF37] font-black block">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#D4AF37] font-bold block">
                 Warm Greetings to All Students & Visitors,
               </span>
               
-              <h2 className="text-2xl sm:text-3xl font-serif font-black text-slate-900 leading-snug">
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 leading-snug">
                 Fostering Critical Inquiry, Character & Technical Fluency
               </h2>
               
@@ -100,7 +100,7 @@ export default function PrincipalsMessage() {
               </div>
 
               <div className="pt-6 border-t border-slate-200 flex flex-col items-end">
-                <span className="font-serif font-black text-xl text-[#1B1515]">Dr. Chetan Chhotubhai Patel</span>
+                <span className="font-serif font-bold text-xl text-[#1B1515]">Dr. Chetan Chhotubhai Patel</span>
                 <span className="text-xs text-slate-500 font-sans uppercase tracking-widest mt-1 font-bold">Principal, CKPCMC</span>
               </div>
             </div>

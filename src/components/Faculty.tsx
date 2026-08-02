@@ -73,7 +73,7 @@ export default function Faculty() {
                   />
                   <div className="absolute inset-0 bg-navy/10 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
-                <h4 className="text-base sm:text-xl font-serif font-black text-slate-900 mb-0.5 sm:mb-1 group-hover:text-[#D4AF37] transition-colors">
+                <h4 className="text-base sm:text-xl font-serif font-bold text-slate-900 mb-0.5 sm:mb-1 group-hover:text-[#D4AF37] transition-colors">
                   {member.name}
                 </h4>
                 <p className="text-[10px] sm:text-xs uppercase tracking-widest text-[#D4AF37] font-mono font-bold mb-2 sm:mb-3">
