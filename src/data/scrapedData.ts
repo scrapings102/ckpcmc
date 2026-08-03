@@ -1,4 +1,5 @@
 import { cdn } from '../utils/image';
+import principalImg from '../assets/images/principal.png';
 
 export interface StaffMember {
   name: string;
@@ -62,7 +63,7 @@ const _STAFF_MEMBERS: StaffMember[] = [
     experience: "19 Years+",
     area_of_interest: "Financial Accounting, Managerial Accounting, Cost Management, Analysis of Financial statements, Banking sector",
     email: "principal_469@vnsgu.ac.in",
-    image_url: "https://ckpcmc.org/images/WhatsApp%20Image%202025-08-25%20at%2013.09.22.jpeg",
+    image_url: principalImg,
     isTeaching: true
   },
   {
