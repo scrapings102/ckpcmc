@@ -2,10 +2,19 @@ import React from 'react';
 import { Quote, FileText, ArrowUpRight, Award, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cdn } from '../utils/image';
+import principalImg from '../assets/images/principal.png';
 
 export const PrincipalMessage = () => {
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = React.useState(0);
+  const [notification, setNotification] = React.useState<string | null>(null);
+
+  const triggerNotification = (msg: string) => {
+    setNotification(msg);
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  };
 
   const handleScroll = () => {
     if (scrollRef.current) {
@@ -42,7 +51,7 @@ export const PrincipalMessage = () => {
                 {/* Main image container */}
                 <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-[#FAF8F5] shadow-[0_24px_48px_-12px_rgba(59,49,49,0.12)] border border-slate-200">
                   <img 
-                    src={cdn("https://ckpcmc.org/images/WhatsApp%20Image%202025-08-25%20at%2013.09.22.jpeg", 800, 90)} 
+                    src={principalImg} 
                     alt="Dr. Chetan Chhotubhai Patel - Principal" 
                     className="w-full h-full object-cover scale-102 group-hover:scale-108 transition-transform duration-700 ease-out"
                     loading="lazy"
@@ -139,7 +148,7 @@ export const PrincipalMessage = () => {
               {/* Call-to-actions (CTA) panel */}
               <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <button 
-                  onClick={() => alert("Opening Academic Vision Prospectus...")}
+                  onClick={() => triggerNotification("Opening Academic Vision Prospectus...")}
                   className="w-full sm:w-auto px-6 py-3 bg-[#3B3131] hover:bg-[#D4AF37] text-white hover:text-[#3B3131] rounded-xl font-sans font-bold text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer select-none shadow-md hover:shadow-lg flex items-center justify-center gap-2 border border-transparent"
                 >
                   <Award size={14} />
@@ -148,13 +157,23 @@ export const PrincipalMessage = () => {
                 </button>
 
                 <button 
-                  onClick={() => alert("Loading Institutional Annual Report...")}
+                  onClick={() => triggerNotification("Loading Institutional Annual Report...")}
                   className="w-full sm:w-auto px-6 py-3 bg-white hover:bg-slate-50 text-[#3B3131] border-2 border-slate-200 hover:border-slate-300 rounded-xl font-sans font-bold text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer select-none shadow-sm flex items-center justify-center gap-2"
                 >
                   <FileText size={14} className="text-[#D4AF37]" />
                   <span>Annual Report</span>
                 </button>
               </div>
+
+              {notification && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3.5 bg-slate-900 text-amber-400 text-xs font-mono uppercase tracking-[0.15em] rounded-xl border border-white/10 text-center font-bold"
+                >
+                  {notification}
+                </motion.div>
+              )}
 
             </div>
 
