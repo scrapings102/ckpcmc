@@ -1,98 +1,102 @@
 import React from "react";
-import { Shield, Mail, Phone, Users, Sparkles, Award } from "lucide-react";
+import { Award, Building, ChevronRight, ShieldCheck } from "lucide-react";
+import { motion } from "motion/react";
 import SubPageLayout from "../../components/SubPageLayout";
 
-export default function Trustee() {
-  const trustees = [
-    {
-      name: "Shri Mukeshbhai Pithawalla",
-      role: "Managing Trustee",
-      quote: "Our primary objective is to integrate practical, industry-oriented expertise into our students' learning lifecycles.",
-      field: "Distinguished Industrialist & Educationalist",
-      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600&h=600"
-    },
-    {
-      name: "Smt. Amritaben Pithawalla",
-      role: "Executive Trustee",
-      quote: "Academic credentials achieve real value only when paired with sound character, personal responsibility, and civic ethics.",
-      field: "Humanitarian, Activist & Philanthropist",
-      photo: "https://images.unsplash.com/photo-1580894732444-8fecef2271ff?auto=format&fit=crop&q=80&w=600&h=600"
-    },
-    {
-      name: "Dr. R. J. Shah",
-      role: "Trust Member (Academics)",
-      quote: "By maintaining rigorous academic guidelines, continuous evaluation, and expert faculty panels, we remain Surat's education leader.",
-      field: "Veteran Academic Advisor",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=600&h=600"
-    },
-    {
-      name: "Shri Kiritbhai Patel",
-      role: "Trust Secretary",
-      quote: "Providing our students with updated computer networks, smart classrooms, and central library volumes is our constant endeavor.",
-      field: "Chartered Administrator",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=600&h=600"
-    }
-  ];
+interface TrusteeEntry {
+  name: string;
+  role: string;
+  image: string;
+}
 
+const TRUSTEES: TrusteeEntry[] = [
+  { name: "Shri Maheshbhai C. Pithawalla", role: "President", image: "https://ckpipsr.ac.in/images/trustees/mahesh-c-p.jpg" },
+  { name: "Shri Ajitbhai C. Pithawalla", role: "Trustee", image: "https://ckpipsr.ac.in/images/trustees/ajit-c-p.jpg" },
+  { name: "Shri Rameshchandra A. Mistry", role: "Trustee / Secretary", image: "https://ckpipsr.ac.in/images/trustees/ramesh-a-m.jpg" },
+  { name: "Shri Birenbhai M. Pithawalla", role: "Trustee", image: "https://ckpipsr.ac.in/images/trustees/biren-m-p.jpg" },
+  { name: "Shri Rahulbhai A. Pithawalla", role: "Trustee", image: "https://ckpipsr.ac.in/images/trustees/rahul-a-p.jpg" },
+];
+
+function getInitials(name: string) {
+  const clean = name.replace(/^Shri\s+/i, "");
+  return clean.split(" ").filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+}
+
+export default function Trustee() {
   return (
     <SubPageLayout
       title="Board of Trustees"
       subtitle="The governing leadership guiding Navyug Vidyabhavan Trust with integrity and forward-looking vision."
       category="about"
-      activeItemLabel="Trustees"
+      activeItemLabel="Trustee"
     >
       <div className="space-y-12 text-[#3B3131]">
-
-        {/* TRUSTEES GRID WITH PROMINENT PORTRAITS */}
         <section className="space-y-6">
           <div className="text-center md:text-left space-y-1">
-            <span className="text-[#7E1B1F] font-mono text-xs font-bold uppercase tracking-widest">Board Leadership</span>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-800">Members of the Governing Board</h3>
+            <span className="text-[#7E1B1F] font-mono text-xs font-bold uppercase tracking-widest">
+              Board Leadership
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-800">
+              Members of the Governing Board
+            </h3>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-8">
-            {trustees.map((tr, idx) => (
-              <div 
-                key={idx} 
-                className="bg-[#FAF8F3] border-2 border-slate-200/80 rounded-3xl p-6 sm:p-8 relative flex flex-col justify-between group hover:border-[#D4AF37] transition-all shadow-md overflow-hidden"
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {TRUSTEES.map((tr, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.05 }}
+                className="group bg-[#FAF8F3] border-2 border-slate-200/80 rounded-3xl p-6 shadow-sm hover:shadow-xl hover:border-[#7E1B1F]/40 transition-all duration-300 flex flex-col justify-between"
               >
-                <div className="space-y-6">
-                  {/* Large High-Focus Portrait */}
-                  <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                    <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-2xl overflow-hidden shrink-0 border-4 border-[#D4AF37] bg-white shadow-xl group-hover:scale-105 transition-transform duration-300">
-                      <img 
-                        src={tr.photo} 
-                        alt={tr.name} 
-                        className="w-full h-full object-cover"
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="relative shrink-0">
+                      <img
+                        src={tr.image}
+                        alt={tr.name}
+                        className="w-20 h-20 rounded-2xl object-cover object-top shadow-md bg-white border border-slate-200 group-hover:border-[#7E1B1F] transition-colors"
                         loading="lazy"
+                        decoding="async"
+                        width={80}
+                        height={80}
                         referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.onerror = null;
+                          target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(getInitials(tr.name))}&background=7E1B1F&color=D4AF37&size=256&bold=true`;
+                        }}
                       />
+                      <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 bg-white rounded-md shadow border border-slate-100 flex items-center justify-center text-[#D4AF37]">
+                        <Award size={12} />
+                      </div>
                     </div>
 
-                    <div className="space-y-2 min-w-0">
-                      <span className="inline-block px-3 py-1 rounded-md bg-[#D4AF37]/20 text-[#8F6F10] font-mono text-xs uppercase tracking-wider font-bold">
+                    <div className="space-y-1 min-w-0">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#7E1B1F]/10 text-[#7E1B1F] font-mono text-[10px] uppercase tracking-wider font-bold">
+                        <ShieldCheck size={11} />
                         {tr.role}
                       </span>
-                      <h4 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 leading-tight">{tr.name}</h4>
-                      <p className="text-xs sm:text-sm text-slate-500 font-sans font-medium">{tr.field}</p>
+                      <h4 className="text-base sm:text-lg font-serif font-bold text-slate-900 leading-snug break-words">
+                        {tr.name}
+                      </h4>
                     </div>
                   </div>
+                </div>
 
-                  {/* Quote */}
-                  <p className="text-xs sm:text-sm text-slate-700 font-sans italic leading-relaxed border-l-4 border-[#D4AF37] pl-4 py-2 bg-white p-4 rounded-r-2xl shadow-sm">
-                    "{tr.quote}"
-                  </p>
+                <div className="border-t border-slate-200 mt-5 pt-4 flex items-center justify-between text-[10px] font-mono text-slate-500 uppercase font-bold">
+                  <span className="flex items-center gap-1.5">
+                    <Building size={13} className="text-[#D4AF37]" />
+                    Navyug Vidyabhavan Trust
+                  </span>
+                  <ChevronRight size={14} className="text-slate-300 group-hover:text-[#7E1B1F] transition-colors" />
                 </div>
-                
-                <div className="border-t border-slate-200 mt-6 pt-4 flex items-center justify-between text-xs font-mono text-slate-500 uppercase font-bold">
-                  <span>Navyug Vidyabhavan Trust</span>
-                  <Award size={18} className="text-[#D4AF37]" />
-                </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
-
       </div>
     </SubPageLayout>
   );
